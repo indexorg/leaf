@@ -1,13 +1,11 @@
-import React from 'react'
+import { styled } from '@config/stitches';
 
-import { 
-    styled
-} from '../../config/stitches';
-
-const ButtonElement = styled('button', {
+export const ButtonElement = styled('button', {
     alignItems: 'center', 
     borderRadius: '$md',
     display: 'inline-flex',
+    cursor: 'pointer',
+    fontFamily: '$body',
     fontSize: '$text300',
     fontWeight: 500,
     height: '$9',
@@ -89,27 +87,3 @@ const ButtonElement = styled('button', {
         }
     }
 })
-
-const Button = ({
-    children,
-    css = {},
-    disabled = false,
-    onClick = undefined,
-    variant = 'normal',
-    size = 'normal',
-    title = '',
-}) => {
-    return(
-        <ButtonElement
-        css={css}
-        size={size}
-        variant={variant}
-        disabled={disabled}
-        onClick={onClick}
-        title={title}>
-            {children}
-        </ButtonElement>
-    )
-}
-
-export default Button

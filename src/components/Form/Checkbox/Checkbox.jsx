@@ -1,38 +1,12 @@
 import React from "react"
 
 import { 
-    styled
-} from '../../config/stitches';
+    Button,
+    CheckboxState
+} from './Checkbox.styles.js';
 
-import Icon from "../Icon"
+import Icon from "@components/Icon"
 
-const Button = styled('button', {
-    appearance: 'none',
-    background: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    display: 'grid',
-    alignItems: 'center',
-    margin: 0,
-    padding: 0,
-    position: 'relative',
-    transform: 'translate3d(0,0,0)'
-});
-
-const CheckboxState = styled('div', {
-    transition: 'opacity 75ms ease',
-    gridArea: '1/1/1/1',
-    variants: {
-        visible: {
-            true: {
-                opacity: 1,
-            },
-            false: {
-                opacity: 0,
-            }
-        }
-    }
-});
 
 const Checkbox = ({
     color = "#000",

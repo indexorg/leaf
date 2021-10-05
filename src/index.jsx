@@ -3,19 +3,23 @@ import ReactDOM from 'react-dom'
 
 import { 
     styled
-} from './config/stitches';
+} from '@config/stitches';
 
 const Container = styled('div', {
     backgroundColor: '$black100',
     fill: '',
     padding: '$16'
-});
+})
 
-import Checkbox from './components/Controls/Checkbox'
-import Button from './components/Form/Button'
-import Input from './components/Form/Input'
-import Select from './components/Form/Select'
-import Text from './components/Text'
+import {
+    Button, 
+    Checkbox,
+    Input,
+    Select,
+    Textarea
+} from '@components/Form'
+
+import Text from '@components/Text'
 
 const App = () => {
     const [checked, setChecked] = useState(false)
@@ -58,9 +62,9 @@ const App = () => {
                 label
             </Text>
 
-            {/* <Checkbox 
+            <Checkbox 
             checked={checked}
-            onClick={() => setChecked(!checked)} /> */}
+            onClick={() => setChecked(!checked)} />
 
             <Select
             options={
@@ -73,11 +77,18 @@ const App = () => {
                 marginTop: '$4'
             }} />
 
-            <div
-            >
+            <div>
                 <Input 
-                label="Email address"
-                type="email"
+                label="Input"
+                type="input"
+                css={{
+                    marginY: '$4'
+                }} />
+            </div>
+
+            <div>
+                <Textarea 
+                label="Textarea"
                 css={{
                     marginY: '$4'
                 }} />
@@ -159,14 +170,6 @@ const App = () => {
                 }}>
                     Warning — Tiny
                 </Button>
-            </div>
-
-            <div>
-                
-            </div>
-
-            <div>
-                
             </div>
 
         </Container>
