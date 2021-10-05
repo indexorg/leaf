@@ -11,7 +11,7 @@ import {
 const Select = ({
 	options = [],
 	onChange = undefined,
-	selected = null,
+	selected = '',
 	css = {},
 }) => {
 	return(

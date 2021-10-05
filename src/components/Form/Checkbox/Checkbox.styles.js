@@ -1,6 +1,14 @@
 import {styled} from '@config/stitches';
 
-export const Button = styled('button', {
+export const Label = styled('label', {
+    alignItems: 'center',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    gap: '$2',
+    transition: 'colors .1s ease',
+})
+
+export const Button = styled('span', {
     appearance: 'none',
     background: 'transparent',
     border: 'none',
@@ -14,7 +22,7 @@ export const Button = styled('button', {
 });
 
 export const CheckboxState = styled('div', {
-    transition: 'opacity 75ms ease',
+    transition: 'opacity 125ms ease',
     gridArea: '1/1/1/1',
     variants: {
         visible: {
@@ -27,3 +35,16 @@ export const CheckboxState = styled('div', {
         }
     }
 });
+
+export const Input = styled('input', {
+    appearance: 'none',
+    background: 'transparent',
+    border: 'none',
+    height: '$full',
+    left: 0,
+    margin: 0,
+    padding: 0,
+    position: 'absolute',
+    top: 0,
+    width: '$full',
+})

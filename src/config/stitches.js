@@ -114,6 +114,7 @@ export const {
             '3xl': '1.5rem',
             '4xl': '1.75rem',
             '5xl': '2rem',
+            'full': '100%',
         },
         shadows: {
             card: "0px 10px 32px -4px rgba(35, 40, 45, 0.1), 0px 6px 14px -6px rgba(35, 40, 45, 0.12)",
@@ -137,12 +138,6 @@ export const {
         '2xl': '(min-width: 1536px)',
     },
     utils: {
-        fill: (value) => ({ width: '100vw', height: '100vh' }),
-        marginX: (value) => ({ marginLeft: value, marginRight: value }),
-        marginY: (value) => ({ marginTop: value, marginBottom: value }),
-        paddingX: (value) => ({ paddingLeft: value, paddingRight: value }),
-        paddingY: (value) => ({ paddingTop: value, paddingBottom: value }),
-        reset: (value) => ({ margin: 0, padding: 0, boxSizing: 'border-box'}),
         backgroundColorRGBA: value => {
             const colors = value.split('|')
 
@@ -151,6 +146,18 @@ export const {
             return {
                 backgroundColor: ColorWithOpacity(colors[0], colors[1])
             }
-        }
+        },
+        fill: (value) => ({ width: '100vw', height: '100vh' }),
+        inset: (value) => ({
+            left: value,
+            right: value,
+            top: value,
+            bottom: value,
+        }),
+        marginX: (value) => ({ marginLeft: value, marginRight: value }),
+        marginY: (value) => ({ marginTop: value, marginBottom: value }),
+        paddingX: (value) => ({ paddingLeft: value, paddingRight: value }),
+        paddingY: (value) => ({ paddingTop: value, paddingBottom: value }),
+        reset: (value) => ({ margin: 0, padding: 0, boxSizing: 'border-box'}),
     },
 })

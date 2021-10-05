@@ -8,14 +8,14 @@ import {
     Element
 } from './Textarea.styles.js'
 
-
 const Textarea = ({
     css = {},
-    handleChange = undefined,
+    dir = 'ltr',
     invalid = false,
     label = false,
     placeholder = '',
     resizeable = false,
+    onChange = undefined,
     value = ''
 }) => {
     const [focus, setFocus] = useState(false)
@@ -30,19 +30,20 @@ const Textarea = ({
     return(
         <Wrapper
         css={css}
-        invalid={invalid}
+        dir={dir}
         focused={focus}
+        invalid={invalid}
         onClick={() => setFocus(true)}>
 
             {label && 
                 <Text
                 as="label"
+                dir={dir}
                 size="label"
                 weight="medium"
                 css={{
                     color: invalid ? '$warning400' : '$black900',
                     cursor: 'pointer',
-                    paddingRight: '$2',
                 }}>
                     {label}
                 </Text>
@@ -50,10 +51,11 @@ const Textarea = ({
             
             <Element
             ref={ref}
+            dir={dir}
             onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
-            onChange={value => {
-                handleChange && handleChange(value)
+            onChange={e => {
+                onChange && onChange(e.target.value)
             }}
             placeholder={placeholder}
             resizeable={resizeable}

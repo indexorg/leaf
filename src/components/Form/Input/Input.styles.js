@@ -10,6 +10,7 @@ export const Wrapper = styled('div', {
     border: '2px solid $black300',
     cursor: 'text',
     display: 'inline-flex',
+    gap: '$2',
     paddingX: '$3',
     paddingY: '$1.5',
     transition: 'colors .1s ease',
@@ -26,7 +27,7 @@ export const Wrapper = styled('div', {
             true: {
                 border: '2px solid $black310',
             }
-        }
+        },
     }
 })
 

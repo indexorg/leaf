@@ -10,7 +10,8 @@ import {
 
 const Input = ({
     css = {},
-    handleChange = undefined,
+    dir = 'ltr',
+    onChange = undefined,
     invalid = false,
     label = false,
     placeholder,
@@ -29,19 +30,20 @@ const Input = ({
     return(
         <Wrapper
         css={css}
-        invalid={invalid}
+        dir={dir}
         focused={focus}
+        invalid={invalid}
         onClick={() => setFocus(true)}>
 
             {label && 
                 <Text
                 as="label"
+                dir={dir}
                 size="label"
                 weight="medium"
                 css={{
                     color: invalid ? '$warning400' : '$black900',
                     cursor: 'pointer',
-                    paddingRight: '$2',
                 }}>
                     {label}
                 </Text>
@@ -51,9 +53,10 @@ const Input = ({
             ref={ref}
             onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
-            onChange={value => {
-                handleChange && handleChange(value)
+            onChange={e => {
+                onChange && onChange(e.target.value)
             }}
+            dir={dir}
             placeholder={placeholder}
             type={type}
             value={value} />

@@ -26,6 +26,34 @@ import Square from './Square'
 import Trash from './Trash'
 import Undo from './Undo'
 
+export {
+	ArrowDown,
+	ArrowLeft,
+	ArrowRight,
+	ArrowDetailedSmall,
+	Calendar,
+	Checkmark,
+	ChevronLeft,
+	ChevronRight,
+	CloseLarge,
+	Content,
+	DragHandle,
+	Eye,
+	Filter,
+	More,
+	NoImage,
+	Pencil,
+	Plus,
+	Profile,
+	Redo,
+	Search,
+	SortDown,
+	SortUp,
+	Square,
+	Trash,
+	Undo,
+}
+
 export default class Icon extends React.Component {
 	static ArrowDown = ArrowDown;
 	static ArrowLeft = ArrowLeft;

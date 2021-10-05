@@ -1,42 +1,80 @@
 import React from "react"
 
+import {
+    Checkmark,
+    Square
+} from "@components/Icon"
+
+import Text from '@components/Text'
+
 import { 
     Button,
-    CheckboxState
-} from './Checkbox.styles.js';
-
-import Icon from "@components/Icon"
+    CheckboxState,
+    Input,
+    Label,
+} from './Checkbox.styles.js'
 
 
 const Checkbox = ({
     color = "#000",
-    selectedColor = '#000',
     checked = false,
+    dir = 'ltr',
+    label = false,
+    name = '',
     onClick = undefined,
+    selectedColor = '#000',
     size = 12,
+    value = '',
 }) => (
-    <Button
-    onClick={() => {
-        onClick && onClick()
-    }}
-    css={{
-        height: size + "px",
-        width: size + "px",
-    }}>
-        <CheckboxState
-        visible={checked}>
-            <Icon.Checkmark 
-            color={selectedColor} 
-            size={size} />
-        </CheckboxState>
+    <Label
+    dir={dir}>
+        <Button
+        onClick={() => {
+            onClick && onClick()
+        }}
+        css={{
+            height: size + "px",
+            width: size + "px",
+        }}>
+            <CheckboxState
+            visible={checked}>
+                <Checkmark 
+                color={selectedColor} 
+                size={size} />
+            </CheckboxState>
+            
+            <CheckboxState
+            visible={!checked}>
+                <Square 
+                color={color} 
+                size={size} />
+            </CheckboxState>
+
+            <CheckboxState
+            visible={true}>
+                <Input 
+                type="checkbox"
+                onChange={() => {
+                    onClick && onClick()
+                }}
+                name={name} 
+                value={value}
+                checked={checked} />
+            </CheckboxState>
+        </Button>
         
-        <CheckboxState
-        visible={!checked}>
-            <Icon.Square 
-            color={color} 
-            size={size} />
-        </CheckboxState>
-    </Button>
+        {label && 
+            <Text
+            dir={dir}
+            size="label"
+            weight="medium"
+            css={{
+                cursor: 'pointer',
+            }}>
+                {label}
+            </Text>
+        }
+    </Label>
 )
 
 export default Checkbox
