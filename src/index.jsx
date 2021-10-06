@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 
+import _sortBy from 'lodash/sortBy'
+
+
 import { 
     styled
 } from '@config/stitches';
@@ -29,7 +32,14 @@ import {
 
 import {
     List,
+    ListItem,
     Modal, 
+    RankTable,
+    SortableTable,
+    Table,
+    TableRow,
+    TableHeader,
+    SortableTableHeader,
 } from '@components/Layout'
 
 import Text from '@components/Text'
@@ -40,37 +50,234 @@ const App = () => {
     const [checked, setChecked] = useState(false)
     const [input, setInput] = useState('')
 
+    const [activeColumn, setActiveColumn] = useState(null)
+    const [direction, setDirection] = useState('asc')
+    const [columns, setColumns] = useState(
+        [
+            {
+                title: 'First row',
+                date: 'October 31, 2021',
+                author: 'David Woolf'
+            }, {
+                title: 'Second row',
+                date: 'November 1, 2021',
+                author: 'Ashlyn Duhatois'
+            }, {
+                title: 'Third row',
+                date: 'November 2, 2021',
+                author: 'Nick Frandsen'
+            }, {
+                title: 'Fourth row',
+                date: 'November 3, 2021',
+                author: 'David Woolf'
+            }
+        ]
+    )
+
+    const [rankColumns, setRankColumns] = useState(
+        [
+            {
+                id: 1,
+                title: 'First row',
+                date: 'October 31, 2021',
+                author: 'David Woolf'
+            }, {
+                id: 2,
+                title: 'Second row',
+                date: 'November 1, 2021',
+                author: 'Ashlyn Duhatois'
+            }, {
+                id: 3,
+                title: 'Third row',
+                date: 'November 2, 2021',
+                author: 'Nick Frandsen'
+            }, {
+                id: 4,
+                title: 'Fourth row',
+                date: 'November 3, 2021',
+                author: 'David Woolf'
+            }
+        ]
+    )
+
     return(
         <Container>
-            <List.Container
+            <Text
+            size="heading"
+            >
+                Table
+            </Text>
+
+            <Table
+            css={{
+                marginY: '$4'
+            }}
+            track={["3fr", '1fr', '1fr', '1fr']}
+            columns={[
+                {
+                    'id': 'title',
+                    'name': 'Title',
+                }, {
+                    'id': 'image',
+                    'name': <svg width="16" height="16" viewBox="0 0 16 16"><path fillRule="evenodd" clipRule="evenodd" d="M14.162 10.0744C13.2962 12.6471 10.8645 14.5 8 14.5C5.40133 14.5 3.15883 12.975 2.11861 10.7711L3.50666 8.95406C3.77599 8.60148 4.29084 8.55849 4.61491 8.86152L5.5896 9.77293C6.61597 10.7326 8.26116 10.5272 9.02002 9.34458L10.4419 7.12869C10.7157 6.70189 11.3254 6.66424 11.6497 7.05411L14.162 10.0744ZM14.4987 8.13354L12.8029 6.09488C11.8301 4.92528 10.001 5.03822 9.17943 6.31861L7.75757 8.53451C7.50462 8.92872 6.95622 8.99719 6.6141 8.67729L5.6394 7.76588C4.66719 6.85681 3.12263 6.98578 2.31465 8.0435L1.57772 9.00821C1.52655 8.67964 1.5 8.34292 1.5 8C1.5 4.41015 4.41015 1.5 8 1.5C11.5899 1.5 14.5 4.41015 14.5 8C14.5 8.04462 14.4995 8.08914 14.4987 8.13354ZM0.410413 10.5363C0.144196 9.73934 0 8.88651 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C4.47487 16 1.48226 13.72 0.41641 10.5542L0.403997 10.5447L0.410413 10.5363Z" fill="#23282D"/></svg>,
+                }, {
+                    'id': 'date',
+                    'name': 'Date',
+                }, {
+                    'id': 'author',
+                    'name': 'Author',
+                }
+            ]}
+            source={[
+                {
+                    title: 'First row',
+                    date: 'October 31, 2021',
+                    author: 'David Woolf'
+                }, {
+                    title: 'Second row',
+                    date: 'November 1, 2021',
+                    author: 'Ashlyn Duhatois'
+                }, {
+                    title: 'Third row',
+                    date: 'November 2, 2021',
+                    author: 'Nick Frandsen'
+                }, {
+                    title: 'Fourth row',
+                    date: 'November 3, 2021',
+                    author: 'David Woolf'
+                }
+            ]}>
+                {(rows) => (
+                        <>
+                            <TableHeader />
+
+                            {rows.map(row => <TableRow row={row} />)}
+                        </>
+                )}
+            </Table>
+
+            <Text
+            size="heading"
+            >
+                Sortable Table
+            </Text>
+
+            <SortableTable
+            css={{
+                marginY: '$4'
+            }}
+            direction={direction}
+            sortBy={activeColumn}
+            onSort={column => {
+                setDirection(column == activeColumn ? direction == 'asc' ? 'desc' : 'asc' : 'asc')
+
+                setActiveColumn(column)
+                
+                setColumns(
+                    _sortBy(
+                        columns, 
+                        [function(c) {
+                            return c[column]
+                        }]
+                    )
+                )
+            }}
+            track={["3fr", '1fr', '1fr']}
+            columns={[
+                {
+                    'id': 'title',
+                    'name': 'Title',
+                },{
+                    'id': 'date',
+                    'name': 'Date',
+                }, {
+                    'id': 'author',
+                    'name': 'Author',
+                }
+            ]}
+            source={columns}>
+                {(rows) => (
+                        <>
+                            <SortableTableHeader />
+
+                            {rows.map(row => <TableRow row={row} />)}
+                        </>
+                )}
+            </SortableTable>
+
+            <Text
+            size="heading"
+            >
+                Rankable Table
+            </Text>
+
+            <RankTable
+            css={{
+                marginY: '$4'
+            }}
+
+            track={["3fr", '1fr', '1fr']}
+            columns={[
+                {
+                    'id': 'title',
+                    'name': 'Title',
+                },{
+                    'id': 'date',
+                    'name': 'Date',
+                }, {
+                    'id': 'author',
+                    'name': 'Author',
+                }
+            ]}
+            onRank={rows => {
+                setRankColumns(rows)
+            }}
+            source={rankColumns}>
+                {(rows) => (
+                        <>
+                            <TableHeader />
+
+                            {rows.map(row => <TableRow key={row.id} row={row} />)}
+                        </>
+                )}
+            </RankTable>
+
+            <Text
+            size="heading">
+                List
+            </Text>
+
+
+            <List
             css={{
                 backgroundColor: '$white',
                 borderRadius: '$lg',
                 boxShadow: '$shallow',
+                marginTop: '$4',
                 padding: '$4 $6',
                 width: '$48'
             }}
             padded={true}>
-                <List.Item>
+                <ListItem>
                     Item 1
-                </List.Item>
+                </ListItem>
 
-                <List.Item>
+                <ListItem>
                     Item 2
-                </List.Item>
+                </ListItem>
 
-                <List.Item>
+                <ListItem>
                     Item 3
-                </List.Item>
+                </ListItem>
 
-                <List.Item>
+                <ListItem>
                     Item 4
-                </List.Item>
+                </ListItem>
 
-                <List.Item>
+                <ListItem>
                     Item 5
-                </List.Item>
-            </List.Container>
+                </ListItem>
+            </List>
 
             <Space />
             

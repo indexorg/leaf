@@ -5,7 +5,7 @@ import {
     Item,
 } from './List.styles.js'
 
-const ListContainer = ({
+export const List = ({
     children,
     css = {},
     padded = false
@@ -19,7 +19,7 @@ const ListContainer = ({
     )
 }
 
-const ListItem = ({
+export const ListItem = ({
     children,
     css,
     dir = 'ltr'
@@ -30,8 +30,3 @@ const ListItem = ({
         {children}
     </Item>
 )
-
-export default class List extends React.Component {
-	static Container = ListContainer;
-	static Item = ListItem;
-}

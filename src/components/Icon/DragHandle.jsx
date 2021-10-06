@@ -1,24 +1,23 @@
 import React from 'react'
-import classNames from 'classnames'
 
 const DragHandle = ({
-	className = [],
 	color = 'black',
 	title = false
 }) => (
-	<svg 
-		className={classNames("blt-icon", className)}
-		fill="none"
-		height="8" 
-		width="13" 
-		viewBox="0 0 13 8"
-	>
-		{title && <title>{title}</title>}
 
-		<path fillRule="evenodd" clipRule="evenodd" d="M0 1C0 0.723858 0.223858 0.5 0.5 0.5H12.5C12.7761 0.5 13 0.723858 13 1C13 1.27614 12.7761 1.5 12.5 1.5H0.5C0.223858 1.5 0 1.27614 0 1Z" fill="#6F7F86"/>
-		<path fillRule="evenodd" clipRule="evenodd" d="M0 4C0 3.72386 0.223858 3.5 0.5 3.5H12.5C12.7761 3.5 13 3.72386 13 4C13 4.27614 12.7761 4.5 12.5 4.5H0.5C0.223858 4.5 0 4.27614 0 4Z" fill="#6F7F86"/>
-		<path fillRule="evenodd" clipRule="evenodd" d="M0 7C0 6.72386 0.223858 6.5 0.5 6.5H12.5C12.7761 6.5 13 6.72386 13 7C13 7.27614 12.7761 7.5 12.5 7.5H0.5C0.223858 7.5 0 7.27614 0 7Z" fill="#6F7F86"/>
+	<svg 
+	width="8" 
+	height="13" 
+	viewBox="0 0 8 13">
+		{title && <title>{title}</title>}
+	
+		<path 
+		fillRule="evenodd" 
+		clipRule="evenodd" 
+		d="M1.5 3C2.32843 3 3 2.32843 3 1.5C3 0.671573 2.32843 0 1.5 0C0.671573 0 0 0.671573 0 1.5C0 2.32843 0.671573 3 1.5 3ZM1.5 8C2.32843 8 3 7.32843 3 6.5C3 5.67157 2.32843 5 1.5 5C0.671573 5 0 5.67157 0 6.5C0 7.32843 0.671573 8 1.5 8ZM3 11.5C3 12.3284 2.32843 13 1.5 13C0.671573 13 0 12.3284 0 11.5C0 10.6716 0.671573 10 1.5 10C2.32843 10 3 10.6716 3 11.5ZM6.5 8C7.32843 8 8 7.32843 8 6.5C8 5.67157 7.32843 5 6.5 5C5.67157 5 5 5.67157 5 6.5C5 7.32843 5.67157 8 6.5 8ZM8 1.5C8 2.32843 7.32843 3 6.5 3C5.67157 3 5 2.32843 5 1.5C5 0.671573 5.67157 0 6.5 0C7.32843 0 8 0.671573 8 1.5ZM6.5 13C7.32843 13 8 12.3284 8 11.5C8 10.6716 7.32843 10 6.5 10C5.67157 10 5 10.6716 5 11.5C5 12.3284 5.67157 13 6.5 13Z" 
+		fill={color} />
 	</svg>
+
 )
 
 export default DragHandle
