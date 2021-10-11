@@ -16,11 +16,11 @@ import {
 } from '@components/Layout/Table/Table.styles.js'
 
 import {
-    SortableHeaderColumn,
-    SortableIcon
-} from './Sortable.styles.js'
+    SortHeaderColumn,
+    SortIcon
+} from './Sort.styles.js'
 
-export const SortableTableHeader = () => (
+export const SortTableHeader = () => (
     <TableContext.Consumer>
         {
             ({
@@ -35,7 +35,7 @@ export const SortableTableHeader = () => (
                     {
                         columns.map(column => {
                             return(
-                                <SortableHeaderColumn 
+                                <SortHeaderColumn 
                                 key={column.id}
                                 sortable={column.sortable}
                                 onClick={() => column.onClick()}>
@@ -47,14 +47,14 @@ export const SortableTableHeader = () => (
                                     {
                                         column.sortable &&
 
-                                        <SortableIcon
+                                        <SortIcon
                                         direction={sortDirection}
                                         visible={column.active}>
                                             <ArrowDetailedSmall 
                                             color="#2271B1" />
-                                        </SortableIcon>
+                                        </SortIcon>
                                     }
-                                </SortableHeaderColumn>
+                                </SortHeaderColumn>
                             )
                         })
                     }
@@ -64,7 +64,7 @@ export const SortableTableHeader = () => (
     </TableContext.Consumer>
 )
 
-const SortableTable = ({
+const SortTable = ({
     children,
 	css = {},
 	columns = [],
@@ -104,4 +104,4 @@ const SortableTable = ({
 	)
 }
 
-export default SortableTable
+export default SortTable

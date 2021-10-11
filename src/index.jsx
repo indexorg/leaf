@@ -35,11 +35,11 @@ import {
     ListItem,
     Modal, 
     RankTable,
-    SortableTable,
+    SortTable,
+    SortTableHeader,
     Table,
     TableRow,
     TableHeader,
-    SortableTableHeader,
 } from '@components/Layout'
 
 import Text from '@components/Text'
@@ -162,7 +162,7 @@ const App = () => {
                 Sortable Table
             </Text>
 
-            <SortableTable
+            <SortTable
             css={{
                 marginY: '$4'
             }}
@@ -198,12 +198,12 @@ const App = () => {
             source={columns}>
                 {(rows) => (
                         <>
-                            <SortableTableHeader />
+                            <SortTableHeader />
 
                             {rows.map(row => <TableRow row={row} />)}
                         </>
                 )}
-            </SortableTable>
+            </SortTable>
 
             <Text
             size="heading"

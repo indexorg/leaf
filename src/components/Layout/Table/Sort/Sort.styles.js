@@ -4,7 +4,7 @@ import {
     HeaderColumn,
 } from '@components/Layout/Table/Table.styles.js'
 
-export const SortableHeaderColumn = styled(HeaderColumn, {
+export const SortHeaderColumn = styled(HeaderColumn, {
     variants: {
         sortable: {
             true: {
@@ -14,7 +14,7 @@ export const SortableHeaderColumn = styled(HeaderColumn, {
     }
 })
 
-export const SortableIcon = styled('div', {
+export const SortIcon = styled('div', {
     opacity: 0,
     margin: '0 0 0 auto',
     transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',

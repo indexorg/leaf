@@ -7,25 +7,27 @@ export const Wrapper = styled('div', {
     alignItems: 'center',
     backgroundColor: "$white",
     borderRadius: '$md',
-    border: '2px solid $black300',
+    border: '1px solid $black300',
+    boxShadow: '0 1px 4px rgba(35, 40, 45, 0.08)',
     cursor: 'text',
     display: 'inline-flex',
     gap: '$2',
     paddingX: '$3',
     paddingY: '$1.5',
-    transition: 'colors .1s ease',
+    transition: 'all .175s ease',
     variants: {
         invalid: {
             true: {
                 backgroundColorRGBA: '#d63638|.1',
                 // backgroundColor: ColorWithOpacity('$warning400', .1),
                 color: '$warning400',
-                border: '2px solid $warning400',
+                border: '1px solid $warning400',
             }
         },
         focused: {
             true: {
-                border: '2px solid $black310',
+                border: '1px solid rgba(34, 113, 177, 0.5)',
+                boxShadow: '0 1px 4px rgba(34, 113, 177, 0.22)',
             }
         },
     }
@@ -39,7 +41,7 @@ export const Element = styled('input', {
     cursor: 'text',
     color: '$black900',
     fontSize: '$text300',
-    height: '$9',
+    height: '$8-5',
     margin: 0,
     padding: 0,
 

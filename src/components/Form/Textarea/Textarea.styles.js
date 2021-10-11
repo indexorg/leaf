@@ -7,7 +7,8 @@ export const Wrapper = styled('div', {
     alignItems: 'flex-start',
     backgroundColor: "$white",
     borderRadius: '$md',
-    border: '2px solid $black300',
+    border: '1px solid $black300',
+    boxShadow: '0 1px 4px rgba(35, 40, 45, 0.08)',
     cursor: 'text',
     display: 'inline-flex',
     gap: '$2',
@@ -24,9 +25,10 @@ export const Wrapper = styled('div', {
         },
         focused: {
             true: {
-                border: '2px solid $black310',
+                border: '1px solid rgba(34, 113, 177, 0.5)',
+                boxShadow: '0 1px 4px rgba(34, 113, 177, 0.22)',
             }
-        }
+        },
     }
 })
 

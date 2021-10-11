@@ -7,25 +7,19 @@ export const ButtonElement = styled('button', {
     cursor: 'pointer',
     fontFamily: '$body',
     fontSize: '$text300',
-    fontWeight: 500,
-    height: '$9',
+    fontWeight: 600,
+    height: '$10',
     justifyContent: 'center',
     paddingY: '$2-5',
     paddingX: '$3',
-    transition: 'all .1s ease',
+    transition: 'all 125ms ease',
 
-    '&:active': {
-        opacity: .7
-    },
     '&:focus': {
         outline: 'none',
     },
-    '&:hover': {
-        opacity: .7
-    },
 
     '@md': {
-        height: "$10",
+        height: "$9",
         paddingX: '$6'
     },
 
@@ -54,9 +48,13 @@ export const ButtonElement = styled('button', {
 
         variant: {
             normal: {
-                border: '1px solid $black900',
-                background: 'transparent',
-                color: '$black900'
+                border: '0',
+                backgroundColor: '$black300',
+                color: '$black900',
+
+                '&:hover': {
+                    background: '$black310',
+                },
 
                 // focus-visible:bg-black
                 // focus-visible:bg-opacity-10
@@ -64,7 +62,11 @@ export const ButtonElement = styled('button', {
             primary: {
                 border: '1px solid $primary400',
                 background: '$primary400',
-                color: '$white'
+                color: '$white',
+
+                '&:hover': {
+                    background: '$primary410',
+                },
                 
 
                 // focus-visible:ring-primary
@@ -73,7 +75,12 @@ export const ButtonElement = styled('button', {
             warning: {
                 border: '1px solid $warning400',
                 background: 'transparent',
-                color: '$warning400'
+                color: '$warning400',
+
+                '&:hover': {
+                    background: '$warning400',
+                    color: '$white'
+                },
 
                 // focus-visible:bg-warning
                 // focus-visible:bg-opacity-10
