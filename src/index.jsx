@@ -40,6 +40,11 @@ import {
     Table,
     TableRow,
     TableHeader,
+    TabContainer,
+    TabNavigation,
+    TabPanels,
+    TabPanel,
+    Tab,
 } from '@components/Layout'
 
 import Text from '@components/Text'
@@ -104,7 +109,57 @@ const App = () => {
         <Container>
             <Text
             size="heading"
-            >
+            css={{
+                paddingBottom: '$4'
+            }}>
+                Tabs
+            </Text>
+
+            <TabContainer>
+                <TabNavigation>
+                    <Tab>
+                        General
+                    </Tab>
+
+                    <Tab>
+                        Customers
+                    </Tab>
+
+                    <Tab>
+                        Orders
+                    </Tab>
+                </TabNavigation>
+
+
+                <TabPanels>
+                    <TabPanel>
+                        <Text
+                        size="subheading">
+                            General
+                        </Text>
+                    </TabPanel>
+
+                    <TabPanel>
+                        <Text
+                        size="subheading">
+                            Customers
+                        </Text>
+                    </TabPanel>
+
+                    <TabPanel>
+                        <Text
+                        size="subheading">
+                            Orders
+                        </Text>
+                    </TabPanel>
+                </TabPanels>
+            </TabContainer>
+
+            <Text
+            size="heading"
+            css={{
+                paddingTop: '$8'
+            }}>
                 Table
             </Text>
 
