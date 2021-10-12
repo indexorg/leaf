@@ -1,9 +1,11 @@
 {
 	"name": "@indexorg/leaf",
 	"version": "0.0.1",
-	"main": "index.jsx",
+	"main": "dist/index.js",
 	"scripts": {
-		"start": "snowpack dev"
+		"test": "echo \"No test specified\"",
+		"start": "snowpack dev",
+		"build": "node ./node_modules/webpack/bin/webpack.js --config webpack-production.config.js"
 	},
 	"repository": {
 		"type": "git",
@@ -13,10 +15,19 @@
 	"license": "ISC",
 	"description": "A WordPress centered UI platform built in React, with a static API accessible from PHP and HTML",
 	"devDependencies": {
+		"@babel/cli": "^7.15.7",
+		"@babel/plugin-proposal-class-properties": "^7.14.5",
+		"@babel/plugin-proposal-object-rest-spread": "^7.15.6",
+		"@babel/preset-env": "^7.15.8",
+		"@babel/preset-react": "^7.14.5",
 		"@snowpack/plugin-dotenv": "^2.2.0",
 		"@snowpack/plugin-react-refresh": "^2.5.0",
 		"@snowpack/web-test-runner-plugin": "^0.2.2",
-		"snowpack": "^3.8.8"
+		"babel-loader": "^8.2.2",
+		"snowpack": "^3.8.8",
+		"terser-webpack-plugin": "^5.2.4",
+		"webpack": "^5.58.1",
+		"webpack-cli": "^4.9.0"
 	},
 	"peerDependencies": {
 		"@headlessui/react": "^1.4.1",

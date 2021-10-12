@@ -3,19 +3,9 @@ import ReactDOM from 'react-dom'
 
 import _sortBy from 'lodash/sortBy'
 
-
 import { 
     styled
 } from '@config/stitches';
-
-const Container = styled('div', {
-    backgroundColor: '$black100',
-    padding: '$16'
-})
-
-const Space = styled('div', {
-    height: '$6'
-})
 
 import {
     Button, 
@@ -49,6 +39,15 @@ import {
 } from '@components/Layout'
 
 import Text from '@components/Text'
+
+const Container = styled('div', {
+    backgroundColor: '$black100',
+    padding: '$16'
+})
+
+const Space = styled('div', {
+    height: '$6'
+})
 
 const App = () => {
     const [showModal, setShowModal] = useState(false)
