@@ -146,13 +146,11 @@ export const {
         backgroundColorRGBA: value => {
             const colors = value.split('|')
 
-            console.log(colors)
-
             return {
                 backgroundColor: ColorWithOpacity(colors[0], colors[1])
             }
         },
-        fill: (value) => ({ width: '100vw', height: '100vh' }),
+        fill: () => ({ width: '100vw', height: '100vh' }),
         inset: (value) => ({
             left: value,
             right: value,
@@ -163,6 +161,6 @@ export const {
         marginY: (value) => ({ marginTop: value, marginBottom: value }),
         paddingX: (value) => ({ paddingLeft: value, paddingRight: value }),
         paddingY: (value) => ({ paddingTop: value, paddingBottom: value }),
-        reset: (value) => ({ margin: 0, padding: 0, boxSizing: 'border-box'}),
+        reset: () => ({ margin: 0, padding: 0, boxSizing: 'border-box'}),
     },
 })

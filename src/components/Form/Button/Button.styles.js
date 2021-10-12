@@ -1,4 +1,4 @@
-import { styled } from '@config/stitches';
+import { styled } from '@config/stitches'
 
 export const ButtonElement = styled('button', {
     alignItems: 'center', 

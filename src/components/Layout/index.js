@@ -1,6 +1,7 @@
-import Stack from './Stack/Stack'
+import Grid from './Grid'
 import {List, ListItem} from './List/List'
 import Modal from './Modal/Modal'
+import Stack from './Stack/Stack'
 import RankTable from './Table/Rank/Rank'
 import SortTable, {SortTableHeader} from './Table/Sort/Sort'
 import Table from './Table/Default/Default'
@@ -13,10 +14,11 @@ import TabPanel from './Tabs/TabPanel/TabPanel'
 import Tab from './Tabs/Tab/Tab'
 
 export {
-    Stack,
+    Grid,
     List,
     ListItem,
     Modal,
+    Stack,
     RankTable,
     SortTable,
     SortTableHeader,
