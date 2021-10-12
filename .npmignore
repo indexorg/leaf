@@ -1,3 +1,7 @@
 .DS_Store
-example/*
+example
+src
 snowpack.config.js
+webpack-production.config.js
+index.html
+preflight.css
