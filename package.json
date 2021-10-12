@@ -1,5 +1,5 @@
 {
-	"name": "leaf",
+	"name": "@indexorg/leaf",
 	"version": "0.0.1",
 	"main": "index.jsx",
 	"scripts": {
