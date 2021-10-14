@@ -4,7 +4,6 @@
 	"main": "./dist/index.js",
 	"scripts": {
 		"test": "echo \"No test specified\"",
-		"start": "snowpack dev",
 		"build": "node ./node_modules/webpack/bin/webpack.js --config webpack-production.config.js"
 	},
 	"repository": {
@@ -12,12 +11,10 @@
 		"url": "git+https://github.com/indexorg/leaf.git"
 	},
 	"author": "indexorg",
-	"license": "ISC",
+	"license": "MIT",
 	"description": "A WordPress centered UI platform built in React, with a static API accessible from PHP and HTML",
 	"devDependencies": {
 		"@babel/cli": "^7.15.7",
-		"@babel/plugin-proposal-class-properties": "^7.14.5",
-		"@babel/plugin-proposal-object-rest-spread": "^7.15.6",
 		"@babel/preset-env": "^7.15.8",
 		"@babel/preset-react": "^7.14.5",
 		"@snowpack/plugin-dotenv": "^2.2.0",
