@@ -1,8 +1,4 @@
 .DS_Store
-example
 src
-snowpack.config.js
 webpack-production.config.js
-index.html
-preflight.css
 babel.config.js
