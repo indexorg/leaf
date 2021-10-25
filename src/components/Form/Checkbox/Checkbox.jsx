@@ -5,7 +5,7 @@ import {
     Square
 } from "@components/Icon"
 
-import Text from '@components/Text'
+import {Text} from '@components/Layout'
 
 import { 
     Button,

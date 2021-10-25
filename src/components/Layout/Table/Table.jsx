@@ -5,7 +5,7 @@ import _get from 'lodash/get'
 import {TableContext} from '@utils/contexts/table.context.js'
 
 // Components
-import Text from '@components/Text' 
+import {Text} from '@components/Layout' 
 
 // Styles
 import {

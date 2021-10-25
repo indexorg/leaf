@@ -8,7 +8,7 @@ import {getTrack} from '@utils/transformations/table.transformation.js'
 // Components
 import {ArrowDetailedSmall} from '@components/Icon'
 import {RenderTable} from '@components/Layout/Table/Table'
-import Text from '@components/Text' 
+import {Text} from '@components/Layout' 
 
 // Styles
 import {

@@ -1,6 +1,6 @@
-const webpack = require('webpack');
-const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = env => {
     return {

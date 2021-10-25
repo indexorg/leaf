@@ -10,7 +10,7 @@ import {
     DialogInt,
 } from './Modal.styles.js'
 
-import Text from '@components/Text'
+import {Text} from '@components/Layout'
 
 import {
     Button

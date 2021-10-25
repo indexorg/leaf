@@ -40,8 +40,7 @@ const TabContainer = ({
     let providerBag = useMemo(
         () => [state, dispatch],
         [state, dispatch]
-      )
-
+    )
 
     return(
         <TabContext.Provider

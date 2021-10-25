@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import _debounce from 'lodash/debounce'
 
-import Text from '@components/Text'
+import {Text} from '@components/Layout'
 
 import { 
     Wrapper,

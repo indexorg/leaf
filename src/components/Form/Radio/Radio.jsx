@@ -1,6 +1,6 @@
 import React, {useRef} from "react"
 
-import Text from '@components/Text'
+import {Text} from '@components/Layout'
 
 import { 
     Button,

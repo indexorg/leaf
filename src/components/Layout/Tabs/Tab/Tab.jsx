@@ -4,7 +4,7 @@ import React, {useContext, useEffect, useRef} from 'react'
 import {TabContext} from '@utils/contexts/tab.context.js'
 
 // Components
-import Text from '@components/Text'
+import {Text} from '@components/Layout'
 
 // Styles
 import {

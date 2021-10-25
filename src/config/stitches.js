@@ -1,7 +1,4 @@
-import { createStitches } from '@stitches/react';
-
-import ColorWithOpacity from '../components/FormattedTo/ColorWithOpacity'
-
+import { createStitches } from '@stitches/react'
 
 const spaces = {
     0: '0',
@@ -26,6 +23,7 @@ const spaces = {
     10: '2.5rem',
     11: '2.75rem',
     12: '3rem',
+    14: '3.5rem',
     16: '4rem',
     20: '5rem',
     24: '6rem',
@@ -38,6 +36,7 @@ const spaces = {
     56: '14rem',
     64: '16rem',
     72: '18rem',
+    80: '20rem',
     96: '24rem'
 }
 
@@ -57,6 +56,7 @@ export const {
             black: '#000',
             black900: '#23282D',
             black600: '#737578',
+            black500: '#505C61',
             black310: '#D3D7DA',
             black300: '#D9DDDF',
             black100: '#F0F1F2',
@@ -68,7 +68,7 @@ export const {
         fontSizes: {
             text900: '2rem',
             text800: '1.5rem',
-            text700: '1.25rem',
+            text700: '1.125rem',
             text600: '1.0625rem',
             text500: '1rem',
             text400: '0.9375rem',
@@ -143,14 +143,6 @@ export const {
         '2xl': '(min-width: 1536px)',
     },
     utils: {
-        backgroundColorRGBA: value => {
-            const colors = value.split('|')
-
-            return {
-                backgroundColor: ColorWithOpacity(colors[0], colors[1])
-            }
-        },
-        fill: () => ({ width: '100vw', height: '100vh' }),
         inset: (value) => ({
             left: value,
             right: value,
