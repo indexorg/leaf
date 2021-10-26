@@ -57,7 +57,7 @@ const Radio = ({
                 <Text
                 dir={dir}
                 size="label"
-                weight="medium"
+                weight="regular"
                 css={{
                     cursor: 'pointer',
                 }}>

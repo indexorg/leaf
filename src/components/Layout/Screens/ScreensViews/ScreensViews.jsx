@@ -9,9 +9,10 @@ const ScreensViews = ({
 }) => {
     return(
         <Switch>
-            {children.map(c => {
+            {[].concat(children).map((c, index) => {
                 return(
                     <Route
+                    key={index}
                     exact
                     path={c.props.path}
                     component={() => <ScreensPage {...c.props} />} />

@@ -15,7 +15,9 @@ const Textarea = ({
     label = false,
     placeholder = '',
     resizeable = false,
+    onBlur = undefined,
     onChange = undefined,
+    onFocus = undefined,
     value = ''
 }) => {
     const [focus, setFocus] = useState(false)
@@ -31,8 +33,6 @@ const Textarea = ({
         <Wrapper
         css={css}
         dir={dir}
-        focused={focus}
-        invalid={invalid}
         onClick={() => setFocus(true)}>
 
             {label && 
@@ -52,8 +52,17 @@ const Textarea = ({
             <Element
             ref={ref}
             dir={dir}
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
+            hasError={invalid}
+            onFocus={() => {
+                setFocus(true)
+
+                onFocus && onFocus()
+            }}
+            onBlur={() => {
+                setFocus(false)
+
+                onBlur && onBlur(value)
+            }}
             onChange={e => {
                 onChange && onChange(e.target.value)
             }}

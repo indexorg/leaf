@@ -1,43 +1,86 @@
-import React from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 
+// Components
 import Icon from '@components/Icon'
+import {Text} from '@components/Layout'
 
 import {
     Wrapper,
+	SelectWrapper,
     Element,
     IconWrapper
 } from './Select.styles.js'
 
 const Select = ({
-	options = [],
+	children,
+    dir = 'ltr',
+	name,
+	invalid = false,
+	label = false,
+    sublabel = false,
 	onChange = undefined,
-	selected = '',
+	value = '',
 	css = {},
 }) => {
+	const [focus, setFocus] = useState(false)
+    const ref = useRef()
+
+    useEffect(() => {
+        if(focus) {
+            ref.current.focus()
+        }
+    }, [focus])
+
 	return(
 		<Wrapper
-		css={css}>
-			<Element
-			onChange={e => {
-				onChange && onChange(e.target.value)
-			}}
-			value={selected}>
-				{
-					options.map(option => (
-						<option 
-						key={option.value} 
-						value={option.value}>
-							{option.label}
-						</option>
+		css={css}
+		onClick={() => setFocus(true)}>
+			 {label && 
+                <Text
+                as="label"
+                dir={dir}
+                size="label"
+                weight="medium"
+                css={{
+                    color: invalid ? '$warning400' : '$black900',
+                    cursor: 'pointer',
+                }}>
+                    {label}
+                </Text>
+            }
 
-					))
-				}
-			</Element>
+			<SelectWrapper>
+				<Element
+				ref={ref}
+				name={name}
+				onFocus={() => setFocus(true)}
+				onBlur={() => setFocus(false)}
+				onChange={e => {
+					onChange && onChange(e.target.value)
+				}}
+				value={value}>
+					{children}
+				</Element>
 
-			<IconWrapper>
-				<Icon.ArrowDown color="#23282D" />
-			</IconWrapper>
-		</Wrapper >
+				<IconWrapper>
+					<Icon.ArrowDown color="#23282D" />
+				</IconWrapper>
+			</SelectWrapper>
+
+			{sublabel && 
+                <Text
+                as="span"
+                dir={dir}
+                size="footnote"
+                weight="medium"
+                css={{
+                    opacity: .7,
+                    marginTop: '-$1'
+                }}>
+                    {sublabel}
+                </Text>
+            }
+		</Wrapper>
 	)
 }
 

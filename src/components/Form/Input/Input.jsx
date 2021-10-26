@@ -2,22 +2,27 @@ import React, {useEffect, useState, useRef} from 'react'
 import _debounce from 'lodash/debounce'
 
 import {Text} from '@components/Layout'
+import {Tooltip} from '@components/Elements'
 
 import { 
     Wrapper,
     Element
 } from './Input.styles.js'
 
-const Input = ({
-    css = {},
-    dir = 'ltr',
-    onChange = undefined,
-    invalid = false,
-    label = false,
-    placeholder,
-    type = 'text',
-    value = ''
-}) => {
+const Input = (props) => {
+    const {
+        css = {},
+        dir = 'ltr',
+        description = false,
+        
+        onBlur = undefined,
+        onChange = undefined,
+        onFocus = undefined,
+        invalid = false,
+        label = false,
+        sublabel = false,
+        ...otherProps
+    } = props
     const [focus, setFocus] = useState(false)
     const ref = useRef()
 
@@ -31,8 +36,6 @@ const Input = ({
         <Wrapper
         css={css}
         dir={dir}
-        focused={focus}
-        invalid={invalid}
         onClick={() => setFocus(true)}>
 
             {label && 
@@ -48,18 +51,51 @@ const Input = ({
                     {label}
                 </Text>
             }
+
+            {description &&
+                <Tooltip
+                css={{
+                    position: 'absolute',
+                    right: '0',
+                    top: '$2',
+                    zIndex: 2,
+                    // transform: 'translateY(-50%)'
+                }}
+                value={description}/>
+            }
             
             <Element
+            {...otherProps}
             ref={ref}
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
+            dir={dir}
+            hasError={invalid}
+            onFocus={() => {
+                setFocus(true)
+
+                onFocus && onFocus()
+            }}
+            onBlur={() => {
+                setFocus(false)
+
+                onBlur && onBlur(value)
+            }}
             onChange={e => {
                 onChange && onChange(e.target.value)
-            }}
-            dir={dir}
-            placeholder={placeholder}
-            type={type}
-            value={value} />
+            }} /> 
+
+            {sublabel && 
+                <Text
+                as="span"
+                dir={dir}
+                size="footnote"
+                weight="medium"
+                css={{
+                    opacity: .7,
+                    marginTop: '-$1'
+                }}>
+                    {sublabel}
+                </Text>
+            }
         </Wrapper>
     )
 }

@@ -30,7 +30,7 @@ const Checkbox = ({
     dir={dir}>
         <Button
         onClick={() => {
-            onClick && onClick()
+            onClick && onClick(!checked)
         }}
         css={{
             height: size + "px",
@@ -55,7 +55,7 @@ const Checkbox = ({
                 <Input 
                 type="checkbox"
                 onChange={() => {
-                    onClick && onClick()
+                    onClick && onClick(!checked)
                 }}
                 name={name} 
                 value={value}
@@ -67,7 +67,7 @@ const Checkbox = ({
             <Text
             dir={dir}
             size="label"
-            weight="medium"
+            weight="regular"
             css={{
                 cursor: 'pointer',
             }}>

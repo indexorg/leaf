@@ -1,6 +1,6 @@
 import Button from './Button/Button'
 import Checkbox from './Checkbox/Checkbox'
-import Form from './Form/Form/Form'
+import Form from './Form'
 import Input from './Input/Input'
 import Radio from './Radio/Radio'
 import Select from './Select/Select'

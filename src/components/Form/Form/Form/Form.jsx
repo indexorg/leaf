@@ -1,50 +1,110 @@
-import React, {useReducer, useMemo} from 'react'
+import React, {useReducer, useMemo, useContext, useEffect} from 'react'
+import _get from 'lodash/get'
 
 // Contexts
 import {FormContext} from '@utils/contexts/form.context.js'
 
+// Styles
+import {Element} from './Form.styles.js'
+
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'UPDATE_FIELD':
+        case 'SET_VALUE':
             return {
                 ...state,
-                data: {
-                    ...data,
-                    [action.id]: [action.value],
+                values: {
+                    ...state.values,
+                    [action.id]: action.value,
                 }
             }
-        case 'UPDATE_ALL_FIELDS':
+        case 'SET_CHECKBOX':
+            const values = _get(state, `values.${action.id}`, []).filter(value => value !== action.value)
+
             return {
                 ...state,
-                data,
+                values: {
+                    ...state.values,
+                    [action.id]: action.checked ? values.concat([action.value]) : values,
+                }
+            }
+        case 'SET_ERROR':
+            return {
+                ...state,
+                errors: state.errors.filter(id => id !== action.id).concat([action.id])
+            }
+        case 'REMOVE_ERROR':
+            return {
+                ...state,
+                errors: state.errors.filter(id => id !== action.id)
             }
       default:
         throw new Error()
     }
 }
 
+const FormElement = ({
+    children,
+    css,
+    onChange,
+    onSubmit,
+}) => {
+    const [{values, errors}, dispatch] = useContext(FormContext)
+
+    useEffect(() => {
+        let timer = null
+
+        if(onChange) {
+            timer = setTimeout(() => {
+                onChange(values, errors)
+            }, 300)
+        }
+
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [values])
+    
+    return(
+        <Element
+        css={css}
+        onSubmit={e => {
+            e.preventDefault()
+
+            onSubmit && onSubmit(values, errors)
+        }}>
+            {children}
+        </Element>
+    )
+}
+
 const Form = ({
     children,
-    data = [],
+    css = {},
+    onChange = undefined,
+    onSubmit = undefined,
 }) => {
     let [state, dispatch] = useReducer(
         reducer, 
         {
-            data,
+            values: {},
+            errors: [],
         }
     )
 
-    let providerBag = useMemo(() => {
+    let formProvider = useMemo(() => {
         return [state, dispatch]
     }, [state, dispatch])
 
     return(
-        <FormContext
-        value={providerBag}>
-            <form>
+        <FormContext.Provider
+        value={formProvider}>
+            <FormElement
+            css={css}
+            onChange={onChange}
+            onSubmit={onSubmit}>
                 {children}
-            </form>
-        </FormContext>
+            </FormElement>
+        </FormContext.Provider>
     )
 }
 
