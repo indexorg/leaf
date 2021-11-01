@@ -5,6 +5,7 @@ import Input from './Input/Input'
 import Radio from './Radio/Radio'
 import Row from './Row/Row'
 import Select from './Select/Select'
+import Submit from './Submit/Submit'
 import Textarea from './Textarea/Textarea'
 
 const FormObject = {
@@ -14,6 +15,7 @@ const FormObject = {
     Radio,
     Row,
     Select,
+    Submit,
     Textarea,
     Wrapper: Form,
 }

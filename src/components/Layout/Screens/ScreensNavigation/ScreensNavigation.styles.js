@@ -1,9 +1,13 @@
 import { styled } from '@config/stitches'
 
-export const Sidebar = styled('nav', {
+export const Footer = styled('nav', {
+    marginTop: 'auto',
+})
+
+export const Navigation = styled('nav', {
     display: 'flex',
     flexDirection: 'column',
-    padding: '$16 $10',
+    padding: '$16 $10 $8',
     position: 'relative',
 
     '&:before': {

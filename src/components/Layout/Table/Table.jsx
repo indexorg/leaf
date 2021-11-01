@@ -63,8 +63,9 @@ export const TableRow = ({ row }) => (
                         <RowColumn
                         align={_get(column, 'align', 'leading')}>
                             <Text
-                            size="body">
-                                {row[column.id]}
+                            size="body"
+                            leading="tight">
+                                {_get(row, column.id, '')}
                             </Text>
                         </RowColumn>
                     )}

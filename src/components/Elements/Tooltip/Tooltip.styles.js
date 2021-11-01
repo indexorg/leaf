@@ -12,7 +12,7 @@ export const Content = styled('span', {
     padding: '$2',
     position: 'absolute',
     right: '100%',
-    transition: 'all 750ms ease',
+    transition: 'all 75ms ease',
     top: '-$2',
     width: '$40',
     zIndex: -1,

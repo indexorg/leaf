@@ -37,6 +37,11 @@ const reducer = (state, action) => {
                 ...state,
                 errors: state.errors.filter(id => id !== action.id)
             }
+        case 'SUBMIT_FORM':
+            return {
+                ...state,
+                submit_form: action.value
+            }
       default:
         throw new Error()
     }
@@ -48,7 +53,7 @@ const FormElement = ({
     onChange,
     onSubmit,
 }) => {
-    const [{values, errors}, dispatch] = useContext(FormContext)
+    const [{values, errors, submit_form}, dispatch] = useContext(FormContext)
 
     useEffect(() => {
         let timer = null
@@ -63,6 +68,17 @@ const FormElement = ({
             clearTimeout(timer)
         }
     }, [values])
+
+    useEffect(() => {
+        if(submit_form) {
+            onSubmit && onSubmit(values, errors)
+
+            dispatch({
+                type: 'SUBMIT_FORM',
+                value: false,
+            })
+        }
+    }, [submit_form])
     
     return(
         <Element
@@ -88,6 +104,7 @@ const Form = ({
         {
             values: {},
             errors: [],
+            submit_form: false,
         }
     )
 

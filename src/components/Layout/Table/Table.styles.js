@@ -11,6 +11,7 @@ export const HeaderRow = styled('div', {
 export const HeaderColumn = styled('div', {
     alignItems: 'center',
     backgroundColor: '$black300',
+    
     display: 'flex',
     height: '$10',
     margin: 0,
@@ -19,6 +20,14 @@ export const HeaderColumn = styled('div', {
     textTransform: 'capitalize',
     transition: 'all 0.15s ease-in-out',
     zIndex: 1,
+
+    '&:first-child': {
+        borderRadius: '$md 0 0 $md',
+    },
+
+    '&:last-child': {
+        borderRadius: '0 $md $md 0',
+    },
 
     variants: {
         align: {
@@ -43,9 +52,10 @@ export const RowColumn = styled('div', {
     alignItems: 'center',
     borderBottom: '1px solid $black300',
     display: 'flex',
-    height: '$10',
+    minHeight: '$10',
     margin: 0,
-    padding: '0 $3',
+    leading: '$tight',
+    padding: '$2 $3',
     position: 'relative',
     textTransform: 'capitalize',
     transition: 'all 0.15s ease-in-out',

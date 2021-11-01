@@ -1,6 +1,6 @@
 import {validatePrice} from '@utils/validation/price'
 
-export const validateFormField = (name, value, required, dispatch) => {
+export const validateFormField = (name, value, validateAs, required, dispatch) => {
     if(value) {
         if(validateAs === 'price' && !validatePrice(value)) {
             dispatch({

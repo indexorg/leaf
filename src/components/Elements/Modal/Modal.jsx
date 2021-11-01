@@ -19,7 +19,6 @@ import {
 import {
     Stack
 } from '@components/Layout'
-import { css } from '@stitches/react'
 
 const Transition = ({
     children,
@@ -155,7 +154,7 @@ const Modal = ({
                                         size="body"
                                         css={{
                                             opacity: .9,
-                                            paddingTop: "$1"
+                                            paddingTop: "$2"
                                         }}>
                                             {description}
                                         </Text>

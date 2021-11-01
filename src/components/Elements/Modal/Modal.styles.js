@@ -25,10 +25,10 @@ export const DialogOverlay = styled(Dialog.Overlay, {
 
 export const DialogInt = styled('div', {
     backgroundColor: '$white',
-    borderRadius: '$xl',
+    borderRadius: '$lg',
     boxShadow: '$card',
-    maxWidth: '$96',
-    padding: '$9 $9 $6 $9',
+    maxWidth: '$128',
+    padding: '$9 $12 $6 $12',
     textAlign: 'center',
     transition: 'all .25s ease',
     transform: 'scale(.9)',

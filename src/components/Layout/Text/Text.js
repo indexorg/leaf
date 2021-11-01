@@ -25,7 +25,7 @@ const Text = styled('span', {
             },
             heading: {
                 fontSize: '$text800',
-                fontWeight: 600,
+                fontWeight: 700,
                 letterSpacing: '$snug', 
                 lineHeight: '$tight',
             },

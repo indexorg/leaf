@@ -14,10 +14,19 @@ const FormInput = (props) => {
     const {
         name,
         required = false,
-        validateAs
+        value = '',
+        validateAs = null,
     } = props
 
     const [{values, errors}, dispatch] = useContext(FormContext)
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_VALUE',
+            id: name,
+            value,
+        })
+    }, [value])
     
     return(
         <Input 
@@ -28,11 +37,9 @@ const FormInput = (props) => {
                 id: name,
                 value,
             })
-
-            // validateFormField(name, value, required, dispatch)
         }}
         onBlur={value => {
-            validateFormField(name, value, required, dispatch)
+            validateFormField(name, value, validateAs, required, dispatch)
         }}
         onFocus={() => {
             dispatch({

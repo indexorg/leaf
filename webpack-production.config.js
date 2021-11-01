@@ -26,6 +26,17 @@ module.exports = env => {
                         loader: 'babel-loader'
                     },
                 },
+                {
+                    test: /\.svg$/,
+                    use: [
+                        {
+                            loader: 'svg-url-loader',
+                            options: {
+                                limit: 10000,
+                            },
+                        },
+                    ],
+                },
             ]
         },
         plugins:[
@@ -52,6 +63,7 @@ module.exports = env => {
                 '@assets': path.resolve(__dirname, './src/assets'),
                 '@components': path.resolve(__dirname, './src/components'),
                 '@config': path.resolve(__dirname, './src/config'),
+                '@model': path.resolve(__dirname, './src/model'),
                 '@utils': path.resolve(__dirname, './src/utils'),
             }
         }

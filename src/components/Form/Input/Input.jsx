@@ -74,10 +74,10 @@ const Input = (props) => {
 
                 onFocus && onFocus()
             }}
-            onBlur={() => {
+            onBlur={e => {
                 setFocus(false)
 
-                onBlur && onBlur(value)
+                onBlur && onBlur(e.target.value)
             }}
             onChange={e => {
                 onChange && onChange(e.target.value)

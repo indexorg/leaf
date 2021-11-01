@@ -5,15 +5,17 @@ import {Text} from '@components/Layout'
 
 // Styles
 import {
-    Sidebar
-} from './ScreensSidebar.styles.js'
+    Footer,
+    Navigation
+} from './ScreensNavigation.styles.js'
 
-const ScreensSidebar = ({
+const ScreensNavigation = ({
     children,
+    footer = null,
     title = false,
 }) => {
     return(
-        <Sidebar>
+        <Navigation>
             {title &&
                 <Text
                 size="subheading"
@@ -25,11 +27,11 @@ const ScreensSidebar = ({
                 </Text>
             }
 
-            {
-                children
-            }
-        </Sidebar>
+            {children}
+
+            {footer && <Footer>{footer}</Footer>}
+        </Navigation>
     )
 }
 
-export default ScreensSidebar
+export default ScreensNavigation

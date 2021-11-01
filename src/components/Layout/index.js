@@ -1,6 +1,5 @@
 import Grid from './Grid'
 import {List, ListItem} from './List/List'
-import Modal from './Modal/Modal'
 import Page from './Page/Page'
 import RankTable from './Table/Rank/Rank'
 import Screens from './Screens/'
@@ -20,7 +19,6 @@ export {
     Grid,
     List,
     ListItem,
-    Modal,
     Page,
     RankTable,
     Screens,

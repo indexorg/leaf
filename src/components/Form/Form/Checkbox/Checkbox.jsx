@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import _get from 'lodash/get'
 
 // store
@@ -11,9 +11,19 @@ const FormCheckbox = (props) => {
     const {
         name,
         value,
+        checked = false,
     } = props
 
     const [{values, errors}, dispatch] = useContext(FormContext)
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_CHECKBOX',
+            id: name,
+            checked,
+            value,
+        })
+    }, [checked])
 
     return(
         <Checkbox 

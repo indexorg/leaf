@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect} from 'react'
 import _get from 'lodash/get'
 
 // store
@@ -14,6 +14,14 @@ const FormRadio = (props) => {
     } = props
 
     const [{values, errors}, dispatch] = useContext(FormContext)
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_VALUE',
+            id: name,
+            value,
+        })
+    }, [value])
 
     return(
         <Radio 

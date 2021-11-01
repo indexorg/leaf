@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect} from 'react'
 import _get from 'lodash/get'
 
 // store
@@ -14,10 +14,19 @@ const FormTextarea = (props) => {
     const {
         name,
         required = false,
+        value = '',
         validateAs = null,
     } = props
 
     const [{values, errors}, dispatch] = useContext(FormContext)
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_VALUE',
+            id: name,
+            value,
+        })
+    }, [value])
 
     return(
         <Textarea 
@@ -28,11 +37,9 @@ const FormTextarea = (props) => {
                 id: name,
                 value,
             })
-
-            validateFormField(name, value, required, dispatch)
         }}
         onBlur={value => {
-            validateFormField(name, value, required, dispatch)
+            validateFormField(name, value, validateAs, required, dispatch)
         }}
         invalid={_get(errors, name, false)}
         value={_get(values, name, '')} />

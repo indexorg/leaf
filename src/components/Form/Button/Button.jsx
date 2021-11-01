@@ -10,6 +10,7 @@ const Button = ({
     variant = 'normal',
     size = 'normal',
     title = '',
+    type = 'button',
 }) => {
     return(
         <ButtonElement
