@@ -28,14 +28,15 @@ module.exports = env => {
                 },
                 {
                     test: /\.svg$/,
-                    use: [
-                        {
-                            loader: 'svg-url-loader',
-                            options: {
-                                limit: 10000,
-                            },
-                        },
-                    ],
+                    use: [{
+                        loader: '@svgr/webpack',
+                        options: {
+                            replaceAttrValues: {
+                                'black': 'currentColor',
+                                '#000': 'currentColor'
+                            }
+                        }
+                    }],
                 },
             ]
         },
