@@ -1,4 +1,15 @@
 import {
+    styled,
+    css,
+    globalCss,
+    keyframes,
+    getCssText,
+    theme,
+    createTheme,
+    config,
+} from '@config/stitches'
+
+import {
     Dashicon,
     Link,
     Modal,
@@ -76,4 +87,14 @@ export {
     Text,
     Textarea,
     Tooltip,
+
+    // stitch styles
+    styled,
+    css,
+    globalCss,
+    keyframes,
+    getCssText,
+    theme,
+    createTheme,
+    config,
 }

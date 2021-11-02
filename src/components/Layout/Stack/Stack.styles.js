@@ -18,28 +18,42 @@ export const Element = styled('div', {
             direction: 'horizontal',
             align: 'center',
             css: {
-                justifyContent: 'center'
-            }
-        },
-        {
-            direction: 'vertical',
-            align: 'center',
-            css: {
                 alignItems: 'center'
             }
         },
         {
-            direction: 'vertical',
+            direction: 'horizontal',
             align: 'leading',
             css: {
                 alignItems: 'flex-start'
             }
         },
         {
-            direction: 'vertical',
+            direction: 'horizontal',
             align: 'trailing',
             css: {
                 alignItems: 'flex-end'
+            }
+        },
+        {
+            direction: 'vertical',
+            align: 'center',
+            css: {
+                justifyContent: 'center'
+            }
+        },
+        {
+            direction: 'vertical',
+            align: 'leading',
+            css: {
+                justifyContent: 'flex-start'
+            }
+        },
+        {
+            direction: 'vertical',
+            align: 'trailing',
+            css: {
+                justifyContent: 'flex-end'
             }
         }
     ],

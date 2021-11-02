@@ -1,4 +1,4 @@
-import {styled} from '@stitches/react'
+import {styled} from '@config/stitches'
 
 export const Element = styled('div', {
     display: 'grid',

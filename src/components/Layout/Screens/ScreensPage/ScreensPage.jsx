@@ -5,6 +5,7 @@ import {Text} from '@components/Layout'
 
 // Styles
 import {
+    Content,
     Element,
 } from './ScreensPage.styles.js'
 
@@ -19,7 +20,10 @@ const ScreensPage = ({
                 {title}
             </Text>
         }
-        {children}
+
+        <Content>
+            {children}
+        </Content>
     </Element>
 )
 
