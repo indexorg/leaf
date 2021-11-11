@@ -21,6 +21,7 @@ export const Element = styled('input', {
     cursor: 'text',
     color: '$black900',
     fontSize: '$text300',
+    fontWeight: 500,
     height: '$9',
     minHeight: '$9',
     margin: 0,

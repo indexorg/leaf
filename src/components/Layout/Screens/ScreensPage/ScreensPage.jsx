@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Components
-import {Text} from '@components/Layout'
+import {Stack, Text} from '@components/Layout'
 
 // Styles
 import {
@@ -10,16 +10,29 @@ import {
 } from './ScreensPage.styles.js'
 
 const ScreensPage = ({
+    actions = null,
     children = null,
     title = false,
 }) => (
     <Element>
-        {title &&
-            <Text
-            size="title">
-                {title}
-            </Text>
-        }
+        <Stack>
+            {title &&
+                <Text
+                size="title">
+                    {title}
+                </Text>
+            }
+
+            {actions && 
+                <Stack
+                gap={12}
+                css={{
+                    marginLeft: 'auto'
+                }}>
+                    {actions.map(action => action)}
+                </Stack>
+            }
+        </Stack>
 
         <Content>
             {children}

@@ -1,6 +1,7 @@
 import { styled } from '@config/stitches'
 
 export const Element = styled('div', {
+    overflow: 'scroll',
     padding: '$14',
 })
 

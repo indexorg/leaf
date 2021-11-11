@@ -1,4 +1,7 @@
 .DS_Store
 src
+vite.config.js
+webpack.config.js
 webpack-production.config.js
-babel.config.js
+.env
+index.html

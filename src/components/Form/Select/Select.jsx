@@ -15,6 +15,7 @@ const Select = ({
 	children,
     dir = 'ltr',
 	name,
+    disabled = false,
 	invalid = false,
 	label = false,
     sublabel = false,
@@ -53,6 +54,8 @@ const Select = ({
 				<Element
 				ref={ref}
 				name={name}
+                disabled={disabled}
+                isDisabled={disabled}
 				onFocus={() => setFocus(true)}
 				onBlur={() => setFocus(false)}
 				onChange={e => {

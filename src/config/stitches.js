@@ -132,7 +132,7 @@ export const {
             1001: 1001,
         },
         transitions: {
-
+            
         },
     },
     media: {

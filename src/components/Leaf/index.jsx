@@ -34,27 +34,16 @@ const LeafConsumer = ({
 }) => {
     const [,dispatch] = useContext(LeafContext)
     
-    return(
-        <QueryClientProvider 
-        client={queryClient}>
-            {
-                children({
-                    setModal: value => dispatch({
-                        type: 'SET_MODAL',
-                        value,
-                    }),
-                    setNotification: value => dispatch({
-                        type: 'SET_NOTIFICATION',
-                        value,
-                    })
-                })
-            }
-
-            <Notification />
-
-            <Modal />
-        </QueryClientProvider>
-    )
+    return children({
+        setModal: value => dispatch({
+            type: 'SET_MODAL',
+            value,
+        }),
+        setNotification: value => dispatch({
+            type: 'SET_NOTIFICATION',
+            value,
+        })
+    })
 }
 
 const LeafProvider = ({
@@ -75,9 +64,16 @@ const LeafProvider = ({
   	return(
 		<LeafContext.Provider
 		value={leafProvider}>
-            <LeafConsumer>
-                {children}
-            </LeafConsumer>
+            <QueryClientProvider 
+            client={queryClient}>
+                
+                    {children}
+                
+
+                <Notification />
+
+                <Modal />
+            </QueryClientProvider>
 		</LeafContext.Provider>
 	)
 }

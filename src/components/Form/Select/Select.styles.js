@@ -7,20 +7,20 @@ export const Wrapper = styled('div', {
     gap: '$2',
     paddingY: '$2',
     transition: 'all .175s ease',
-    // variants: {
-    //     invalid: {
-    //         true: {
-    //             backgroundColorRGBA: '#d63638|.1',
-    //             // backgroundColor: ColorWithOpacity('$warning400', .1),
-    //             color: '$warning400',
-    //             border: '1px solid $warning400',
-    //         }
-    //     },
-    // }
 })
 
 export const SelectWrapper = styled('div', {
 	position: 'relative'
+})
+
+export const IconWrapper = styled('div', {
+	marginTop: -1,
+	right: '$3',
+	pointerEvents: 'none',
+	position: 'absolute',
+	top: '50%',
+	transform: 'translateY(-50%)',
+	zIndex: 1,
 })
 
 export const Element = styled('select', {
@@ -50,14 +50,18 @@ export const Element = styled('select', {
         boxShadow: '0 1px 4px rgba(34, 113, 177, 0.22)',
         outline: 'none',
     },
+
+	variants: {
+        isDisabled: {
+            true: {
+				cursor: 'not-allowed',
+                opacity: .5,
+
+				[`& + ${IconWrapper}`]: {
+					opacity: .5,
+				}
+            }
+        },
+    },
 })
 
-export const IconWrapper = styled('div', {
-	marginTop: '-$0-5',
-	right: '$3',
-	pointerEvents: 'none',
-	position: 'absolute',
-	top: '50%',
-	transform: 'translateY(-50%)',
-	zIndex: 1,
-})

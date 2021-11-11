@@ -1,6 +1,7 @@
 import Grid from './Grid'
 import {List, ListItem} from './List/List'
 import Page from './Page/Page'
+import Popover from './Popover/Popover'
 import RankTable from './Table/Rank/Rank'
 import Screens from './Screens/'
 import SortTable, {SortTableHeader} from './Table/Sort/Sort'
@@ -20,6 +21,7 @@ export {
     List,
     ListItem,
     Page,
+    Popover,
     RankTable,
     Screens,
     SortTable,

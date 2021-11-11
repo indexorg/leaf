@@ -5,13 +5,4 @@ export const Element = styled('div', {
     gridTemplateColumns: '$80 1fr',
     height: '100vh',
     margin: '-10px -20px 0 -22px',
-
-    // variants: {
-    //     layout: {
-    //         header: {
-    //             gridTemplateColumns: '1fr',
-    //             gridTemplateRows: '$48 1fr',
-    //         }
-    //     }
-    // }
 })

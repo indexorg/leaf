@@ -1,89 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
+import { Dialog } from '@headlessui/react'
 
-import { 
-    Dialog
-} from '@headlessui/react'
+// Components
+import { Button } from '@components/Form'
+import { Stack, Text } from '@components/Layout'
+import Transition from '@components/Transition'
 
+// Styles
 import { 
     DialogWrapper,
     DialogOverlay,
     DialogInt,
 } from './Modal.styles.js'
-
-import {Text} from '@components/Layout'
-
-import {
-    Button
-} from '@components/Form'
-
-import {
-    Stack
-} from '@components/Layout'
-
-const Transition = ({
-    children,
-    enter = 'all .1s ease',
-    enterFrom = {
-        opacity: 0,
-    },
-    enterTo = {
-        opacity: 1,
-    },
-    leaveTo = {
-        opacity: 0,
-    },
-    leave = 'all .1s ease',
-    show = false,
-}) => {
-    const [css, setCSS] = useState({
-        ...enterFrom,
-        transition: enter
-    })
-
-    const [visible, setVisible] = useState(false)
-    const ref = useRef()
-
-    useEffect(() => {
-        if(!show) {
-            setCSS({
-                ...css,
-                ...leaveTo,
-                transition: leave
-            })
-        } else {
-            setVisible(true)
-
-            setTimeout(() => {
-                setCSS({
-                    ...css,
-                    ...enterTo,
-                    transition: enter,
-                })
-            }, 1);
-        }
-    }, [show])
-
-    return(
-        <div
-        style={{
-            opacity: show ? 1 : 0,
-            transition: show ? enter : leave
-        }}
-        onTransitionEnd={() => {
-            if(!show) {
-                setVisible(false)
-            }
-        }}
-        ref={ref}>
-            {
-                children({
-                    css,
-                    show: visible
-                })
-            }
-        </div>
-    )
-}
 
 const Modal = ({ 
     dismiss = undefined,
