@@ -2,12 +2,8 @@ import Grid from './Grid'
 import {List, ListItem} from './List/List'
 import Page from './Page/Page'
 import Popover from './Popover/Popover'
-import RankTable from './Table/Rank/Rank'
 import Screens from './Screens/'
-import SortTable, {SortTableHeader} from './Table/Sort/Sort'
 import Stack from './Stack/Stack'
-import Table from './Table/Default/Default'
-import {TableRow, TableHeader} from './Table/Table'
 
 import TabContainer from './Tabs/TabContainer/TabContainer'
 import TabNavigation from './Tabs/TabNavigation/TabNavigation'
@@ -22,14 +18,8 @@ export {
     ListItem,
     Page,
     Popover,
-    RankTable,
     Screens,
-    SortTable,
-    SortTableHeader,
     Stack,
-    Table,
-    TableHeader,
-    TableRow,
     TabContainer,
     TabNavigation,
     TabPanels,

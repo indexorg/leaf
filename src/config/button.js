@@ -3,6 +3,7 @@ export const buttonStyles = {
     '-webkit-appearance': 'none',
     alignItems: 'center', 
     borderRadius: '$md',
+    boxSizing: 'border-box',
     display: 'inline-flex',
     cursor: 'pointer',
     fontFamily: '$body',
@@ -10,9 +11,11 @@ export const buttonStyles = {
     fontWeight: 600,
     height: '$10',
     justifyContent: 'center',
+    lineHeight: 1,
     paddingY: '$2-5',
     paddingX: '$3',
     textAlign: 'left',
+    textDecoration: 'none',
     transition: 'all 125ms ease',
 
     '&:focus': {
@@ -55,6 +58,7 @@ export const buttonStyles = {
 
                 '&:hover': {
                     background: '$black310',
+                    color: '$black900',
                 },
 
                 // focus-visible:bg-black
@@ -67,6 +71,7 @@ export const buttonStyles = {
 
                 '&:hover': {
                     background: '$primary410',
+                    color: '$white',
                 },
             
             },

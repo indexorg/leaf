@@ -68,7 +68,7 @@ export const {
         fontSizes: {
             text900: '2rem',
             text800: '1.5rem',
-            text700: '1.125rem',
+            text700: '1.25rem',
             text600: '1.0625rem',
             text500: '1rem',
             text400: '0.9375rem',

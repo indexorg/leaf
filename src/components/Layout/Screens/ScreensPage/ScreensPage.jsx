@@ -13,7 +13,8 @@ const ScreensPage = ({
     actions = null,
     children = null,
     title = false,
-}) => (
+}) => {
+    return(
     <Element>
         <Stack>
             {title &&
@@ -38,6 +39,6 @@ const ScreensPage = ({
             {children}
         </Content>
     </Element>
-)
+)}
 
 export default ScreensPage

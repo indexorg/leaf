@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {
-    HashRouter as Router,
+    HashRouter,
 } from "react-router-dom"
 
 // Styles
@@ -12,12 +12,12 @@ const ScreenContainer = ({
     layout = 'sidebar',
 }) => {
     return(
-        <Router>
+        <HashRouter>
             <Element
             layout={layout}>
                 {children}
             </Element>
-        </Router>
+        </HashRouter>
     )
 }
 

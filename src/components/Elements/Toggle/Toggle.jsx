@@ -9,21 +9,16 @@ import {
 const Toggle = ({
 	onChange,
 	value = 0,
-}) => {
-	return(
-		<Element
-		enabled={value ? true : false}
-		onClick={e => {
-			onChange(!value)
-		}}>
-			{value ? 'on' : 'off'}
+}) => (
+	<Element
+	enabled={value ? true : false}
+	onClick={() => onChange(!value)}>
+		{value ? 'on' : 'off'}
 
-			<Control
-            enabled={value ? true : false}
-			aria-hidden>
-			</Control>
-		</Element>
-	)
-}
+		<Control
+		enabled={value ? true : false}
+		aria-hidden />
+	</Element>
+)
 
 export default Toggle

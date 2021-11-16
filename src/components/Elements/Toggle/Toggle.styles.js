@@ -6,9 +6,10 @@ export const Element = styled('button', {
     border: '2px solid $black600',
     borderRadius: '9999px',
     color: 'transparent',
+    cursor: 'pointer',
     height: '$5',
     position: 'relative',
-    transition: 'all .3s cubic-bezier(0.19, 1, 0.22, 1)',
+    transition: 'background-color .3s cubic-bezier(0.19, 1, 0.22, 1)',
     width: '$9',
     
     variants: {
@@ -33,7 +34,7 @@ export const Control = styled('span', {
     left: '$0-5',
     position: 'absolute',
     top: '50%',
-    transition: 'all 300ms ease',
+    transition: 'transform 300ms ease',
     transform: 'translateX(0) translateY(-50%)',
     width: '$3',
 	

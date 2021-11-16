@@ -7,6 +7,7 @@ import {
 const GridContainer = ({
     children,
     columns = 3,
+    css = {},
     gap = '$6',
 }) => (
     <Container
@@ -18,7 +19,8 @@ const GridContainer = ({
         },
         '@lg': {
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        }
+        },
+        ...css
     }}>
         {children}
     </Container>

@@ -5,9 +5,11 @@ import {
 } from './GridItem.styles.js'
 
 const GridItem = ({
-    children
+    children,
+    css = {},
 }) => (
-    <Item>
+    <Item
+    css={css}>
         {children}
     </Item>
 )
