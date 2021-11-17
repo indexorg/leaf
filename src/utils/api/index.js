@@ -21,21 +21,19 @@ export const fetchWithAuthorization = (endpoint, args) => {
         VITE_WORDPRESS_URL,
         VITE_WORDPRESS_USERNAME,
         VITE_WORDPRESS_PASSWORD,
-        PROD,
     } = import.meta.env
 
-    // leaf.root
-    // leaf.nonce
     var requestHeaders = new Headers()
         requestHeaders.append('Content-Type', 'application/json')
         requestHeaders.append('Accept', 'application/json')
     var url = ''
 
-    if(PROD === true) {
+    // the wordpress plugin will pass in the leaf object with a nonce so we don't need to authenticate a user and password
+    if(leaf !== undefined) {
         url = leaf.root
 
         requestHeaders.append('X-WP-Nonce', leaf.nonce)
-    } else {
+    }  else {
         url = VITE_WORDPRESS_URL
 
         requestHeaders.append('Authorization', `Basic ${base64.encode(VITE_WORDPRESS_USERNAME + ":" + VITE_WORDPRESS_PASSWORD)}`)

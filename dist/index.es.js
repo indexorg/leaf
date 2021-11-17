@@ -321,13 +321,12 @@ const fetchWithAuthorization = (endpoint, args) => {
   const {
     VITE_WORDPRESS_URL,
     VITE_WORDPRESS_USERNAME,
-    VITE_WORDPRESS_PASSWORD,
-    PROD
+    VITE_WORDPRESS_PASSWORD
   } = { "VITE_WORDPRESS_URL": "theory.local", "VITE_WORDPRESS_USERNAME": "david", "VITE_WORDPRESS_PASSWORD": "MQiw FNk7 NKFI 2Ctv ipet 77Hp", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true };
   var requestHeaders = new Headers();
   requestHeaders.append("Content-Type", "application/json");
   requestHeaders.append("Accept", "application/json");
-  if (PROD === true) {
+  if (leaf !== void 0) {
     leaf.root;
     requestHeaders.append("X-WP-Nonce", leaf.nonce);
   } else {
