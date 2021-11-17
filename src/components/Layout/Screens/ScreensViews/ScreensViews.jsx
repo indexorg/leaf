@@ -1,28 +1,41 @@
 import React from 'react'
 
+import ScreensPage from '../ScreensPage/ScreensPage'
+
 import {
     Routes, 
     Route
 } from "react-router-dom"
 
+// Styles
+import {Element} from './ScreensViews.styles.js'
+
 const ScreensViews = ({
     children
 }) => {
     return(
-        <Routes>
-            {
-                [].concat(children).map((c, index) => {
-                    console.log(c.props.path)
-                    return(
-                        <Route
-                        key={index}
-                        exact
-                        path={c.props.path}
-                        element={c} />
-                    )
-                })
-            }
-        </Routes>
+        <Element>
+            <Routes>
+                {
+                    [].concat(children).map((c, index) => {
+                        console.log(c)
+                        return(
+                            <Route
+                            key={index}
+                            exact
+                            path={c.props.path}
+                            element={
+                                <ScreensPage
+                                title={c.props.title}
+                                actions={c.props.actions}>
+                                    {c.props.children}
+                                </ScreensPage>
+                            } />
+                        )
+                    })
+                }
+            </Routes>
+        </Element>
     )
 }
 

@@ -70,7 +70,7 @@ export const {
             text800: '1.5rem',
             text700: '1.25rem',
             text600: '1.0625rem',
-            text500: '1rem',
+            text500: '.9375rem',
             text400: '0.9375rem',
             text300: '0.875rem',
             text200: '.75rem',

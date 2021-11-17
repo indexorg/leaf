@@ -13,8 +13,7 @@ const ScreenContainer = ({
 }) => {
     return(
         <HashRouter>
-            <Element
-            layout={layout}>
+            <Element>
                 {children}
             </Element>
         </HashRouter>

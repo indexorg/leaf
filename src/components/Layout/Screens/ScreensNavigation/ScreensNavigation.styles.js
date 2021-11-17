@@ -7,8 +7,12 @@ export const Footer = styled('nav', {
 export const Navigation = styled('nav', {
     display: 'flex',
     flexDirection: 'column',
+    left: 0,
     padding: '$16 $10 $8',
-    position: 'relative',
+    position: 'absolute',
+    height: '100%',
+    top: 0,
+    width: '$80',
 
     '&:before': {
         backgroundColor: '$black300',

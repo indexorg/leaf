@@ -21,15 +21,25 @@ export const fetchWithAuthorization = (endpoint, args) => {
         VITE_WORDPRESS_URL,
         VITE_WORDPRESS_USERNAME,
         VITE_WORDPRESS_PASSWORD,
+        PROD,
     } = import.meta.env
 
-
+    // leaf.root
+    // leaf.nonce
     var requestHeaders = new Headers()
-        requestHeaders.append('Authorization', `Basic ${base64.encode(VITE_WORDPRESS_USERNAME + ":" + VITE_WORDPRESS_PASSWORD)}`)
         requestHeaders.append('Content-Type', 'application/json')
         requestHeaders.append('Accept', 'application/json')
-    
-  
+    var url = ''
+
+    if(PROD === true) {
+        url = leaf.root
+
+        requestHeaders.append('X-WP-Nonce', leaf.nonce)
+    } else {
+        url = VITE_WORDPRESS_URL
+
+        requestHeaders.append('Authorization', `Basic ${base64.encode(VITE_WORDPRESS_USERNAME + ":" + VITE_WORDPRESS_PASSWORD)}`)
+    }
     
     return fetch(`//${VITE_WORDPRESS_URL}${endpoint}`, {
         headers: requestHeaders,
