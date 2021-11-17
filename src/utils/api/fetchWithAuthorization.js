@@ -1,20 +1,9 @@
-import {useContext} from 'react'
+// NOTE: this file is used for internal testing and should not be packaged with the library
+// use of vite specific environment variables will be statically included in the package
+// and will cause issues with unique dev enivorments
+
+// another version of this function is included in the template-leaf-server package for local use
 import base64 from 'base-64'
-
-import {LeafContext} from '@utils/contexts/leaf.context.js'
-
-export const Notify = ({
-    children
-}) => {
-    const [,dispatch] = useContext(LeafContext)
-    
-    return children(
-        value => dispatch({
-            type: 'SET_NOTIFICATION',
-            value,
-        })
-    )
-}
 
 export const fetchWithAuthorization = (endpoint, args) => {
     const {

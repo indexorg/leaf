@@ -211,7 +211,7 @@ const {
   }
 });
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
-var base64$1 = {
+var base64 = {
   exports: {}
 };
 /*! https://mths.be/base64 v1.0.0 by @mathias | MIT license */
@@ -305,8 +305,7 @@ var base64$1 = {
       root2.base64 = base642;
     }
   })(commonjsGlobal);
-})(base64$1, base64$1.exports);
-var base64 = base64$1.exports;
+})(base64, base64.exports);
 const LeafContext = React__default.createContext({});
 const Notify = ({
   children
@@ -316,25 +315,6 @@ const Notify = ({
     type: "SET_NOTIFICATION",
     value
   }));
-};
-const fetchWithAuthorization = (endpoint, args) => {
-  const {
-    VITE_WORDPRESS_URL,
-    VITE_WORDPRESS_USERNAME,
-    VITE_WORDPRESS_PASSWORD
-  } = { "VITE_WORDPRESS_URL": "theory.local", "VITE_WORDPRESS_USERNAME": "david", "VITE_WORDPRESS_PASSWORD": "MQiw FNk7 NKFI 2Ctv ipet 77Hp", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true };
-  var requestHeaders = new Headers();
-  requestHeaders.append("Content-Type", "application/json");
-  requestHeaders.append("Accept", "application/json");
-  if (leaf !== void 0) {
-    leaf.root;
-    requestHeaders.append("X-WP-Nonce", leaf.nonce);
-  } else {
-    requestHeaders.append("Authorization", `Basic ${base64.encode(VITE_WORDPRESS_USERNAME + ":" + VITE_WORDPRESS_PASSWORD)}`);
-  }
-  return fetch(`//${VITE_WORDPRESS_URL}${endpoint}`, __spreadValues({
-    headers: requestHeaders
-  }, args));
 };
 const Icon$2 = styled("div", {
   flex: "none",
@@ -9005,4 +8985,4 @@ const Table = {
   Header: TableHeader,
   Cell: TableCell
 };
-export { Button$2 as Button, Checkbox, Dashicon, FormObject as Form, Grid, Image, Input$1 as Input, LeafProvider, Link$1 as Link, List, ListItem, Modal, Notification, Notify, Page, PopoverWrapper as Popover, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, fetchWithAuthorization, getCssText, globalCss, keyframes, styled, theme };
+export { Button$2 as Button, Checkbox, Dashicon, FormObject as Form, Grid, Image, Input$1 as Input, LeafProvider, Link$1 as Link, List, ListItem, Modal, Notification, Notify, Page, PopoverWrapper as Popover, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };
