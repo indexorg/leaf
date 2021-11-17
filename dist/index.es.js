@@ -111,7 +111,7 @@ const {
       text800: "1.5rem",
       text700: "1.25rem",
       text600: "1.0625rem",
-      text500: "1rem",
+      text500: ".9375rem",
       text400: "0.9375rem",
       text300: "0.875rem",
       text200: ".75rem",
@@ -321,12 +321,18 @@ const fetchWithAuthorization = (endpoint, args) => {
   const {
     VITE_WORDPRESS_URL,
     VITE_WORDPRESS_USERNAME,
-    VITE_WORDPRESS_PASSWORD
+    VITE_WORDPRESS_PASSWORD,
+    PROD
   } = { "VITE_WORDPRESS_URL": "theory.local", "VITE_WORDPRESS_USERNAME": "david", "VITE_WORDPRESS_PASSWORD": "MQiw FNk7 NKFI 2Ctv ipet 77Hp", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true };
   var requestHeaders = new Headers();
-  requestHeaders.append("Authorization", `Basic ${base64.encode(VITE_WORDPRESS_USERNAME + ":" + VITE_WORDPRESS_PASSWORD)}`);
   requestHeaders.append("Content-Type", "application/json");
   requestHeaders.append("Accept", "application/json");
+  if (PROD === true) {
+    leaf.root;
+    requestHeaders.append("X-WP-Nonce", leaf.nonce);
+  } else {
+    requestHeaders.append("Authorization", `Basic ${base64.encode(VITE_WORDPRESS_USERNAME + ":" + VITE_WORDPRESS_PASSWORD)}`);
+  }
   return fetch(`//${VITE_WORDPRESS_URL}${endpoint}`, __spreadValues({
     headers: requestHeaders
   }, args));
@@ -5539,7 +5545,7 @@ const Dashicon = ({
     "youtube": React__default.createElement(SvgDashiconsYoutube, {}, null)
   })
 });
-const Element$f = styled$1("a", {
+const Element$g = styled$1("a", {
   color: "$primary400",
   fontSize: "$text200",
   fontWeight: 500,
@@ -5553,7 +5559,7 @@ const Link$1 = (props) => {
   } = _a, otherProps = __objRest(_a, [
     "children"
   ]);
-  return /* @__PURE__ */ jsx(Element$f, __spreadProps(__spreadValues({}, otherProps), {
+  return /* @__PURE__ */ jsx(Element$g, __spreadProps(__spreadValues({}, otherProps), {
     children
   }));
 };
@@ -6375,14 +6381,14 @@ const ListItem = ({
   dir,
   children
 });
-const Element$e = styled$1("div", {
+const Element$f = styled$1("div", {
   margin: "-10px -20px 0 -22px",
   padding: 64
 });
 const Page = ({
   children
 }) => {
-  return /* @__PURE__ */ jsx(Element$e, {
+  return /* @__PURE__ */ jsx(Element$f, {
     children
   });
 };
@@ -6844,19 +6850,17 @@ function useLinkClickHandler(to, _temp) {
     }
   }, [location, navigate, path, replaceProp, state, target, to]);
 }
-const Element$d = styled("div", {
-  display: "grid",
-  gridTemplateColumns: "$80 1fr",
-  height: "100vh",
-  margin: "-10px -20px 0 -22px"
+const Element$e = styled("div", {
+  minHeight: "100vh",
+  margin: "-10px -20px 0 -22px",
+  position: "relative"
 });
 const ScreenContainer = ({
   children,
   layout = "sidebar"
 }) => {
   return /* @__PURE__ */ jsx(HashRouter, {
-    children: /* @__PURE__ */ jsx(Element$d, {
-      layout,
+    children: /* @__PURE__ */ jsx(Element$e, {
       children
     })
   });
@@ -6870,7 +6874,7 @@ const ElementWrapper = styled("div", {
     textDecoration: "none"
   }
 });
-const Element$c = styled("span", {
+const Element$d = styled("span", {
   alignItems: "center",
   appearance: "none",
   backgroundColor: "transparent",
@@ -6915,7 +6919,7 @@ const Item$1 = ({
   return /* @__PURE__ */ jsx(ElementWrapper, {
     children: /* @__PURE__ */ jsx(Link, {
       to: href,
-      children: /* @__PURE__ */ jsxs(Element$c, {
+      children: /* @__PURE__ */ jsxs(Element$d, {
         active: location.pathname === href,
         children: [icon && /* @__PURE__ */ jsx(Icon, {
           children: /* @__PURE__ */ jsx(Dashicon, {
@@ -6935,8 +6939,12 @@ const Footer = styled("nav", {
 const Navigation$1 = styled("nav", {
   display: "flex",
   flexDirection: "column",
+  left: 0,
   padding: "$16 $10 $8",
-  position: "relative",
+  position: "absolute",
+  height: "100%",
+  top: 0,
+  width: "$80",
   "&:before": {
     backgroundColor: "$black300",
     content: "",
@@ -6964,21 +6972,7 @@ const ScreensNavigation = ({
     })]
   });
 };
-const ScreensViews = ({
-  children
-}) => {
-  return /* @__PURE__ */ jsx(Routes, {
-    children: [].concat(children).map((c, index) => {
-      console.log(c.props.path);
-      return /* @__PURE__ */ jsx(Route, {
-        exact: true,
-        path: c.props.path,
-        element: c
-      }, index);
-    })
-  });
-};
-const Element$b = styled("div", {
+const Element$c = styled("div", {
   overflow: "scroll",
   padding: "$14"
 });
@@ -6989,22 +6983,45 @@ const ScreensPage = ({
   actions = null,
   children = null,
   title = false
-}) => {
-  return /* @__PURE__ */ jsxs(Element$b, {
-    children: [/* @__PURE__ */ jsxs(Stack, {
-      children: [title && /* @__PURE__ */ jsx(Text, {
-        size: "title",
-        children: title
-      }), actions && /* @__PURE__ */ jsx(Stack, {
-        gap: 12,
-        css: {
-          marginLeft: "auto"
-        },
-        children: actions.map((action) => action)
-      })]
-    }), /* @__PURE__ */ jsx(Content$1, {
-      children
+}) => /* @__PURE__ */ jsxs(Element$c, {
+  children: [/* @__PURE__ */ jsxs(Stack, {
+    children: [title && /* @__PURE__ */ jsx(Text, {
+      size: "title",
+      children: title
+    }), actions && /* @__PURE__ */ jsx(Stack, {
+      gap: 12,
+      css: {
+        marginLeft: "auto"
+      },
+      children: actions.map((action) => action)
     })]
+  }), /* @__PURE__ */ jsx(Content$1, {
+    children
+  })]
+});
+const Element$b = styled("div", {
+  position: "relative",
+  left: "$80",
+  width: "calc(100% - $80)"
+});
+const ScreensViews = ({
+  children
+}) => {
+  return /* @__PURE__ */ jsx(Element$b, {
+    children: /* @__PURE__ */ jsx(Routes, {
+      children: [].concat(children).map((c, index) => {
+        console.log(c);
+        return /* @__PURE__ */ jsx(Route, {
+          exact: true,
+          path: c.props.path,
+          element: /* @__PURE__ */ jsx(ScreensPage, {
+            title: c.props.title,
+            actions: c.props.actions,
+            children: c.props.children
+          })
+        }, index);
+      })
+    })
   });
 };
 const Screens = {
