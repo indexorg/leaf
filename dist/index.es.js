@@ -6952,7 +6952,6 @@ const ScreensNavigation = ({
   });
 };
 const Element$c = styled("div", {
-  overflow: "scroll",
   padding: "$14"
 });
 const Content$1 = styled("div", {
@@ -8658,16 +8657,18 @@ const Image = ({
   size = "small",
   src = "",
   style = ""
-}) => /* @__PURE__ */ jsx(Element$1, {
-  alt,
-  css: css2,
-  fit,
-  ratio,
-  rounded,
-  size,
-  src,
-  image_style: style
-});
+}) => {
+  return /* @__PURE__ */ jsx(Element$1, {
+    alt,
+    css: css2,
+    fit,
+    ratio,
+    rounded,
+    size,
+    src,
+    image_style: style
+  });
+};
 const TableConstants = {
   DELETE_COLUMN_ID: "__leaf-delete-column",
   REORDER_COLUMN_ID: "__leaf-reorder-column"
