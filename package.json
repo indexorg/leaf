@@ -2,7 +2,7 @@
 	"name": "@indexorg/leaf",
 	"description": "A WordPress centered UI platform built in React, with a static API accessible from PHP and HTML",
 	"license": "MIT",
-	"version": "0.3.4-0",
+	"version": "0.3.4",
 	"main": "./dist/index.umd.js",
 	"module": "./dist/index.es.js",
 	"exports": {
