@@ -52,8 +52,6 @@ export const LeafProvider = ({
                 {children}
 
                 <Notification />
-
-                <Modal />
             </>
 		</LeafContext.Provider>
 	)
