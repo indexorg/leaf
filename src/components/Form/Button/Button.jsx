@@ -7,7 +7,7 @@ const Button = (props) => {
         children,
         css = {},
         disabled = false,
-        href = false,
+        href = '',
         onClick = undefined,
         variant = 'normal',
         size = 'normal',
@@ -17,7 +17,7 @@ const Button = (props) => {
 
     return(
         <ButtonElement
-        as={href ? 'a' : 'button'}
+        as={href !== '' ? 'a' : 'button'}
         css={css}
         size={size}
         variant={variant}

@@ -19,6 +19,7 @@ const ScreensPage = ({
         <Stack>
             {title &&
                 <Text
+                key="_ndx_title"
                 size="title">
                     {title}
                 </Text>
@@ -30,7 +31,7 @@ const ScreensPage = ({
                 css={{
                     marginLeft: 'auto'
                 }}>
-                    {actions.map(action => action)}
+                    {actions}
                 </Stack>
             }
         </Stack>

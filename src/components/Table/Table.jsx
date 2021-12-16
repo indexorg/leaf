@@ -248,13 +248,12 @@ const TableProvider = ({
                 if(c.id === TableConstants.REORDER_COLUMN_ID) {
                     return(
                         <DragHandleColumn 
-                            id={item.id}
-                            moveItem={moveItem}
-                            findItem={findItem}
-                            handleDragging={dragging => {
-                                setIsDragging(dragging ? item.id : false)
-                            }}
-                        />
+                        id={item.id}
+                        moveItem={moveItem}
+                        findItem={findItem}
+                        handleDragging={dragging => {
+                            setIsDragging(dragging ? item.id : false)
+                        }} />
                     )
                 }
 
