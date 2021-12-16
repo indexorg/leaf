@@ -9,7 +9,7 @@ export default defineConfig({
         lib: {
             entry: path.resolve(__dirname, 'lib/main.js'),
             name: 'indexorg__leaf',
-            fileName: (format) => `index.${format}.js`
+            fileName: format => `index.${format}.js`
         },
         rollupOptions: {
             external: [
@@ -24,6 +24,11 @@ export default defineConfig({
                 'react-query',
                 'react-router',
                 'react',
+                'base-64',
+                'classnames',
+                'dayjs',
+                'prop-types',
+                'react-router-dom',
             ],
             output: {
                 globals: {

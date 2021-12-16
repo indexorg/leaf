@@ -16,7 +16,7 @@ import {
 const Item = ({
     children,
     href = '#',
-    icon = false,
+    icon = null,
 }) => {
     const location = useLocation()
 
@@ -26,11 +26,7 @@ const Item = ({
             to={href}>
                 <Element
                 active={location.pathname === href}>
-                    {icon && 
-                        <Icon>
-                            <Dashicon variant={icon} />
-                        </Icon>
-                    }
+                    {icon && <Icon>{icon}</Icon>}
 
                     <Text
                     size="label">
