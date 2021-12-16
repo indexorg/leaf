@@ -2,6 +2,5 @@
 import Notification from './Notification/Notification'
 
 export {
-    // Modal,
     Notification
 }

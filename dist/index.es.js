@@ -2670,7 +2670,7 @@ const LeafProvider = ({
   return /* @__PURE__ */ jsx(LeafContext.Provider, {
     value: leafProvider,
     children: /* @__PURE__ */ jsxs(Fragment, {
-      children: [children, /* @__PURE__ */ jsx(NotificationListener, {}), /* @__PURE__ */ jsx(Modal, {})]
+      children: [children, /* @__PURE__ */ jsx(NotificationListener, {})]
     })
   });
 };
