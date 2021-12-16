@@ -673,11 +673,6 @@ function get(object, path, defaultValue) {
   return result === void 0 ? defaultValue : result;
 }
 var get_1 = get;
-const Format = {
-  Map: (value, map) => {
-    return get_1(map, value, value);
-  }
-};
 var jsxRuntime = {
   exports: {}
 };
@@ -1080,10 +1075,10 @@ const Transition = ({
     })
   });
 };
-const PopoverElement = styled(Popover, {
+styled(Popover, {
   position: "relative"
 });
-const PopoverPanel = styled(Popover.Panel, {
+styled(Popover.Panel, {
   backgroundColor: "$white",
   borderRadius: "$lg",
   boxShadow: "$shallow",
@@ -1093,70 +1088,7 @@ const PopoverPanel = styled(Popover.Panel, {
   top: "$2",
   width: "100%"
 });
-const PopoverButton = styled(Popover.Button, buttonStyles);
-const PopoverWrapper = ({
-  button = null,
-  buttonVariant = "normal",
-  buttonSize = "normal",
-  css: css2 = {},
-  origin = "top-left",
-  children = null
-}) => {
-  return /* @__PURE__ */ jsx(PopoverElement, {
-    css: css2,
-    children: ({
-      open
-    }) => {
-      return /* @__PURE__ */ jsxs(Fragment, {
-        children: [/* @__PURE__ */ jsx(PopoverButton, {
-          size: buttonSize,
-          variant: buttonVariant,
-          children: button
-        }), /* @__PURE__ */ jsx(Transition, {
-          show: open,
-          styles: {
-            position: "relative"
-          },
-          enter: "all .3s ease",
-          leave: "all .2s ease",
-          enterFrom: {
-            opacity: 0,
-            transform: "translateY(4px) scale(.75)",
-            top: "100%",
-            width: "100%",
-            zIndex: 100,
-            transformOrigin: Format.Map(origin, {
-              "center": "50% 50%",
-              "left": "0 50%",
-              "right": "100% 50%",
-              "bottom": "50% 100%",
-              "top": "50% 0",
-              "bottom-left": "0% 100%",
-              "top-left": "0 0",
-              "bottom-right": "100% 10%",
-              "top-right": "100% 0"
-            })
-          },
-          enterTo: {
-            opacity: 1,
-            transform: "translateY(0) scale(1)"
-          },
-          leaveTo: {
-            opacity: 0,
-            transform: "translateY(4px) scale(.75)"
-          },
-          children: ({
-            css: css22,
-            show
-          }) => /* @__PURE__ */ jsx(PopoverPanel, {
-            css: css22,
-            children
-          })
-        })]
-      });
-    }
-  });
-};
+styled(Popover.Button, buttonStyles);
 const Element$e = styled("div", {
   minHeight: "100vh",
   margin: "-10px -20px 0 -22px",
@@ -3363,4 +3295,4 @@ const Table = {
   Header: TableHeader,
   Cell: TableCell
 };
-export { Button$2 as Button, Checkbox, FormObject as Form, Grid, Image, Input$1 as Input, LeafConsumer, LeafProvider, Link, List, ListItem, Notification, Notify, Page, PopoverWrapper as Popover, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };
+export { Button$2 as Button, Checkbox, FormObject as Form, Grid, Image, Input$1 as Input, LeafConsumer, LeafProvider, Link, List, ListItem, Notification, Notify, Page, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };
