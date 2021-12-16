@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react'
 
 // Components
-import Icon from '@components/Icon'
 import {Text} from '@components/Layout'
 
 import {
@@ -66,7 +65,17 @@ const Select = ({
 				</Element>
 
 				<IconWrapper>
-					<Icon.ArrowDown color="#23282D" />
+                    <svg 
+                    width="14" 
+                    height="8" 
+                    viewBox="0 0 14 8" 
+                    fill="none">
+                        <path 
+                        fillRule="evenodd" 
+                        clipRule="evenodd" 
+                        d="M0.646484 1.35359L1.35359 0.646484L7.00004 6.29293L12.6465 0.646484L13.3536 1.35359L7.00004 7.70714L0.646484 1.35359Z" 
+                        fill="#23282D" />
+                    </svg>
 				</IconWrapper>
 			</SelectWrapper>
 

@@ -3,13 +3,6 @@ import React, {useContext,useReducer, useMemo} from 'react'
 import {Modal, Notification} from '@model'
 
 // Contexts
-import {
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query'
-
-const queryClient = new QueryClient()
-
 import {LeafContext} from '@utils/contexts/leaf.context.js'
 
 const reducer = (state, action) => {
@@ -29,7 +22,7 @@ const reducer = (state, action) => {
     }
 }
 
-const LeafConsumer = ({
+export const LeafConsumer = ({
     children
 }) => {
     const [,dispatch] = useContext(LeafContext)
@@ -46,7 +39,7 @@ const LeafConsumer = ({
     })
 }
 
-const LeafProvider = ({
+export const LeafProvider = ({
     children
 }) => {
 	let [state, dispatch] = useReducer(
@@ -64,18 +57,13 @@ const LeafProvider = ({
   	return(
 		<LeafContext.Provider
 		value={leafProvider}>
-            <QueryClientProvider 
-            client={queryClient}>
-                
-                    {children}
-                
+            <>
+                {children}
 
                 <Notification />
 
                 <Modal />
-            </QueryClientProvider>
+            </>
 		</LeafContext.Provider>
 	)
 }
-
-export default LeafProvider

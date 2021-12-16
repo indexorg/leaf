@@ -25,7 +25,6 @@ export default defineConfig({
                 'react-router',
                 'react',
                 'base-64',
-                'classnames',
                 'dayjs',
                 'prop-types',
                 'react-router-dom',
@@ -35,7 +34,7 @@ export default defineConfig({
                     react: 'React',
                     '@headlessui/react': 'headlessui',
                     '@stitches/react': 'stitches',
-                    
+                    lodash: 'lodash',
                 }
             }
         }
