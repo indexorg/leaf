@@ -30,9 +30,8 @@ var __objRest = (source, exclude) => {
   return target;
 };
 import { createStitches, styled as styled$1 } from "@stitches/react";
-import React, { useContext, useState, useRef, useEffect, useReducer, useMemo } from "react";
+import React, { useContext, useState, useEffect, useReducer, useMemo, useRef } from "react";
 import "base-64";
-import { Popover, Dialog } from "@headlessui/react";
 import { HashRouter, useLocation, Link as Link$1, Routes, Route } from "react-router-dom";
 import update from "immutability-helper";
 import { DndProvider, useDrop, useDrag } from "react-dnd";
@@ -811,128 +810,124 @@ const Link = (props) => {
     children
   }));
 };
-const buttonStyles = {
-  appearance: "none",
-  "-webkit-appearance": "none",
-  alignItems: "center",
-  borderRadius: "$md",
-  boxSizing: "border-box",
-  display: "inline-flex",
-  cursor: "pointer",
-  fontFamily: "$body",
-  fontSize: "$text300",
-  fontWeight: 600,
-  height: "$10",
-  justifyContent: "center",
-  lineHeight: 1,
-  paddingY: "$2-5",
-  paddingX: "$3",
-  textAlign: "left",
-  textDecoration: "none",
-  transition: "all 125ms ease",
-  "&:focus": {
-    outline: "none"
-  },
-  "@md": {
-    height: "$9",
-    paddingX: "$6"
+const Element$f = styled$1("div", {
+  bottom: "$8",
+  left: "50%",
+  position: "fixed",
+  transform: "translateX(-50%)",
+  transition: "all 150ms ease",
+  zIndex: 1001,
+  "& span": {
+    backgroundColor: "$black900",
+    borderRadius: "$md",
+    boxShadow: "$md",
+    color: "$white",
+    display: "block",
+    fontSize: "$text300",
+    padding: "$4 $6",
+    transition: "all 150ms cubic-bezier(0.19, 1, 0.22, 1)"
   },
   variants: {
-    size: {
-      small: {
-        height: "$7",
-        paddingY: "$1-5",
-        paddingX: "$2-5",
-        "@md": {
-          height: "$8"
+    visible: {
+      true: {
+        opacity: 1,
+        visibility: "visible",
+        "& span": {
+          transform: "scale(1)"
         }
       },
-      tiny: {
-        fontSize: "$text200",
-        height: "$6",
-        paddingY: "$0-5",
-        paddingX: "$1-5",
-        "@md": {
-          height: "$7"
+      false: {
+        opacity: 0,
+        visibility: "invisible",
+        "& span": {
+          transform: "scale(.75)"
         }
-      }
-    },
-    variant: {
-      normal: {
-        border: "0",
-        backgroundColor: "$black300",
-        color: "$black900",
-        "&:hover": {
-          background: "$black310",
-          color: "$black900"
-        }
-      },
-      primary: {
-        border: "1px solid $primary400",
-        background: "$primary400",
-        color: "$white",
-        "&:hover": {
-          background: "$primary410",
-          color: "$white"
-        }
-      },
-      warning: {
-        border: "1px solid $warning400",
-        background: "transparent",
-        color: "$warning400",
-        "&:hover": {
-          background: "$warning400",
-          color: "$white"
-        }
-      },
-      simple: {
-        background: "transparent",
-        border: "none",
-        color: "$text900"
-      },
-      plain: {
-        background: "transparent",
-        border: "none",
-        color: "$text900",
-        padding: 0
       }
     }
   }
+});
+const Notification = ({
+  message,
+  shouldPlay,
+  isDismissed
+}) => {
+  const [play, setPlay] = useState(shouldPlay);
+  useEffect(() => {
+    let animationTimer = null;
+    if (play) {
+      animationTimer = setTimeout(() => {
+        setPlay(false);
+        isDismissed();
+      }, 3e3);
+    }
+    return () => {
+      clearTimeout(animationTimer);
+    };
+  }, [play]);
+  useEffect(() => {
+    setPlay(shouldPlay);
+  }, [shouldPlay]);
+  return /* @__PURE__ */ jsx(Element$f, {
+    visible: play,
+    children: /* @__PURE__ */ jsx("span", {
+      children: message
+    })
+  });
 };
-const ButtonElement = styled("button", buttonStyles);
-const Button$2 = (props) => {
-  const _a = props, {
-    children,
-    css: css2 = {},
-    disabled = false,
-    href = "",
-    onClick = void 0,
-    variant = "normal",
-    size = "normal",
-    title = ""
-  } = _a, otherProps = __objRest(_a, [
-    "children",
-    "css",
-    "disabled",
-    "href",
-    "onClick",
-    "variant",
-    "size",
-    "title"
-  ]);
-  return /* @__PURE__ */ jsx(ButtonElement, __spreadProps(__spreadValues({
-    as: href !== "" ? "a" : "button",
-    css: css2,
-    size,
-    variant,
-    disabled,
-    onClick,
-    title,
-    href
-  }, otherProps), {
-    children
-  }));
-};
+const Element$e = styled("button", {
+  display: "block",
+  backgroundColor: "transparent",
+  border: "2px solid $black600",
+  borderRadius: "9999px",
+  color: "transparent",
+  cursor: "pointer",
+  height: "$5",
+  position: "relative",
+  transition: "background-color .3s cubic-bezier(0.19, 1, 0.22, 1)",
+  width: "$9",
+  variants: {
+    enabled: {
+      true: {
+        backgroundColor: "$primary400",
+        border: "2px solid $primary400"
+      }
+    }
+  },
+  "&:hover": {
+    color: "transparent"
+  }
+});
+const Control = styled("span", {
+  backgroundColor: "$black600",
+  borderRadius: "100%",
+  display: "block",
+  height: "$3",
+  left: "$0-5",
+  position: "absolute",
+  top: "50%",
+  transition: "transform 300ms ease",
+  transform: "translateX(0) translateY(-50%)",
+  width: "$3",
+  variants: {
+    enabled: {
+      true: {
+        backgroundColor: "$white",
+        transform: "translateX(16px) translateY(-50%)"
+      }
+    }
+  }
+});
+const Toggle = ({
+  onChange,
+  value = 0
+}) => /* @__PURE__ */ jsxs(Element$e, {
+  enabled: value ? true : false,
+  onClick: () => onChange(!value),
+  children: [value ? "on" : "off", /* @__PURE__ */ jsx(Control, {
+    enabled: value ? true : false,
+    "aria-hidden": true
+  })]
+});
 const Container$1 = styled("div", {
   display: "grid"
 });
@@ -1012,84 +1007,18 @@ const ListItem = ({
   dir,
   children
 });
-const Element$f = styled$1("div", {
+const Element$d = styled$1("div", {
   margin: "-10px -20px 0 -22px",
   padding: 64
 });
 const Page = ({
   children
 }) => {
-  return /* @__PURE__ */ jsx(Element$f, {
+  return /* @__PURE__ */ jsx(Element$d, {
     children
   });
 };
-const Transition = ({
-  children,
-  enter = "all .1s ease",
-  enterFrom = {
-    opacity: 0
-  },
-  enterTo = {
-    opacity: 1
-  },
-  leaveTo = {
-    opacity: 0
-  },
-  leave = "all .1s ease",
-  show = false,
-  styles
-}) => {
-  const [css2, setCSS] = useState(__spreadProps(__spreadValues({}, enterFrom), {
-    transition: enter
-  }));
-  const [visible, setVisible] = useState(false);
-  const ref = useRef();
-  useEffect(() => {
-    if (!show) {
-      setCSS(__spreadProps(__spreadValues(__spreadValues({}, css2), leaveTo), {
-        transition: leave
-      }));
-    } else {
-      setVisible(true);
-      setTimeout(() => {
-        setCSS(__spreadProps(__spreadValues(__spreadValues({}, css2), enterTo), {
-          transition: enter
-        }));
-      }, 1);
-    }
-  }, [show]);
-  return /* @__PURE__ */ jsx("div", {
-    style: __spreadProps(__spreadValues({}, styles), {
-      opacity: show ? 1 : 0,
-      transition: show ? enter : leave
-    }),
-    onTransitionEnd: () => {
-      if (!show) {
-        setVisible(false);
-      }
-    },
-    ref,
-    children: children({
-      css: css2,
-      show: visible
-    })
-  });
-};
-styled(Popover, {
-  position: "relative"
-});
-styled(Popover.Panel, {
-  backgroundColor: "$white",
-  borderRadius: "$lg",
-  boxShadow: "$shallow",
-  position: "absolute",
-  padding: "$4",
-  left: 0,
-  top: "$2",
-  width: "100%"
-});
-styled(Popover.Button, buttonStyles);
-const Element$e = styled("div", {
+const Element$c = styled("div", {
   minHeight: "100vh",
   margin: "-10px -20px 0 -22px",
   position: "relative"
@@ -1099,7 +1028,7 @@ const ScreenContainer = ({
   layout = "sidebar"
 }) => {
   return /* @__PURE__ */ jsx(HashRouter, {
-    children: /* @__PURE__ */ jsx(Element$e, {
+    children: /* @__PURE__ */ jsx(Element$c, {
       children
     })
   });
@@ -1113,7 +1042,7 @@ const ElementWrapper = styled("div", {
     textDecoration: "none"
   }
 });
-const Element$d = styled("span", {
+const Element$b = styled("span", {
   alignItems: "center",
   appearance: "none",
   backgroundColor: "transparent",
@@ -1158,7 +1087,7 @@ const Item$1 = ({
   return /* @__PURE__ */ jsx(ElementWrapper, {
     children: /* @__PURE__ */ jsx(Link$1, {
       to: href,
-      children: /* @__PURE__ */ jsxs(Element$d, {
+      children: /* @__PURE__ */ jsxs(Element$b, {
         active: location.pathname === href,
         children: [icon && /* @__PURE__ */ jsx(Icon, {
           children: icon
@@ -1209,7 +1138,7 @@ const ScreensNavigation = ({
     })]
   });
 };
-const Element$c = styled("div", {
+const Element$a = styled("div", {
   padding: "$14"
 });
 const Content$1 = styled("div", {
@@ -1219,7 +1148,7 @@ const ScreensPage = ({
   actions = null,
   children = null,
   title = false
-}) => /* @__PURE__ */ jsxs(Element$c, {
+}) => /* @__PURE__ */ jsxs(Element$a, {
   children: [/* @__PURE__ */ jsxs(Stack, {
     children: [title && /* @__PURE__ */ jsx(Text, {
       size: "title",
@@ -1235,7 +1164,7 @@ const ScreensPage = ({
     children
   })]
 });
-const Element$b = styled("div", {
+const Element$9 = styled("div", {
   position: "relative",
   left: "$80",
   width: "calc(100% - $80)"
@@ -1243,7 +1172,7 @@ const Element$b = styled("div", {
 const ScreensViews = ({
   children
 }) => {
-  return /* @__PURE__ */ jsx(Element$b, {
+  return /* @__PURE__ */ jsx(Element$9, {
     children: /* @__PURE__ */ jsx(Routes, {
       children: [].concat(children).map((c, index) => {
         console.log(c);
@@ -1267,7 +1196,7 @@ const Screens = {
   Page: ScreensPage,
   Views: ScreensViews
 };
-const Element$a = styled("div", {
+const Element$8 = styled("div", {
   display: "flex",
   variants: {
     direction: {
@@ -1327,7 +1256,7 @@ const Stack = ({
   css: css2 = {},
   direction = "horizontal",
   gap = 0
-}) => /* @__PURE__ */ jsx(Element$a, {
+}) => /* @__PURE__ */ jsx(Element$8, {
   css: __spreadValues({
     gap
   }, css2),
@@ -1571,6 +1500,184 @@ const Text = styled("span", {
     }
   }
 });
+const Element$7 = styled$1("div", {});
+const Content = styled$1("span", {
+  backgroundColor: "$black300",
+  borderRadius: "$md",
+  display: "block",
+  marginRight: "$2",
+  padding: "$2",
+  position: "absolute",
+  right: "100%",
+  transition: "all 75ms ease",
+  top: "-$2",
+  width: "$40",
+  zIndex: -1,
+  variants: {
+    visible: {
+      true: {
+        opacity: 1,
+        visibility: "visible"
+      },
+      false: {
+        opacity: 0,
+        visibility: "invisible"
+      }
+    }
+  }
+});
+const Tooltip = ({
+  css: css2 = {},
+  value
+}) => {
+  const [visible, setVisible] = useState(false);
+  return /* @__PURE__ */ jsxs(Element$7, {
+    css: css2,
+    children: [/* @__PURE__ */ jsx("svg", {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      onMouseEnter: () => setVisible(true),
+      onMouseLeave: () => setVisible(false),
+      children: /* @__PURE__ */ jsx("path", {
+        fillRule: "evenodd",
+        clipRule: "evenodd",
+        d: "M14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7ZM7 12.5C10.0376 12.5 12.5 10.0376 12.5 7C12.5 3.96243 10.0376 1.5 7 1.5C3.96243 1.5 1.5 3.96243 1.5 7C1.5 10.0376 3.96243 12.5 7 12.5ZM7 6C7.41421 6 7.75 6.33579 7.75 6.75V9.25C7.75 9.66421 7.41421 10 7 10C6.58579 10 6.25 9.66421 6.25 9.25V6.75C6.25 6.33579 6.58579 6 7 6ZM7.75 4.75C7.75 4.33579 7.41421 4 7 4C6.58579 4 6.25 4.33579 6.25 4.75C6.25 5.16421 6.58579 5.5 7 5.5C7.41421 5.5 7.75 5.16421 7.75 4.75Z",
+        fill: "#2271B1"
+      })
+    }), /* @__PURE__ */ jsx(Content, {
+      visible,
+      children: /* @__PURE__ */ jsx(Text, {
+        size: "footnote",
+        leading: "snug",
+        weight: "regular",
+        children: value
+      })
+    })]
+  });
+};
+const buttonStyles = {
+  appearance: "none",
+  "-webkit-appearance": "none",
+  alignItems: "center",
+  borderRadius: "$md",
+  boxSizing: "border-box",
+  display: "inline-flex",
+  cursor: "pointer",
+  fontFamily: "$body",
+  fontSize: "$text300",
+  fontWeight: 600,
+  height: "$10",
+  justifyContent: "center",
+  lineHeight: 1,
+  paddingY: "$2-5",
+  paddingX: "$3",
+  textAlign: "left",
+  textDecoration: "none",
+  transition: "all 125ms ease",
+  "&:focus": {
+    outline: "none"
+  },
+  "@md": {
+    height: "$9",
+    paddingX: "$6"
+  },
+  variants: {
+    size: {
+      small: {
+        height: "$7",
+        paddingY: "$1-5",
+        paddingX: "$2-5",
+        "@md": {
+          height: "$8"
+        }
+      },
+      tiny: {
+        fontSize: "$text200",
+        height: "$6",
+        paddingY: "$0-5",
+        paddingX: "$1-5",
+        "@md": {
+          height: "$7"
+        }
+      }
+    },
+    variant: {
+      normal: {
+        border: "0",
+        backgroundColor: "$black300",
+        color: "$black900",
+        "&:hover": {
+          background: "$black310",
+          color: "$black900"
+        }
+      },
+      primary: {
+        border: "1px solid $primary400",
+        background: "$primary400",
+        color: "$white",
+        "&:hover": {
+          background: "$primary410",
+          color: "$white"
+        }
+      },
+      warning: {
+        border: "1px solid $warning400",
+        background: "transparent",
+        color: "$warning400",
+        "&:hover": {
+          background: "$warning400",
+          color: "$white"
+        }
+      },
+      simple: {
+        background: "transparent",
+        border: "none",
+        color: "$text900"
+      },
+      plain: {
+        background: "transparent",
+        border: "none",
+        color: "$text900",
+        padding: 0
+      }
+    }
+  }
+};
+const ButtonElement = styled("button", buttonStyles);
+const Button$2 = (props) => {
+  const _a = props, {
+    children,
+    css: css2 = {},
+    disabled = false,
+    href = "",
+    onClick = void 0,
+    variant = "normal",
+    size = "normal",
+    title = ""
+  } = _a, otherProps = __objRest(_a, [
+    "children",
+    "css",
+    "disabled",
+    "href",
+    "onClick",
+    "variant",
+    "size",
+    "title"
+  ]);
+  return /* @__PURE__ */ jsx(ButtonElement, __spreadProps(__spreadValues({
+    as: href !== "" ? "a" : "button",
+    css: css2,
+    size,
+    variant,
+    disabled,
+    onClick,
+    title,
+    href
+  }, otherProps), {
+    children
+  }));
+};
 const Label$1 = styled("label", {
   alignItems: "center",
   cursor: "pointer",
@@ -1725,7 +1832,7 @@ const FormCheckbox = (props) => {
     checked: get_1(values, name, []).includes(value)
   }));
 };
-const Element$9 = styled$1("fieldset", {
+const Element$6 = styled$1("fieldset", {
   border: "none",
   display: "flex",
   flexDirection: "column",
@@ -1739,7 +1846,7 @@ const Fieldset = ({
   children,
   dir,
   label
-}) => /* @__PURE__ */ jsxs(Element$9, {
+}) => /* @__PURE__ */ jsxs(Element$6, {
   children: [label && /* @__PURE__ */ jsx(Text, {
     dir,
     size: "label",
@@ -1751,7 +1858,7 @@ const Fieldset = ({
     children
   })]
 });
-const Element$8 = styled$1("form", {});
+const Element$5 = styled$1("form", {});
 const reducer$1 = (state, action) => {
   switch (action.type) {
     case "SET_VALUE":
@@ -1814,7 +1921,7 @@ const FormElement = ({
       });
     }
   }, [submit_form]);
-  return /* @__PURE__ */ jsx(Element$8, {
+  return /* @__PURE__ */ jsx(Element$5, {
     css: css2,
     onSubmit: (e) => {
       e.preventDefault();
@@ -2055,7 +2162,7 @@ const Wrapper$2 = styled("div", {
   position: "relative",
   transition: "all .175s ease"
 });
-const Element$7 = styled("input", {
+const Element$4 = styled("input", {
   backgroundColor: "$white",
   border: "1px solid $black300",
   borderRadius: "$md",
@@ -2145,7 +2252,7 @@ const Input$1 = (props) => {
         zIndex: 2
       },
       value: description
-    }), /* @__PURE__ */ jsx(Element$7, __spreadProps(__spreadValues({}, otherProps), {
+    }), /* @__PURE__ */ jsx(Element$4, __spreadProps(__spreadValues({}, otherProps), {
       ref,
       dir,
       hasError: invalid,
@@ -2307,7 +2414,7 @@ const IconWrapper = styled("div", {
   transform: "translateY(-50%)",
   zIndex: 1
 });
-const Element$6 = styled("select", {
+const Element$3 = styled("select", {
   appearance: "none",
   backgroundColor: "$white",
   border: "1px solid $black300",
@@ -2378,7 +2485,7 @@ const Select = ({
       },
       children: label
     }), /* @__PURE__ */ jsxs(SelectWrapper, {
-      children: [/* @__PURE__ */ jsx(Element$6, {
+      children: [/* @__PURE__ */ jsx(Element$3, {
         ref,
         name,
         disabled,
@@ -2425,7 +2532,7 @@ const Wrapper = styled("div", {
   paddingY: "$2",
   transition: "colors .1s ease"
 });
-const Element$5 = styled("textarea", {
+const Element$2 = styled("textarea", {
   backgroundColor: "$white",
   borderRadius: "$md",
   border: "1px solid $black300",
@@ -2492,7 +2599,7 @@ const Textarea = ({
         cursor: "pointer"
       },
       children: label
-    }), /* @__PURE__ */ jsx(Element$5, {
+    }), /* @__PURE__ */ jsx(Element$2, {
       ref,
       dir,
       hasError: invalid,
@@ -2511,326 +2618,6 @@ const Textarea = ({
       resizeable,
       value
     })]
-  });
-};
-const DialogWrapper = styled(Dialog, {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  inset: 0,
-  overflowY: "scroll",
-  transition: "all 250ms ease",
-  position: "fixed",
-  zIndex: 100
-});
-const DialogOverlay = styled(Dialog.Overlay, {
-  backgroundColor: "$black900",
-  opacity: 0.5,
-  position: "fixed",
-  inset: 0,
-  zIndex: -1
-});
-const DialogInt = styled("div", {
-  backgroundColor: "$white",
-  borderRadius: "$lg",
-  boxShadow: "$card",
-  maxWidth: "$128",
-  padding: "$9 $12 $6 $12",
-  textAlign: "center",
-  transition: "all .25s ease",
-  transform: "scale(.9)",
-  width: "$full"
-});
-const Modal = ({
-  dismiss = void 0,
-  title = "",
-  description = "",
-  primaryAction = void 0,
-  primaryText = "Confirm",
-  dismissText = "Cancel",
-  variant = "primary",
-  visible = false
-}) => {
-  return /* @__PURE__ */ jsx(Transition, {
-    show: visible,
-    enter: "all .25s ease",
-    leave: "all .15s ease",
-    enterFrom: {
-      opacity: 0
-    },
-    enterTo: {
-      opacity: 1
-    },
-    leaveTo: {
-      opacity: 0
-    },
-    children: ({
-      css: css2,
-      show
-    }) => /* @__PURE__ */ jsxs(DialogWrapper, {
-      css: css2,
-      open: show,
-      onClose: dismiss,
-      children: [/* @__PURE__ */ jsx(DialogOverlay, {}), /* @__PURE__ */ jsx(Transition, {
-        show: visible,
-        enter: "all .25s ease",
-        leave: "all .15s ease",
-        enterFrom: {
-          transform: "scale(.9)"
-        },
-        enterTo: {
-          transform: "scale(1)"
-        },
-        leaveTo: {
-          transform: "translateY(24px)"
-        },
-        children: ({
-          css: css22,
-          visible: visible2
-        }) => {
-          console.log(css22);
-          return /* @__PURE__ */ jsxs(DialogInt, {
-            css: css22,
-            visible: visible2,
-            children: [/* @__PURE__ */ jsx(Dialog.Title, {
-              children: /* @__PURE__ */ jsx(Text, {
-                size: "heading",
-                weight: "bold",
-                children: title
-              })
-            }), /* @__PURE__ */ jsx(Dialog.Description, {
-              children: /* @__PURE__ */ jsx(Text, {
-                size: "body",
-                css: {
-                  opacity: 0.9,
-                  paddingTop: "$2"
-                },
-                children: description
-              })
-            }), /* @__PURE__ */ jsxs(Stack, {
-              align: "center",
-              direction: "vertical",
-              gap: "$1",
-              css: {
-                paddingTop: "$6"
-              },
-              children: [/* @__PURE__ */ jsx(Button$2, {
-                onClick: () => {
-                  primaryAction && primaryAction();
-                  dismiss();
-                },
-                variant,
-                children: primaryText
-              }), /* @__PURE__ */ jsx(Button$2, {
-                onClick: dismiss,
-                variant: "simple",
-                children: dismissText
-              })]
-            })]
-          });
-        }
-      })]
-    })
-  });
-};
-const Element$4 = styled$1("div", {
-  bottom: "$8",
-  left: "50%",
-  position: "fixed",
-  transform: "translateX(-50%)",
-  transition: "all 150ms ease",
-  zIndex: 1001,
-  "& span": {
-    backgroundColor: "$black900",
-    borderRadius: "$md",
-    boxShadow: "$md",
-    color: "$white",
-    display: "block",
-    fontSize: "$text300",
-    padding: "$4 $6",
-    transition: "all 150ms cubic-bezier(0.19, 1, 0.22, 1)"
-  },
-  variants: {
-    visible: {
-      true: {
-        opacity: 1,
-        visibility: "visible",
-        "& span": {
-          transform: "scale(1)"
-        }
-      },
-      false: {
-        opacity: 0,
-        visibility: "invisible",
-        "& span": {
-          transform: "scale(.75)"
-        }
-      }
-    }
-  }
-});
-const Notification = ({
-  message,
-  shouldPlay,
-  isDismissed
-}) => {
-  const [play, setPlay] = useState(shouldPlay);
-  useEffect(() => {
-    let animationTimer = null;
-    if (play) {
-      animationTimer = setTimeout(() => {
-        setPlay(false);
-        isDismissed();
-      }, 3e3);
-    }
-    return () => {
-      clearTimeout(animationTimer);
-    };
-  }, [play]);
-  useEffect(() => {
-    setPlay(shouldPlay);
-  }, [shouldPlay]);
-  return /* @__PURE__ */ jsx(Element$4, {
-    visible: play,
-    children: /* @__PURE__ */ jsx("span", {
-      children: message
-    })
-  });
-};
-const Element$3 = styled("button", {
-  display: "block",
-  backgroundColor: "transparent",
-  border: "2px solid $black600",
-  borderRadius: "9999px",
-  color: "transparent",
-  cursor: "pointer",
-  height: "$5",
-  position: "relative",
-  transition: "background-color .3s cubic-bezier(0.19, 1, 0.22, 1)",
-  width: "$9",
-  variants: {
-    enabled: {
-      true: {
-        backgroundColor: "$primary400",
-        border: "2px solid $primary400"
-      }
-    }
-  },
-  "&:hover": {
-    color: "transparent"
-  }
-});
-const Control = styled("span", {
-  backgroundColor: "$black600",
-  borderRadius: "100%",
-  display: "block",
-  height: "$3",
-  left: "$0-5",
-  position: "absolute",
-  top: "50%",
-  transition: "transform 300ms ease",
-  transform: "translateX(0) translateY(-50%)",
-  width: "$3",
-  variants: {
-    enabled: {
-      true: {
-        backgroundColor: "$white",
-        transform: "translateX(16px) translateY(-50%)"
-      }
-    }
-  }
-});
-const Toggle = ({
-  onChange,
-  value = 0
-}) => /* @__PURE__ */ jsxs(Element$3, {
-  enabled: value ? true : false,
-  onClick: () => onChange(!value),
-  children: [value ? "on" : "off", /* @__PURE__ */ jsx(Control, {
-    enabled: value ? true : false,
-    "aria-hidden": true
-  })]
-});
-const Element$2 = styled$1("div", {});
-const Content = styled$1("span", {
-  backgroundColor: "$black300",
-  borderRadius: "$md",
-  display: "block",
-  marginRight: "$2",
-  padding: "$2",
-  position: "absolute",
-  right: "100%",
-  transition: "all 75ms ease",
-  top: "-$2",
-  width: "$40",
-  zIndex: -1,
-  variants: {
-    visible: {
-      true: {
-        opacity: 1,
-        visibility: "visible"
-      },
-      false: {
-        opacity: 0,
-        visibility: "invisible"
-      }
-    }
-  }
-});
-const Tooltip = ({
-  css: css2 = {},
-  value
-}) => {
-  const [visible, setVisible] = useState(false);
-  return /* @__PURE__ */ jsxs(Element$2, {
-    css: css2,
-    children: [/* @__PURE__ */ jsx("svg", {
-      width: "14",
-      height: "14",
-      viewBox: "0 0 14 14",
-      onMouseEnter: () => setVisible(true),
-      onMouseLeave: () => setVisible(false),
-      children: /* @__PURE__ */ jsx("path", {
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        d: "M14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7ZM7 12.5C10.0376 12.5 12.5 10.0376 12.5 7C12.5 3.96243 10.0376 1.5 7 1.5C3.96243 1.5 1.5 3.96243 1.5 7C1.5 10.0376 3.96243 12.5 7 12.5ZM7 6C7.41421 6 7.75 6.33579 7.75 6.75V9.25C7.75 9.66421 7.41421 10 7 10C6.58579 10 6.25 9.66421 6.25 9.25V6.75C6.25 6.33579 6.58579 6 7 6ZM7.75 4.75C7.75 4.33579 7.41421 4 7 4C6.58579 4 6.25 4.33579 6.25 4.75C6.25 5.16421 6.58579 5.5 7 5.5C7.41421 5.5 7.75 5.16421 7.75 4.75Z",
-        fill: "#2271B1"
-      })
-    }), /* @__PURE__ */ jsx(Content, {
-      visible,
-      children: /* @__PURE__ */ jsx(Text, {
-        size: "footnote",
-        leading: "snug",
-        weight: "regular",
-        children: value
-      })
-    })]
-  });
-};
-const ModalListener = () => {
-  const [{
-    modal
-  }, dispatch] = useContext(LeafContext);
-  return /* @__PURE__ */ jsx(Modal, {
-    dismiss: () => {
-      dispatch({
-        type: "SET_MODAL",
-        value: false
-      });
-    },
-    title: get_1(modal, "title", ""),
-    description: get_1(modal, "description", ""),
-    primaryAction: () => {
-      get_1(modal, "action", void 0) && modal.action();
-      dispatch({
-        type: "SET_MODAL",
-        value: false
-      });
-    },
-    primaryText: "Confirm",
-    dismissText: "Cancel",
-    variant: get_1(modal, "variant", "primary"),
-    visible: modal !== false
   });
 };
 const NotificationListener = () => {
@@ -2852,10 +2639,6 @@ const NotificationListener = () => {
 };
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SET_MODAL":
-      return __spreadProps(__spreadValues({}, state), {
-        modal: action.value
-      });
     case "SET_NOTIFICATION":
       return __spreadProps(__spreadValues({}, state), {
         notification: action.value
@@ -2869,10 +2652,6 @@ const LeafConsumer = ({
 }) => {
   const [, dispatch] = useContext(LeafContext);
   return children({
-    setModal: (value) => dispatch({
-      type: "SET_MODAL",
-      value
-    }),
     setNotification: (value) => dispatch({
       type: "SET_NOTIFICATION",
       value
@@ -2883,7 +2662,6 @@ const LeafProvider = ({
   children
 }) => {
   let [state, dispatch] = useReducer(reducer, {
-    modal: false,
     notification: false
   });
   let leafProvider = useMemo(() => {
@@ -2892,7 +2670,7 @@ const LeafProvider = ({
   return /* @__PURE__ */ jsx(LeafContext.Provider, {
     value: leafProvider,
     children: /* @__PURE__ */ jsxs(Fragment, {
-      children: [children, /* @__PURE__ */ jsx(NotificationListener, {}), /* @__PURE__ */ jsx(ModalListener, {})]
+      children: [children, /* @__PURE__ */ jsx(NotificationListener, {}), /* @__PURE__ */ jsx(Modal, {})]
     })
   });
 };

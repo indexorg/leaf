@@ -1,17 +1,12 @@
 import React, {useContext,useReducer, useMemo} from 'react'
 
-import {Modal, Notification} from '@model'
+import {Notification} from '@model'
 
 // Contexts
 import {LeafContext} from '@utils/contexts/leaf.context.js'
 
 const reducer = (state, action) => {
-    switch (action.type) {
-        case 'SET_MODAL':
-            return {
-                ...state,
-                modal: action.value
-            }
+    switch (action.type) { 
         case 'SET_NOTIFICATION':
             return {
                 ...state,
@@ -28,10 +23,7 @@ export const LeafConsumer = ({
     const [,dispatch] = useContext(LeafContext)
     
     return children({
-        setModal: value => dispatch({
-            type: 'SET_MODAL',
-            value,
-        }),
+        
         setNotification: value => dispatch({
             type: 'SET_NOTIFICATION',
             value,
@@ -45,7 +37,6 @@ export const LeafProvider = ({
 	let [state, dispatch] = useReducer(
         reducer, 
         {
-            modal: false,
             notification: false,
         }
     )

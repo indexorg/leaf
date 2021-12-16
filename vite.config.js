@@ -13,7 +13,6 @@ export default defineConfig({
         },
         rollupOptions: {
             external: [
-                '@headlessui/react',
                 '@stitches/react',
                 'color-convert',
                 'immutability-helper',
@@ -32,7 +31,6 @@ export default defineConfig({
             output: {
                 globals: {
                     react: 'React',
-                    '@headlessui/react': 'headlessui',
                     '@stitches/react': 'stitches',
                     lodash: 'lodash',
                 }
