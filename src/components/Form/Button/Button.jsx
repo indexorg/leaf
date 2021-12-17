@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ButtonElement } from './Button.styles.js'
 
-const Button = (props) => {
+const Button = React.forwardRef((props, ref) => {
     const {
         children,
         css = {},
@@ -17,6 +17,7 @@ const Button = (props) => {
 
     return(
         <ButtonElement
+        ref={ref}
         as={href !== '' ? 'a' : 'button'}
         css={css}
         size={size}
@@ -29,6 +30,6 @@ const Button = (props) => {
             {children}
         </ButtonElement>
     )
-}
+})
 
 export default Button

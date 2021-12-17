@@ -14,6 +14,8 @@ export default defineConfig({
         rollupOptions: {
             external: [
                 '@stitches/react',
+                '@headlessui/react',
+                '@floating-ui/react-dom',
                 'color-convert',
                 'immutability-helper',
                 'lodash',

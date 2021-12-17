@@ -8,12 +8,14 @@ import {
 export const List = ({
     children,
     css = {},
-    padded = false
+    padded = false,
+    scroll = false,
 }) => {
     return (
         <Container
         css={css}
-        padded={padded}>
+        padded={padded}
+        scroll={scroll}>
             {children}
         </Container>
     )

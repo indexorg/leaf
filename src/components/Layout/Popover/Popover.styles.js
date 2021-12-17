@@ -1,20 +1,29 @@
-import { Popover } from '@headlessui/react'
 import { styled } from '@config/stitches'
-import {buttonStyles} from '@config/button'
 
-export const PopoverElement = styled(Popover, {
+export const PopoverElement = styled('div', {
     position: 'relative',
 })
 
-export const PopoverPanel = styled(Popover.Panel, {
+export const PopoverPanel = styled('div', {
     backgroundColor: '$white',
     borderRadius: '$lg',
     boxShadow: '$shallow',
     position: 'absolute',
     padding: '$4',
-    left: 0,
-    top: '$2',
-    width: '100%'
-})
+    opacity: 0,
+    transform: 'scale(.75)',
+    transition: 'all .3s ease',
+    visibility: 'hidden',
+    width: '$full',
+    zIndex: 100,
 
-export const PopoverButton = styled(Popover.Button, buttonStyles)
+    variants: {
+        visible: {
+            true: {
+                opacity: 1,
+                transform: 'scale(1)',
+                visibility: 'visible',
+            }
+        }
+    }
+})

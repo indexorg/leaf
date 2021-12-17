@@ -19,7 +19,7 @@ const ScreensNavigation = ({
             {title &&
                 <Text
                 size="subheading"
-                weight="bold"
+                weight="semibold"
                 css={{
                     paddingBottom: '$7'
                 }}>

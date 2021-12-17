@@ -18,7 +18,6 @@ const ScreensViews = ({
             <Routes>
                 {
                     [].concat(children).map((c, index) => {
-                        console.log(c)
                         return(
                             <Route
                             key={index}

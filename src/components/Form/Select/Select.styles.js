@@ -25,10 +25,11 @@ export const IconWrapper = styled('div', {
 
 export const Element = styled('select', {
 	appearance: 'none',
-	backgroundColor: "$white",
-	border: '1px solid $black300',
-	borderRadius: '$md',
-	boxShadow: '0 1px 4px rgba(35, 40, 45, 0.08)',
+	backgroundImage: 'none !important',
+	backgroundColor: "$white !important",
+	border: '1px solid $black300 !important',
+	borderRadius: '$md !important',
+	boxShadow: '0 1px 4px rgba(35, 40, 45, 0.08) !important',
 	color: '$black900',
 	display: 'block',
 	fontWeight: 500,
@@ -39,15 +40,21 @@ export const Element = styled('select', {
 	paddingY: 0,
 	paddingLeft: '$3',
 	paddingRight: '$8',
+	maxWidth: 'unset !important',
 	minWidth: 'unset',
 	position: 'relative',
 	fontSize: '$text300',
 	width: '100%',
 	zIndex: 1,
 
+	'&:hover': {
+		color: '$black900 !important',
+    },
+
 	'&:focus': {
-        border: '1px solid rgba(34, 113, 177, 0.5)',
-        boxShadow: '0 1px 4px rgba(34, 113, 177, 0.22)',
+        border: '1px solid rgba(34, 113, 177, 0.5) !important',
+        boxShadow: '0 1px 4px rgba(34, 113, 177, 0.22) !important',
+		color: '$black900 !important',
         outline: 'none',
     },
 

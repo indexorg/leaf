@@ -81,6 +81,7 @@ export const {
         },
         lineHeights: {
             none: 1,
+            tighter: 1.1,
             tight: 1.25,
             snug: 1.35,
             normal: 1.5,

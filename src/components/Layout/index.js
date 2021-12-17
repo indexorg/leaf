@@ -1,7 +1,7 @@
 import Grid from './Grid'
 import {List, ListItem} from './List/List'
 import Page from './Page/Page'
-// import Popover from './Popover/Popover'
+import Popover from './Popover/Popover'
 import Screens from './Screens/'
 import Stack from './Stack/Stack'
 
@@ -17,7 +17,7 @@ export {
     List,
     ListItem,
     Page,
-    // Popover,
+    Popover,
     Screens,
     Stack,
     TabContainer,

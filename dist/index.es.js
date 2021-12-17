@@ -30,8 +30,9 @@ var __objRest = (source, exclude) => {
   return target;
 };
 import { createStitches, styled as styled$1 } from "@stitches/react";
-import React, { useContext, useState, useEffect, useReducer, useMemo, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef, useReducer, useMemo } from "react";
 import "base-64";
+import { useFloating, shift, offset } from "@floating-ui/react-dom";
 import { HashRouter, useLocation, Link as Link$1, Routes, Route } from "react-router-dom";
 import update from "immutability-helper";
 import { DndProvider, useDrop, useDrag } from "react-dnd";
@@ -116,6 +117,7 @@ const {
     },
     lineHeights: {
       none: 1,
+      tighter: 1.1,
       tight: 1.25,
       snug: 1.35,
       normal: 1.5,
@@ -672,6 +674,11 @@ function get(object, path, defaultValue) {
   return result === void 0 ? defaultValue : result;
 }
 var get_1 = get;
+const Format = {
+  Map: (value, map) => {
+    return get_1(map, value, value);
+  }
+};
 var jsxRuntime = {
   exports: {}
 };
@@ -973,7 +980,7 @@ const Item$2 = styled("div", {
     borderBottom: 0
   },
   "@md": {
-    height: "$9"
+    height: "$11"
   }
 });
 const Container = styled("div", {
@@ -984,17 +991,26 @@ const Container = styled("div", {
           paddingX: "$3"
         }
       }
+    },
+    scroll: {
+      true: {
+        overflow: "scroll",
+        marginRight: "-$3",
+        paddingRight: "$3"
+      }
     }
   }
 });
 const List = ({
   children,
   css: css2 = {},
-  padded = false
+  padded = false,
+  scroll = false
 }) => {
   return /* @__PURE__ */ jsx(Container, {
     css: css2,
     padded,
+    scroll,
     children
   });
 };
@@ -1018,8 +1034,213 @@ const Page = ({
     children
   });
 };
+const buttonStyles = {
+  appearance: "none",
+  "-webkit-appearance": "none",
+  alignItems: "center",
+  borderRadius: "$md",
+  boxSizing: "border-box",
+  display: "inline-flex",
+  cursor: "pointer",
+  fontFamily: "$body",
+  fontSize: "$text300",
+  fontWeight: 600,
+  height: "$10",
+  justifyContent: "center",
+  lineHeight: 1,
+  paddingY: "$2-5",
+  paddingX: "$3",
+  textAlign: "left",
+  textDecoration: "none",
+  transition: "all 125ms ease",
+  "&:focus": {
+    outline: "none"
+  },
+  "@md": {
+    height: "$9",
+    paddingX: "$6"
+  },
+  variants: {
+    size: {
+      small: {
+        height: "$7",
+        paddingY: "$1-5",
+        paddingX: "$2-5",
+        "@md": {
+          height: "$8"
+        }
+      },
+      tiny: {
+        fontSize: "$text200",
+        height: "$6",
+        paddingY: "$0-5",
+        paddingX: "$1-5",
+        "@md": {
+          height: "$7"
+        }
+      }
+    },
+    variant: {
+      normal: {
+        border: "0",
+        backgroundColor: "$black300",
+        color: "$black900",
+        "&:hover": {
+          background: "$black310",
+          color: "$black900"
+        }
+      },
+      primary: {
+        border: "1px solid $primary400",
+        background: "$primary400",
+        color: "$white",
+        "&:hover": {
+          background: "$primary410",
+          color: "$white"
+        }
+      },
+      warning: {
+        border: "1px solid $warning400",
+        background: "transparent",
+        color: "$warning400",
+        "&:hover": {
+          background: "$warning400",
+          color: "$white"
+        }
+      },
+      simple: {
+        background: "transparent",
+        border: "none",
+        color: "$text900"
+      },
+      plain: {
+        background: "transparent",
+        border: "none",
+        color: "$text900",
+        padding: 0
+      }
+    }
+  }
+};
+const ButtonElement = styled("button", buttonStyles);
+const Button$2 = React.forwardRef((props, ref) => {
+  const _a = props, {
+    children,
+    css: css2 = {},
+    disabled = false,
+    href = "",
+    onClick = void 0,
+    variant = "normal",
+    size = "normal",
+    title = ""
+  } = _a, otherProps = __objRest(_a, [
+    "children",
+    "css",
+    "disabled",
+    "href",
+    "onClick",
+    "variant",
+    "size",
+    "title"
+  ]);
+  return /* @__PURE__ */ jsx(ButtonElement, __spreadProps(__spreadValues({
+    ref,
+    as: href !== "" ? "a" : "button",
+    css: css2,
+    size,
+    variant,
+    disabled,
+    onClick,
+    title,
+    href
+  }, otherProps), {
+    children
+  }));
+});
+const PopoverElement = styled("div", {
+  position: "relative"
+});
+const PopoverPanel = styled("div", {
+  backgroundColor: "$white",
+  borderRadius: "$lg",
+  boxShadow: "$shallow",
+  position: "absolute",
+  padding: "$4",
+  opacity: 0,
+  transform: "scale(.75)",
+  transition: "all .3s ease",
+  visibility: "hidden",
+  width: "$full",
+  zIndex: 100,
+  variants: {
+    visible: {
+      true: {
+        opacity: 1,
+        transform: "scale(1)",
+        visibility: "visible"
+      }
+    }
+  }
+});
+const PopoverWrapper = ({
+  button = null,
+  buttonVariant = "normal",
+  buttonSize = "normal",
+  css: css2 = {},
+  origin = "top-start",
+  children = null
+}) => {
+  const [visible, setVisible] = useState();
+  const popoverRef = useRef();
+  const {
+    x,
+    y,
+    reference,
+    floating
+  } = useFloating({
+    placement: origin,
+    middleware: [shift(), offset(12)]
+  });
+  useEffect(() => {
+    document.addEventListener("click", checkClickInside);
+    return () => {
+      document.removeEventListener("click", checkClickInside);
+    };
+  }, []);
+  const checkClickInside = (e) => {
+    if (popoverRef && !popoverRef.current.contains(e.target)) {
+      setVisible(false);
+    }
+  };
+  return /* @__PURE__ */ jsxs(PopoverElement, {
+    css: css2,
+    ref: popoverRef,
+    children: [/* @__PURE__ */ jsx(Button$2, {
+      ref: reference,
+      onClick: () => setVisible(!visible),
+      size: buttonSize,
+      variant: buttonVariant,
+      children: button
+    }), /* @__PURE__ */ jsx(PopoverPanel, {
+      ref: floating,
+      css: {
+        transformOrigin: Format.Map(origin, {
+          "top": "50% 100%",
+          "top-start": "0% 100%",
+          "top-end": "100% 100%",
+          "bottom": "50% 0",
+          "bottom-start": "0 0",
+          "bottom-end": "100% 0"
+        }),
+        top: y != null ? y : "",
+        left: x != null ? x : ""
+      },
+      visible,
+      children
+    })]
+  });
+};
 const Element$c = styled("div", {
-  minHeight: "100vh",
   margin: "-10px -20px 0 -22px",
   position: "relative"
 });
@@ -1027,8 +1248,20 @@ const ScreenContainer = ({
   children,
   layout = "sidebar"
 }) => {
+  const [minHeight, setMinHeight] = useState("100vh");
+  useEffect(() => {
+    if (document.getElementById("adminmenuwrap")) {
+      const height = document.getElementById("adminmenuwrap").getBoundingClientRect().height;
+      if (height > document.body.getBoundingClientRect().height) {
+        setMinHeight(`${height}px`);
+      }
+    }
+  }, []);
   return /* @__PURE__ */ jsx(HashRouter, {
     children: /* @__PURE__ */ jsx(Element$c, {
+      css: {
+        minHeight: `${minHeight}`
+      },
       children
     })
   });
@@ -1128,7 +1361,7 @@ const ScreensNavigation = ({
   return /* @__PURE__ */ jsxs(Navigation$1, {
     children: [title && /* @__PURE__ */ jsx(Text, {
       size: "subheading",
-      weight: "bold",
+      weight: "semibold",
       css: {
         paddingBottom: "$7"
       },
@@ -1175,7 +1408,6 @@ const ScreensViews = ({
   return /* @__PURE__ */ jsx(Element$9, {
     children: /* @__PURE__ */ jsx(Routes, {
       children: [].concat(children).map((c, index) => {
-        console.log(c);
         return /* @__PURE__ */ jsx(Route, {
           exact: true,
           path: c.props.path,
@@ -1411,7 +1643,7 @@ const Text = styled("span", {
         fontSize: "$text900",
         fontWeight: 700,
         letterSpacing: "$snug",
-        lineHeight: "$none"
+        lineHeight: "$tighter"
       },
       heading: {
         fontSize: "$text800",
@@ -1555,128 +1787,6 @@ const Tooltip = ({
       })
     })]
   });
-};
-const buttonStyles = {
-  appearance: "none",
-  "-webkit-appearance": "none",
-  alignItems: "center",
-  borderRadius: "$md",
-  boxSizing: "border-box",
-  display: "inline-flex",
-  cursor: "pointer",
-  fontFamily: "$body",
-  fontSize: "$text300",
-  fontWeight: 600,
-  height: "$10",
-  justifyContent: "center",
-  lineHeight: 1,
-  paddingY: "$2-5",
-  paddingX: "$3",
-  textAlign: "left",
-  textDecoration: "none",
-  transition: "all 125ms ease",
-  "&:focus": {
-    outline: "none"
-  },
-  "@md": {
-    height: "$9",
-    paddingX: "$6"
-  },
-  variants: {
-    size: {
-      small: {
-        height: "$7",
-        paddingY: "$1-5",
-        paddingX: "$2-5",
-        "@md": {
-          height: "$8"
-        }
-      },
-      tiny: {
-        fontSize: "$text200",
-        height: "$6",
-        paddingY: "$0-5",
-        paddingX: "$1-5",
-        "@md": {
-          height: "$7"
-        }
-      }
-    },
-    variant: {
-      normal: {
-        border: "0",
-        backgroundColor: "$black300",
-        color: "$black900",
-        "&:hover": {
-          background: "$black310",
-          color: "$black900"
-        }
-      },
-      primary: {
-        border: "1px solid $primary400",
-        background: "$primary400",
-        color: "$white",
-        "&:hover": {
-          background: "$primary410",
-          color: "$white"
-        }
-      },
-      warning: {
-        border: "1px solid $warning400",
-        background: "transparent",
-        color: "$warning400",
-        "&:hover": {
-          background: "$warning400",
-          color: "$white"
-        }
-      },
-      simple: {
-        background: "transparent",
-        border: "none",
-        color: "$text900"
-      },
-      plain: {
-        background: "transparent",
-        border: "none",
-        color: "$text900",
-        padding: 0
-      }
-    }
-  }
-};
-const ButtonElement = styled("button", buttonStyles);
-const Button$2 = (props) => {
-  const _a = props, {
-    children,
-    css: css2 = {},
-    disabled = false,
-    href = "",
-    onClick = void 0,
-    variant = "normal",
-    size = "normal",
-    title = ""
-  } = _a, otherProps = __objRest(_a, [
-    "children",
-    "css",
-    "disabled",
-    "href",
-    "onClick",
-    "variant",
-    "size",
-    "title"
-  ]);
-  return /* @__PURE__ */ jsx(ButtonElement, __spreadProps(__spreadValues({
-    as: href !== "" ? "a" : "button",
-    css: css2,
-    size,
-    variant,
-    disabled,
-    onClick,
-    title,
-    href
-  }, otherProps), {
-    children
-  }));
 };
 const Label$1 = styled("label", {
   alignItems: "center",
@@ -2416,10 +2526,11 @@ const IconWrapper = styled("div", {
 });
 const Element$3 = styled("select", {
   appearance: "none",
-  backgroundColor: "$white",
-  border: "1px solid $black300",
-  borderRadius: "$md",
-  boxShadow: "0 1px 4px rgba(35, 40, 45, 0.08)",
+  backgroundImage: "none !important",
+  backgroundColor: "$white !important",
+  border: "1px solid $black300 !important",
+  borderRadius: "$md !important",
+  boxShadow: "0 1px 4px rgba(35, 40, 45, 0.08) !important",
   color: "$black900",
   display: "block",
   fontWeight: 500,
@@ -2430,14 +2541,19 @@ const Element$3 = styled("select", {
   paddingY: 0,
   paddingLeft: "$3",
   paddingRight: "$8",
+  maxWidth: "unset !important",
   minWidth: "unset",
   position: "relative",
   fontSize: "$text300",
   width: "100%",
   zIndex: 1,
+  "&:hover": {
+    color: "$black900 !important"
+  },
   "&:focus": {
-    border: "1px solid rgba(34, 113, 177, 0.5)",
-    boxShadow: "0 1px 4px rgba(34, 113, 177, 0.22)",
+    border: "1px solid rgba(34, 113, 177, 0.5) !important",
+    boxShadow: "0 1px 4px rgba(34, 113, 177, 0.22) !important",
+    color: "$black900 !important",
     outline: "none"
   },
   variants: {
@@ -2811,7 +2927,15 @@ const HeaderColumn = styled("div", {
   }
 });
 const Row = styled("div", {
-  display: "grid"
+  display: "grid",
+  transition: "background-color .1s ease",
+  variants: {
+    dragging: {
+      true: {
+        backgroundColor: "#E7E9EA"
+      }
+    }
+  }
 });
 const Cell = styled("div", {
   alignItems: "center",
@@ -2851,14 +2975,23 @@ const DeleteButton = styled("button", {
     opacity: 0.5
   }
 });
-const RankColumnHandle = styled("span", {
+const RankColumnHandle = styled("div", {
   cursor: "grab",
+  borderRadius: "$sm",
+  padding: "$1",
+  transition: "all .1s ease",
   variants: {
     dragging: {
       true: {
         cursor: "grabbing"
       }
     }
+  },
+  "&:hover": {
+    backgroundColor: "$black300"
+  },
+  "& svg": {
+    display: "block"
   }
 });
 const DragHandleColumn = ({
@@ -2894,7 +3027,6 @@ const DragHandleColumn = ({
   });
   const [, drop] = useDrop({
     accept: TableConstants.REORDER_COLUMN_ID,
-    canDrop: () => false,
     hover({
       id: draggedId
     }) {
@@ -2909,6 +3041,9 @@ const DragHandleColumn = ({
   return /* @__PURE__ */ jsx(RankColumnHandle, {
     onMouseDown: () => {
       handleDragging(true);
+    },
+    onMouseUp: () => {
+      handleDragging(false);
     },
     dragging: isDragging,
     ref: (node) => drag(drop(node)),
@@ -2942,18 +3077,56 @@ const TableHeader = () => /* @__PURE__ */ jsx(TableContext.Consumer, {
     }, column.id))
   })
 });
-const TableRow = ({
-  children
-}) => /* @__PURE__ */ jsx(TableContext.Consumer, {
-  children: ({
-    track
-  }) => /* @__PURE__ */ jsx(Row, {
-    css: {
-      gridTemplateColumns: track
-    },
+const TableRowWithDrop = ({
+  children,
+  css: css2,
+  dragging,
+  id,
+  findItem,
+  moveItem
+}) => {
+  const [, drop] = useDrop({
+    accept: TableConstants.REORDER_COLUMN_ID,
+    hover({
+      id: draggedId
+    }) {
+      if (draggedId !== id) {
+        const {
+          index: overIndex
+        } = findItem(id);
+        moveItem(draggedId, overIndex);
+      }
+    }
+  });
+  return /* @__PURE__ */ jsx(Row, {
+    css: css2,
+    dragging,
+    ref: drop,
     children
-  })
-});
+  });
+};
+const TableRow = ({
+  children,
+  id
+}) => {
+  return /* @__PURE__ */ jsx(TableContext.Consumer, {
+    children: ({
+      dragging,
+      findItem,
+      moveItem,
+      track
+    }) => /* @__PURE__ */ jsx(TableRowWithDrop, {
+      id,
+      findItem,
+      moveItem,
+      dragging: id === dragging,
+      css: {
+        gridTemplateColumns: track
+      },
+      children
+    })
+  });
+};
 const TableCell = ({
   children
 }) => /* @__PURE__ */ jsx(Cell, {
@@ -2997,9 +3170,6 @@ const TableProvider = ({
       index: source.indexOf(row)
     };
   };
-  const [, drop] = useDrop({
-    accept: TableConstants.REORDER_COLUMN_ID
-  });
   let mapped_columns = columns;
   let mapped_track = track;
   if (onDelete !== void 0) {
@@ -3021,35 +3191,42 @@ const TableProvider = ({
   return /* @__PURE__ */ jsx(TableContext.Provider, {
     value: {
       columns: mapped_columns,
-      source: source.map((item) => mapped_columns.map((c) => {
-        if (c.id === TableConstants.DELETE_COLUMN_ID) {
-          return /* @__PURE__ */ jsx(DeleteButton, {
-            onClick: () => onDelete(item.id),
-            children: /* @__PURE__ */ jsx("svg", {
-              width: "10",
-              height: "10",
-              viewBox: "0 0 10 10",
-              children: /* @__PURE__ */ jsx("path", {
-                fillRule: "evenodd",
-                clipRule: "evenodd",
-                d: "M0.46967 0.46967C0.762563 0.176777 1.23744 0.176777 1.53033 0.46967L5 3.93934L8.46967 0.46967C8.76256 0.176777 9.23744 0.176777 9.53033 0.46967C9.82322 0.762563 9.82322 1.23744 9.53033 1.53033L6.06066 5L9.53033 8.46967C9.82322 8.76256 9.82322 9.23744 9.53033 9.53033C9.23744 9.82322 8.76256 9.82322 8.46967 9.53033L5 6.06066L1.53033 9.53033C1.23744 9.82322 0.762563 9.82322 0.46967 9.53033C0.176777 9.23744 0.176777 8.76256 0.46967 8.46967L3.93934 5L0.46967 1.53033C0.176777 1.23744 0.176777 0.762563 0.46967 0.46967Z",
-                fill: "#EB5757"
-              })
-            })
-          });
-        }
-        if (c.id === TableConstants.REORDER_COLUMN_ID) {
-          return /* @__PURE__ */ jsx(DragHandleColumn, {
-            id: item.id,
-            moveItem,
-            findItem,
-            handleDragging: (dragging) => {
-              setIsDragging(dragging ? item.id : false);
+      source: source.map((item) => {
+        return {
+          id: item.id,
+          values: mapped_columns.map((c) => {
+            if (c.id === TableConstants.DELETE_COLUMN_ID) {
+              return /* @__PURE__ */ jsx(DeleteButton, {
+                onClick: () => onDelete(item.id),
+                children: /* @__PURE__ */ jsx("svg", {
+                  width: "10",
+                  height: "10",
+                  viewBox: "0 0 10 10",
+                  children: /* @__PURE__ */ jsx("path", {
+                    fillRule: "evenodd",
+                    clipRule: "evenodd",
+                    d: "M0.46967 0.46967C0.762563 0.176777 1.23744 0.176777 1.53033 0.46967L5 3.93934L8.46967 0.46967C8.76256 0.176777 9.23744 0.176777 9.53033 0.46967C9.82322 0.762563 9.82322 1.23744 9.53033 1.53033L6.06066 5L9.53033 8.46967C9.82322 8.76256 9.82322 9.23744 9.53033 9.53033C9.23744 9.82322 8.76256 9.82322 8.46967 9.53033L5 6.06066L1.53033 9.53033C1.23744 9.82322 0.762563 9.82322 0.46967 9.53033C0.176777 9.23744 0.176777 8.76256 0.46967 8.46967L3.93934 5L0.46967 1.53033C0.176777 1.23744 0.176777 0.762563 0.46967 0.46967Z",
+                    fill: "#EB5757"
+                  })
+                })
+              });
             }
-          });
-        }
-        return get_1(item, c.id, "");
-      })),
+            if (c.id === TableConstants.REORDER_COLUMN_ID) {
+              return /* @__PURE__ */ jsx(DragHandleColumn, {
+                id: item.id,
+                moveItem,
+                findItem,
+                handleDragging: (dragging) => {
+                  setIsDragging(dragging ? item.id : false);
+                }
+              });
+            }
+            return get_1(item, c.id, "");
+          })
+        };
+      }),
+      findItem,
+      moveItem,
       track: getTrack(mapped_track, mapped_columns),
       dragging: isDragging
     },
@@ -3057,7 +3234,6 @@ const TableProvider = ({
       backend: HTML5Backend,
       children: /* @__PURE__ */ jsx(RenderTable, {
         css: css2,
-        ref: drop,
         children
       })
     })
@@ -3073,4 +3249,4 @@ const Table = {
   Header: TableHeader,
   Cell: TableCell
 };
-export { Button$2 as Button, Checkbox, FormObject as Form, Grid, Image, Input$1 as Input, LeafConsumer, LeafProvider, Link, List, ListItem, Notification, Notify, Page, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };
+export { Button$2 as Button, Checkbox, FormObject as Form, Grid, Image, Input$1 as Input, LeafConsumer, LeafProvider, Link, List, ListItem, Notification, Notify, Page, PopoverWrapper as Popover, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };

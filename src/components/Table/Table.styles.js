@@ -52,6 +52,15 @@ export const HeaderColumn = styled('div', {
 
 export const Row = styled('div', {
     display: 'grid',
+    transition: 'background-color .1s ease',
+
+    variants: {
+        dragging: {
+            true: {
+                backgroundColor: '#E7E9EA'
+            }
+        }
+    }
 })
 
 export const Cell = styled('div', {
@@ -97,13 +106,24 @@ export const DeleteButton = styled('button', {
     }
 })
 
-export const RankColumnHandle = styled('span', {
+export const RankColumnHandle = styled('div', {
     cursor: 'grab',
+    borderRadius: '$sm',
+    padding: '$1',
+    transition: 'all .1s ease',
     variants: {
         dragging: {
             true: {
                 cursor: 'grabbing'
             }
         }
+    },
+
+    '&:hover': {
+        backgroundColor: '$black300',
+    },
+
+    '& svg': {
+        display: 'block'
     }
 })

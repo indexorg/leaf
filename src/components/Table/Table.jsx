@@ -58,9 +58,8 @@ const DragHandleColumn = ({
 
 	const [, drop] = useDrop({
 	    accept: TableConstants.REORDER_COLUMN_ID,
-	    canDrop: () => false,
 	    hover({ id: draggedId }) {
-	      	if (draggedId !== id) {
+            if (draggedId !== id) {
 	        	const { index: overIndex } = findItem(id)
 	        
 	        	moveItem(draggedId, overIndex)
@@ -68,12 +67,13 @@ const DragHandleColumn = ({
 	    },
 	})
 
-  	// const opacity = isDragging ? 0 : 1
-
 	return(
 		<RankColumnHandle
         onMouseDown={() => {
             handleDragging(true)
+        }}
+        onMouseUp={() => {
+            handleDragging(false)
         }}
         dragging={isDragging}
         ref={(node) => drag(drop(node))}>
@@ -120,24 +120,65 @@ export const TableHeader = () => (
     </TableContext.Consumer>
 )
 
+export const TableRowWithDrop = ({
+    children,
+    css,
+    dragging,
+    id,
+    findItem,
+    moveItem,
+}) => {
+    const [, drop] = useDrop({ 
+        accept: TableConstants.REORDER_COLUMN_ID,
+        hover({ id: draggedId }) {
+            if (draggedId !== id) {
+	        	const { index: overIndex } = findItem(id)
+	        
+	        	moveItem(draggedId, overIndex)
+	      	}
+	    },
+    })
+
+    return(
+        <Row
+        css={css}
+        dragging={dragging}
+        ref={drop}>
+            {children}
+        </Row>
+    )
+}
+
 export const TableRow = ({ 
-    children 
-}) => (
-    <TableContext.Consumer>
-        {
-            ({
-                track
-            }) => (
-                <Row
-                css={{
-                    gridTemplateColumns: track
-                }}>
-                    {children}
-                </Row>
-            )
-        }
-    </TableContext.Consumer>
-)
+    children,
+    id,
+}) => {
+    
+
+    return(
+        <TableContext.Consumer>
+            {
+                ({
+                    dragging,
+                    findItem,
+                    moveItem,
+                    track,
+                }) => (
+                    <TableRowWithDrop
+                    id={id}
+                    findItem={findItem}
+                    moveItem={moveItem}
+                    dragging={id === dragging}
+                    css={{
+                        gridTemplateColumns: track
+                    }}>
+                        {children}
+                    </TableRowWithDrop>
+                )
+            }
+        </TableContext.Consumer>
+    )
+}
 
 const TableCell = ({ 
     children 
@@ -203,8 +244,6 @@ const TableProvider = ({
 	    }
 	}
 
-    const [, drop] = useDrop({ accept: TableConstants.REORDER_COLUMN_ID })
-
     let mapped_columns = columns
     let mapped_track = track
 
@@ -232,47 +271,53 @@ const TableProvider = ({
         <TableContext.Provider
         value={{
             columns: mapped_columns,
-            source: source.map(item => mapped_columns.map(c => {
-                if(c.id === TableConstants.DELETE_COLUMN_ID) {
-                    return(
-                        <DeleteButton
-                        onClick={() => onDelete(item.id)}>
-                            <svg 
-                            width="10" 
-                            height="10"
-                            viewBox="0 0 10 10">
-                                <path 
-                                fillRule="evenodd" 
-                                clipRule="evenodd" 
-                                d="M0.46967 0.46967C0.762563 0.176777 1.23744 0.176777 1.53033 0.46967L5 3.93934L8.46967 0.46967C8.76256 0.176777 9.23744 0.176777 9.53033 0.46967C9.82322 0.762563 9.82322 1.23744 9.53033 1.53033L6.06066 5L9.53033 8.46967C9.82322 8.76256 9.82322 9.23744 9.53033 9.53033C9.23744 9.82322 8.76256 9.82322 8.46967 9.53033L5 6.06066L1.53033 9.53033C1.23744 9.82322 0.762563 9.82322 0.46967 9.53033C0.176777 9.23744 0.176777 8.76256 0.46967 8.46967L3.93934 5L0.46967 1.53033C0.176777 1.23744 0.176777 0.762563 0.46967 0.46967Z" 
-                                fill="#EB5757" />
-                            </svg>
-                        </DeleteButton>
-                    )
-                }
+            source: source.map(item => {
+                return {
+                    id: item.id,
+                    values: mapped_columns.map(c => {
+                        if(c.id === TableConstants.DELETE_COLUMN_ID) {
+                            return(
+                                <DeleteButton
+                                onClick={() => onDelete(item.id)}>
+                                    <svg 
+                                    width="10" 
+                                    height="10"
+                                    viewBox="0 0 10 10">
+                                        <path 
+                                        fillRule="evenodd" 
+                                        clipRule="evenodd" 
+                                        d="M0.46967 0.46967C0.762563 0.176777 1.23744 0.176777 1.53033 0.46967L5 3.93934L8.46967 0.46967C8.76256 0.176777 9.23744 0.176777 9.53033 0.46967C9.82322 0.762563 9.82322 1.23744 9.53033 1.53033L6.06066 5L9.53033 8.46967C9.82322 8.76256 9.82322 9.23744 9.53033 9.53033C9.23744 9.82322 8.76256 9.82322 8.46967 9.53033L5 6.06066L1.53033 9.53033C1.23744 9.82322 0.762563 9.82322 0.46967 9.53033C0.176777 9.23744 0.176777 8.76256 0.46967 8.46967L3.93934 5L0.46967 1.53033C0.176777 1.23744 0.176777 0.762563 0.46967 0.46967Z" 
+                                        fill="#EB5757" />
+                                    </svg>
+                                </DeleteButton>
+                            )
+                        }
 
-                if(c.id === TableConstants.REORDER_COLUMN_ID) {
-                    return(
-                        <DragHandleColumn 
-                        id={item.id}
-                        moveItem={moveItem}
-                        findItem={findItem}
-                        handleDragging={dragging => {
-                            setIsDragging(dragging ? item.id : false)
-                        }} />
-                    )
-                }
+                        if(c.id === TableConstants.REORDER_COLUMN_ID) {
+                            return(
+                                <DragHandleColumn 
+                                id={item.id}
+                                moveItem={moveItem}
+                                findItem={findItem}
+                                handleDragging={dragging => {
+                                    setIsDragging(dragging ? item.id : false)
+                                }} />
+                            )
+                        }
 
-                return _get(item, c.id, '')
-            })),
+                        return _get(item, c.id, '')
+                    })
+                }
+            }),
+            findItem,
+            moveItem,
             track: getTrack(mapped_track, mapped_columns),
             dragging: isDragging,
         }}>
             <DndProvider 
             backend={HTML5Backend}>
                 <RenderTable
-                css={css}
-                ref={drop}>
+                css={css}>
                     {children}
                 </RenderTable>
             </DndProvider>

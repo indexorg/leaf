@@ -15,7 +15,7 @@ export const Item = styled('div', {
     },
 
     '@md': {
-        height: '$9'
+        height: '$11'
     }
 })
 
@@ -26,6 +26,13 @@ export const Container = styled('div', {
                 [`& ${Item}`]: {
                     paddingX: '$3'
                 },
+            }
+        },
+        scroll: {
+            true: {
+                overflow: 'scroll',
+                marginRight: '-$3',
+                paddingRight: '$3'
             }
         }
     }
