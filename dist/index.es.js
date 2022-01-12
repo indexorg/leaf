@@ -32,11 +32,11 @@ var __objRest = (source, exclude) => {
 import { createStitches, styled as styled$1 } from "@stitches/react";
 import React, { useContext, useState, useEffect, useRef, useReducer, useMemo } from "react";
 import "base-64";
-import { useFloating, shift, offset } from "@floating-ui/react-dom";
+import { useFloating, flip, shift, offset, getScrollParents } from "@floating-ui/react-dom";
 import { HashRouter, useLocation, Link as Link$1, Routes, Route } from "react-router-dom";
-import update from "immutability-helper";
-import { DndProvider, useDrop, useDrag } from "react-dnd";
+import { useDrop, useDrag, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import update from "immutability-helper";
 const spaces = {
   0: "0",
   "0-5": ".125rem",
@@ -90,24 +90,28 @@ const {
     colors: {
       white: "#fff",
       black: "#000",
-      black900: "#23282D",
-      black600: "#737578",
-      black500: "#505C61",
-      black310: "#D3D7DA",
-      black300: "#D9DDDF",
+      black900: "#1B1F22",
+      black800: "#23282D",
+      black700: "#3D4248",
+      black600: "#545C63",
+      black500: "#6C757F",
+      black300: "#A1A8AF",
+      black210: "#D3D7DA",
+      black200: "#D9DDDF",
       black100: "#F0F1F2",
-      primary410: "#1D6096",
-      primary400: "#2271B1",
-      warning400: "#d63638"
+      black000: "#FFF",
+      blue410: "#1D6096",
+      blue400: "#2271B1",
+      red400: "#d63638"
     },
     space: spaces,
     fontSizes: {
       text900: "2rem",
       text800: "1.5rem",
       text700: "1.25rem",
-      text600: "1.0625rem",
+      text600: "1rem",
       text500: ".9375rem",
-      text400: "0.9375rem",
+      text400: ".9375rem",
       text300: "0.875rem",
       text200: ".75rem",
       text100: ".625rem"
@@ -204,6 +208,23 @@ const {
       padding: 0,
       boxSizing: "border-box"
     })
+  }
+});
+createTheme("dark-theme", {
+  colors: {
+    black900: "#F0F1F2",
+    black800: "#B3B8BC",
+    black700: "#989FA4",
+    black600: "#80888E",
+    black500: "#656C72",
+    black300: "#4B5358",
+    black210: "#383F42",
+    black200: "#3F464A",
+    black100: "#2A2E32",
+    black000: "#1B1F22",
+    blue410: "#1D6096",
+    blue400: "#2C91E3",
+    red400: "#EB4949"
   }
 });
 const LeafContext = React.createContext({});
@@ -800,11 +821,11 @@ const jsx = jsxRuntime.exports.jsx;
 const jsxs = jsxRuntime.exports.jsxs;
 const Fragment = jsxRuntime.exports.Fragment;
 const Element$g = styled$1("a", {
-  color: "$primary400",
+  color: "$blue400",
   fontSize: "$text200",
   fontWeight: 500,
   "&:hover": {
-    color: "$primary410"
+    color: "$blue410"
   }
 });
 const Link = (props) => {
@@ -828,11 +849,15 @@ const Element$f = styled$1("div", {
     backgroundColor: "$black900",
     borderRadius: "$md",
     boxShadow: "$md",
-    color: "$white",
+    color: "$black000",
     display: "block",
     fontSize: "$text300",
     padding: "$4 $6",
     transition: "all 150ms cubic-bezier(0.19, 1, 0.22, 1)"
+  },
+  ".dark & span": {
+    backgroundColor: "$black200",
+    color: "$black900"
   },
   variants: {
     visible: {
@@ -884,7 +909,7 @@ const Notification = ({
 const Element$e = styled("button", {
   display: "block",
   backgroundColor: "transparent",
-  border: "2px solid $black600",
+  border: "2px solid $black300",
   borderRadius: "9999px",
   color: "transparent",
   cursor: "pointer",
@@ -895,8 +920,8 @@ const Element$e = styled("button", {
   variants: {
     enabled: {
       true: {
-        backgroundColor: "$primary400",
-        border: "2px solid $primary400"
+        backgroundColor: "$blue400",
+        border: "2px solid $blue400"
       }
     }
   },
@@ -905,7 +930,7 @@ const Element$e = styled("button", {
   }
 });
 const Control = styled("span", {
-  backgroundColor: "$black600",
+  backgroundColor: "$black300",
   borderRadius: "100%",
   display: "block",
   height: "$3",
@@ -918,8 +943,11 @@ const Control = styled("span", {
   variants: {
     enabled: {
       true: {
-        backgroundColor: "$white",
-        transform: "translateX(16px) translateY(-50%)"
+        backgroundColor: "$black100",
+        transform: "translateX(16px) translateY(-50%)",
+        ".dark &": {
+          backgroundColor: "$black000"
+        }
       }
     }
   }
@@ -969,18 +997,18 @@ Grid.Container = GridContainer;
 Grid.Item = GridItem;
 const Item$2 = styled("div", {
   alignItems: "center",
-  borderBottom: "1px solid $black300",
+  borderBottom: "1px solid $black100",
   display: "flex",
   fontSize: "$text400",
   fontWeight: 500,
   margin: 0,
-  height: "$12",
+  padding: "$2 0",
   width: "$full",
+  ".dark &": {
+    borderBottom: "1px solid $black000"
+  },
   "&:last-child": {
     borderBottom: 0
-  },
-  "@md": {
-    height: "$11"
   }
 });
 const Container = styled("div", {
@@ -1039,6 +1067,7 @@ const buttonStyles = {
   "-webkit-appearance": "none",
   alignItems: "center",
   borderRadius: "$md",
+  border: "0",
   boxSizing: "border-box",
   display: "inline-flex",
   cursor: "pointer",
@@ -1082,40 +1111,39 @@ const buttonStyles = {
     },
     variant: {
       normal: {
-        border: "0",
-        backgroundColor: "$black300",
-        color: "$black900",
+        backgroundColor: "$black200",
+        color: "$black800",
         "&:hover": {
-          background: "$black310",
+          background: "$black210",
+          color: "$black800"
+        },
+        ".dark &": {
+          backgroundColor: "$black100",
           color: "$black900"
         }
       },
       primary: {
-        border: "1px solid $primary400",
-        background: "$primary400",
-        color: "$white",
+        background: "$blue400",
+        color: "#FFFFFF",
         "&:hover": {
-          background: "$primary410",
-          color: "$white"
+          background: "$blue410",
+          color: "#FFFFFF"
         }
       },
       warning: {
-        border: "1px solid $warning400",
         background: "transparent",
-        color: "$warning400",
+        color: "$red400",
         "&:hover": {
-          background: "$warning400",
-          color: "$white"
+          background: "$red400",
+          color: "$black000"
         }
       },
       simple: {
         background: "transparent",
-        border: "none",
         color: "$text900"
       },
       plain: {
         background: "transparent",
-        border: "none",
         color: "$text900",
         padding: 0
       }
@@ -1161,7 +1189,7 @@ const PopoverElement = styled("div", {
   position: "relative"
 });
 const PopoverPanel = styled("div", {
-  backgroundColor: "$white",
+  backgroundColor: "$black000",
   borderRadius: "$lg",
   boxShadow: "$shallow",
   position: "absolute",
@@ -1180,6 +1208,9 @@ const PopoverPanel = styled("div", {
         visibility: "visible"
       }
     }
+  },
+  ".dark &": {
+    backgroundColor: "$black100"
   }
 });
 const PopoverWrapper = ({
@@ -1187,7 +1218,7 @@ const PopoverWrapper = ({
   buttonVariant = "normal",
   buttonSize = "normal",
   css: css2 = {},
-  origin = "top-start",
+  origin = "bottom-start",
   children = null
 }) => {
   const [visible, setVisible] = useState();
@@ -1196,10 +1227,13 @@ const PopoverWrapper = ({
     x,
     y,
     reference,
-    floating
+    floating,
+    update: update2,
+    refs,
+    placement
   } = useFloating({
     placement: origin,
-    middleware: [shift(), offset(12)]
+    middleware: [flip(), shift(), offset(12)]
   });
   useEffect(() => {
     document.addEventListener("click", checkClickInside);
@@ -1207,6 +1241,22 @@ const PopoverWrapper = ({
       document.removeEventListener("click", checkClickInside);
     };
   }, []);
+  useEffect(() => {
+    if (!refs.reference.current || !refs.floating.current) {
+      return;
+    }
+    const parents = [...getScrollParents(refs.reference.current), ...getScrollParents(refs.floating.current)];
+    parents.forEach((parent) => {
+      parent.addEventListener("scroll", update2);
+      parent.addEventListener("resize", update2);
+    });
+    return () => {
+      parents.forEach((parent) => {
+        parent.removeEventListener("scroll", update2);
+        parent.removeEventListener("resize", update2);
+      });
+    };
+  }, [refs.reference, refs.floating, update2]);
   const checkClickInside = (e) => {
     if (popoverRef && !popoverRef.current.contains(e.target)) {
       setVisible(false);
@@ -1224,13 +1274,13 @@ const PopoverWrapper = ({
     }), /* @__PURE__ */ jsx(PopoverPanel, {
       ref: floating,
       css: {
-        transformOrigin: Format.Map(origin, {
+        transformOrigin: Format.Map(placement, {
           "top": "50% 100%",
           "top-start": "0% 100%",
           "top-end": "100% 100%",
-          "bottom": "50% 0",
-          "bottom-start": "0 0",
-          "bottom-end": "100% 0"
+          "bottom": "50% 0%",
+          "bottom-start": "0% 0%",
+          "bottom-end": "100% 0%"
         }),
         top: y != null ? y : "",
         left: x != null ? x : ""
@@ -1241,8 +1291,11 @@ const PopoverWrapper = ({
   });
 };
 const Element$c = styled("div", {
-  margin: "-10px -20px 0 -22px",
-  position: "relative"
+  margin: "0 -12px 0 -10px",
+  position: "relative",
+  "@md": {
+    margin: "-10px -20px 0 -22px"
+  }
 });
 const ScreenContainer = ({
   children,
@@ -1284,21 +1337,29 @@ const Element$b = styled("span", {
   display: "flex",
   gap: "$3",
   height: "$11",
-  marginX: "-$4",
+  marginX: "-$2",
   marginY: "$1",
   paddingX: "$4",
   textAlign: "left",
   transition: "all .15s ease",
+  "@md": {
+    marginX: "-$4"
+  },
   variants: {
     active: {
       true: {
-        backgroundColor: "$black100",
-        color: "$primary400",
+        "&": {
+          backgroundColor: "$black100",
+          color: "$blue400"
+        },
         [`& ${Icon}`]: {
-          color: "$primary400",
+          color: "$blue400",
           opacity: 1
         },
         "&:hover": {
+          backgroundColor: "$black100"
+        },
+        ".dark &:hover": {
           backgroundColor: "$black100"
         }
       },
@@ -1308,7 +1369,10 @@ const Element$b = styled("span", {
     }
   },
   "&:hover": {
-    backgroundColor: "$black310"
+    backgroundColor: "$black210"
+  },
+  ".dark &:hover": {
+    backgroundColor: "$black100"
   }
 });
 const Item$1 = ({
@@ -1339,18 +1403,26 @@ const Navigation$1 = styled("nav", {
   display: "flex",
   flexDirection: "column",
   left: 0,
-  padding: "$16 $10 $8",
-  position: "absolute",
-  height: "100%",
+  padding: "$10 $5",
+  position: "relative",
   top: 0,
-  width: "$80",
+  "@md": {
+    height: "100%",
+    padding: "$16 $10 $8",
+    position: "absolute",
+    width: "$80"
+  },
   "&:before": {
-    backgroundColor: "$black300",
+    backgroundColor: "$black200",
     content: "",
     opacity: 0.8,
     position: "absolute",
     inset: "$0",
     zIndex: -1
+  },
+  ".dark &:before": {
+    backgroundColor: "$black",
+    opacity: 0.15
   }
 });
 const ScreensNavigation = ({
@@ -1372,10 +1444,16 @@ const ScreensNavigation = ({
   });
 };
 const Element$a = styled("div", {
-  padding: "$14"
+  padding: "$5",
+  "@md": {
+    padding: "$14"
+  }
 });
 const Content$1 = styled("div", {
-  paddingTop: "$14"
+  paddingTop: "$10",
+  "@md": {
+    paddingTop: "$14"
+  }
 });
 const ScreensPage = ({
   actions = null,
@@ -1383,6 +1461,7 @@ const ScreensPage = ({
   title = false
 }) => /* @__PURE__ */ jsxs(Element$a, {
   children: [/* @__PURE__ */ jsxs(Stack, {
+    align: "center",
     children: [title && /* @__PURE__ */ jsx(Text, {
       size: "title",
       children: title
@@ -1399,8 +1478,10 @@ const ScreensPage = ({
 });
 const Element$9 = styled("div", {
   position: "relative",
-  left: "$80",
-  width: "calc(100% - $80)"
+  "@md": {
+    left: "$80",
+    width: "calc(100% - $80)"
+  }
 });
 const ScreensViews = ({
   children
@@ -1655,6 +1736,11 @@ const Text = styled("span", {
         fontSize: "$text700",
         fontWeight: 500,
         lineHeight: "$tight"
+      },
+      "bodyheading": {
+        fontSize: "$text600",
+        fontWeight: 500,
+        lineHeight: "$snug"
       },
       body: {
         fontSize: "$text500",
@@ -2166,7 +2252,7 @@ const FormRadio = (props) => {
     checked: get_1(values, name, "") === value
   }));
 };
-const Row$1 = ({
+const Row$2 = ({
   children
 }) => /* @__PURE__ */ jsx(Stack, {
   gap: 16,
@@ -2257,13 +2343,13 @@ const FormObject = {
   Fieldset,
   Input: FormInput,
   Radio: FormRadio,
-  Row: Row$1,
+  Row: Row$2,
   Select: FormSelect,
   Submit: FormSubmit,
   Textarea: FormTextarea,
   Wrapper: Form
 };
-const Wrapper$2 = styled("div", {
+const Wrapper$3 = styled("div", {
   display: "flex",
   flexDirection: "column",
   flex: 1,
@@ -2273,25 +2359,25 @@ const Wrapper$2 = styled("div", {
   transition: "all .175s ease"
 });
 const Element$4 = styled("input", {
-  backgroundColor: "$white",
-  border: "1px solid $black300",
+  backgroundColor: "$black000",
+  border: "1px solid $black200",
   borderRadius: "$md",
   boxShadow: "0 1px 4px rgba(35, 40, 45, 0.08)",
   cursor: "text",
   color: "$black900",
-  fontSize: "$text300",
+  fontSize: "$text600",
   fontWeight: 500,
   height: "$9",
   minHeight: "$9",
   margin: 0,
   paddingX: "$3",
+  transition: "all .2s ease",
   width: "100%",
   variants: {
     hasError: {
       true: {
-        backgroundColorRGBA: "#d63638|.1",
-        color: "$warning400",
-        border: "1px solid $warning400"
+        color: "$red400",
+        border: "1px solid $red400"
       }
     }
   },
@@ -2300,15 +2386,26 @@ const Element$4 = styled("input", {
     boxShadow: "0 1px 4px rgba(34, 113, 177, 0.22)",
     outline: "none"
   },
+  ".dark &": {
+    boxShadow: "none"
+  },
+  ".dark &:focus": {
+    border: "1px solid $blue400",
+    boxShadow: "none",
+    outline: "none"
+  },
   "&:autofill": {
-    backgroundColor: "$white !important",
+    backgroundColor: "$black000 !important",
     "-webkit-box-shadow": "0 0 0 30px white inset !important",
     fontWeight: 600
   },
   "&:-webkit-autofill": {
-    backgroundColor: "$white !important",
+    backgroundColor: "$black000 !important",
     "-webkit-box-shadow": "0 0 0 30px white inset !important",
     fontWeight: 600
+  },
+  "@md": {
+    fontSize: "$text300"
   }
 });
 const Input$1 = (props) => {
@@ -2340,7 +2437,7 @@ const Input$1 = (props) => {
       ref.current.focus();
     }
   }, [focus]);
-  return /* @__PURE__ */ jsxs(Wrapper$2, {
+  return /* @__PURE__ */ jsxs(Wrapper$3, {
     css: css2,
     dir,
     onClick: () => setFocus(true),
@@ -2350,7 +2447,7 @@ const Input$1 = (props) => {
       size: "label",
       weight: "medium",
       css: {
-        color: invalid ? "$warning400" : "$black900",
+        color: invalid ? "$red400" : "$black900",
         cursor: "pointer"
       },
       children: label
@@ -2504,7 +2601,7 @@ const Radio = ({
     })]
   });
 };
-const Wrapper$1 = styled("div", {
+const Wrapper$2 = styled("div", {
   display: "flex",
   flexDirection: "column",
   flex: 1,
@@ -2522,17 +2619,21 @@ const IconWrapper = styled("div", {
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
-  zIndex: 1
+  zIndex: 1,
+  "& path": {
+    fill: "$black800"
+  }
 });
 const Element$3 = styled("select", {
   appearance: "none",
   backgroundImage: "none !important",
-  backgroundColor: "$white !important",
-  border: "1px solid $black300 !important",
+  backgroundColor: "$black000 !important",
+  border: "1px solid $black200 !important",
   borderRadius: "$md !important",
   boxShadow: "0 1px 4px rgba(35, 40, 45, 0.08) !important",
-  color: "$black900",
+  color: "$black900 !important",
   display: "block",
+  fontSize: "$text600 !important",
   fontWeight: 500,
   height: "$9",
   minHeight: "$9",
@@ -2544,7 +2645,7 @@ const Element$3 = styled("select", {
   maxWidth: "unset !important",
   minWidth: "unset",
   position: "relative",
-  fontSize: "$text300",
+  textShadow: "none !important",
   width: "100%",
   zIndex: 1,
   "&:hover": {
@@ -2566,6 +2667,18 @@ const Element$3 = styled("select", {
         }
       }
     }
+  },
+  ".dark &": {
+    borderColor: "$black300 !important",
+    boxShadow: "none"
+  },
+  ".dark &:focus": {
+    border: "1px solid rgba(34, 113, 177, 0.5) !important",
+    boxShadow: "none !important",
+    outline: "none"
+  },
+  "@md": {
+    fontSize: "$text300 !important"
   }
 });
 const Select = ({
@@ -2587,7 +2700,7 @@ const Select = ({
       ref.current.focus();
     }
   }, [focus]);
-  return /* @__PURE__ */ jsxs(Wrapper$1, {
+  return /* @__PURE__ */ jsxs(Wrapper$2, {
     css: css2,
     onClick: () => setFocus(true),
     children: [label && /* @__PURE__ */ jsx(Text, {
@@ -2596,7 +2709,7 @@ const Select = ({
       size: "label",
       weight: "medium",
       css: {
-        color: invalid ? "$warning400" : "$black900",
+        color: invalid ? "$red400" : "$black900",
         cursor: "pointer"
       },
       children: label
@@ -2622,8 +2735,7 @@ const Select = ({
           children: /* @__PURE__ */ jsx("path", {
             fillRule: "evenodd",
             clipRule: "evenodd",
-            d: "M0.646484 1.35359L1.35359 0.646484L7.00004 6.29293L12.6465 0.646484L13.3536 1.35359L7.00004 7.70714L0.646484 1.35359Z",
-            fill: "#23282D"
+            d: "M0.646484 1.35359L1.35359 0.646484L7.00004 6.29293L12.6465 0.646484L13.3536 1.35359L7.00004 7.70714L0.646484 1.35359Z"
           })
         })
       })]
@@ -2640,7 +2752,7 @@ const Select = ({
     })]
   });
 };
-const Wrapper = styled("div", {
+const Wrapper$1 = styled("div", {
   cursor: "text",
   display: "flex",
   flexDirection: "column",
@@ -2649,7 +2761,7 @@ const Wrapper = styled("div", {
   transition: "colors .1s ease"
 });
 const Element$2 = styled("textarea", {
-  backgroundColor: "$white",
+  backgroundColor: "$black000",
   borderRadius: "$md",
   border: "1px solid $black300",
   boxShadow: "0 1px 4px rgba(35, 40, 45, 0.08)",
@@ -2668,8 +2780,8 @@ const Element$2 = styled("textarea", {
     hasError: {
       true: {
         backgroundColorRGBA: "#d63638|.1",
-        color: "$warning400",
-        border: "1px solid $warning400"
+        color: "$red400",
+        border: "1px solid $red400"
       }
     },
     resizeable: {
@@ -2701,7 +2813,7 @@ const Textarea = ({
       ref.current.focus();
     }
   }, [focus]);
-  return /* @__PURE__ */ jsxs(Wrapper, {
+  return /* @__PURE__ */ jsxs(Wrapper$1, {
     css: css2,
     dir,
     onClick: () => setFocus(true),
@@ -2711,7 +2823,7 @@ const Textarea = ({
       size: "label",
       weight: "medium",
       css: {
-        color: invalid ? "$warning400" : "$black900",
+        color: invalid ? "$red400" : "$black900",
         cursor: "pointer"
       },
       children: label
@@ -2834,7 +2946,7 @@ const Element$1 = styled("img", {
     },
     image_style: {
       raised: {
-        border: "2px solid $white",
+        border: "2px solid $black000",
         boxShadow: "$card"
       }
     },
@@ -2869,30 +2981,14 @@ const TableConstants = {
   REORDER_COLUMN_ID: "__leaf-reorder-column"
 };
 const TableContext = React.createContext({});
-const getTrack = (track, columns) => {
-  if (track) {
-    if (track.length === columns.length) {
-      return track.join(" ");
-    }
-  }
-  return columns.map((c) => {
-    if (c.id === TableConstants.DELETE_COLUMN_ID) {
-      return "40px";
-    }
-    if (c.id === TableConstants.REORDER_COLUMN_ID) {
-      return "50px";
-    }
-    return "1fr";
-  }).join(" ");
-};
 const Element = styled("div", {});
 const HeaderRow = styled("div", {
   display: "grid"
 });
 const HeaderColumn = styled("div", {
   alignItems: "center",
-  backgroundColor: "$black300",
-  color: "$black500",
+  backgroundColor: "$black200",
+  color: "$black600",
   display: "flex",
   fontSize: "$text300",
   fontWeight: 500,
@@ -2924,22 +3020,26 @@ const HeaderColumn = styled("div", {
         justifyContent: "flex-end"
       }
     }
+  },
+  ".dark &": {
+    backgroundColor: "$black100",
+    color: "$black800"
   }
 });
-const Row = styled("div", {
+const Row$1 = styled("div", {
   display: "grid",
   transition: "background-color .1s ease",
   variants: {
     dragging: {
       true: {
-        backgroundColor: "#E7E9EA"
+        backgroundColor: "$black200"
       }
     }
   }
 });
-const Cell = styled("div", {
+const CellContents = styled("div", {
   alignItems: "center",
-  borderBottom: "1px solid $black300",
+  borderBottom: "1px solid $black200",
   display: "flex",
   minHeight: "$10",
   margin: 0,
@@ -2988,13 +3088,99 @@ const RankColumnHandle = styled("div", {
     }
   },
   "&:hover": {
-    backgroundColor: "$black300"
+    backgroundColor: "$black200"
   },
   "& svg": {
     display: "block"
   }
 });
-const DragHandleColumn = ({
+const Header = () => /* @__PURE__ */ jsx(TableContext.Consumer, {
+  children: ({
+    columns,
+    track
+  }) => /* @__PURE__ */ jsx(HeaderRow, {
+    css: {
+      gridTemplateColumns: track
+    },
+    children: columns.map((column) => /* @__PURE__ */ jsx(HeaderColumn, {
+      onClick: () => {
+        "onClick" in column && column.onClick();
+      },
+      align: get_1(column, "align", "leading"),
+      children: column.name
+    }, column.id))
+  })
+});
+const RowWithDrop = ({
+  children,
+  css: css2,
+  dragging,
+  id,
+  findItem,
+  moveItem
+}) => {
+  const [, drop] = useDrop({
+    accept: TableConstants.REORDER_COLUMN_ID,
+    hover({
+      id: draggedId
+    }) {
+      if (draggedId !== id) {
+        const {
+          index: overIndex
+        } = findItem(id);
+        moveItem(draggedId, overIndex);
+      }
+    }
+  });
+  return /* @__PURE__ */ jsx(Row$1, {
+    css: css2,
+    dragging,
+    ref: drop,
+    children
+  });
+};
+const Row = ({
+  children,
+  id
+}) => /* @__PURE__ */ jsx(TableContext.Consumer, {
+  children: ({
+    dragging,
+    findItem,
+    moveItem,
+    track
+  }) => /* @__PURE__ */ jsx(RowWithDrop, {
+    id,
+    findItem,
+    moveItem,
+    dragging: id === dragging,
+    css: {
+      gridTemplateColumns: track
+    },
+    children
+  })
+});
+const Cell = ({
+  children
+}) => /* @__PURE__ */ jsx(CellContents, {
+  children
+});
+const getTrack = (track, columns) => {
+  if (track) {
+    if (track.length === columns.length) {
+      return track.join(" ");
+    }
+  }
+  return columns.map((c) => {
+    if (c.id === TableConstants.DELETE_COLUMN_ID) {
+      return "40px";
+    }
+    if (c.id === TableConstants.REORDER_COLUMN_ID) {
+      return "50px";
+    }
+    return "1fr";
+  }).join(" ");
+};
+const DragHandle = ({
   id,
   handleDragging,
   moveItem,
@@ -3060,79 +3246,7 @@ const DragHandleColumn = ({
     })
   });
 };
-const TableHeader = () => /* @__PURE__ */ jsx(TableContext.Consumer, {
-  children: ({
-    columns,
-    track
-  }) => /* @__PURE__ */ jsx(HeaderRow, {
-    css: {
-      gridTemplateColumns: track
-    },
-    children: columns.map((column) => /* @__PURE__ */ jsx(HeaderColumn, {
-      onClick: () => {
-        "onClick" in column && column.onClick();
-      },
-      align: get_1(column, "align", "leading"),
-      children: column.name
-    }, column.id))
-  })
-});
-const TableRowWithDrop = ({
-  children,
-  css: css2,
-  dragging,
-  id,
-  findItem,
-  moveItem
-}) => {
-  const [, drop] = useDrop({
-    accept: TableConstants.REORDER_COLUMN_ID,
-    hover({
-      id: draggedId
-    }) {
-      if (draggedId !== id) {
-        const {
-          index: overIndex
-        } = findItem(id);
-        moveItem(draggedId, overIndex);
-      }
-    }
-  });
-  return /* @__PURE__ */ jsx(Row, {
-    css: css2,
-    dragging,
-    ref: drop,
-    children
-  });
-};
-const TableRow = ({
-  children,
-  id
-}) => {
-  return /* @__PURE__ */ jsx(TableContext.Consumer, {
-    children: ({
-      dragging,
-      findItem,
-      moveItem,
-      track
-    }) => /* @__PURE__ */ jsx(TableRowWithDrop, {
-      id,
-      findItem,
-      moveItem,
-      dragging: id === dragging,
-      css: {
-        gridTemplateColumns: track
-      },
-      children
-    })
-  });
-};
-const TableCell = ({
-  children
-}) => /* @__PURE__ */ jsx(Cell, {
-  children
-});
-const RenderTable = React.forwardRef(({
+const Render = React.forwardRef(({
   children,
   css: css2 = {}
 }, ref) => /* @__PURE__ */ jsx(TableContext.Consumer, {
@@ -3144,7 +3258,7 @@ const RenderTable = React.forwardRef(({
     children: children(source)
   })
 }));
-const TableProvider = ({
+const Provider = ({
   children,
   css: css2 = {},
   columns = [],
@@ -3212,7 +3326,7 @@ const TableProvider = ({
               });
             }
             if (c.id === TableConstants.REORDER_COLUMN_ID) {
-              return /* @__PURE__ */ jsx(DragHandleColumn, {
+              return /* @__PURE__ */ jsx(DragHandle, {
                 id: item.id,
                 moveItem,
                 findItem,
@@ -3232,21 +3346,21 @@ const TableProvider = ({
     },
     children: /* @__PURE__ */ jsx(DndProvider, {
       backend: HTML5Backend,
-      children: /* @__PURE__ */ jsx(RenderTable, {
+      children: /* @__PURE__ */ jsx(Render, {
         css: css2,
         children
       })
     })
   });
 };
-const TableWrapper = (props) => /* @__PURE__ */ jsx(DndProvider, {
+const Wrapper = (props) => /* @__PURE__ */ jsx(DndProvider, {
   backend: HTML5Backend,
-  children: /* @__PURE__ */ jsx(TableProvider, __spreadValues({}, props))
+  children: /* @__PURE__ */ jsx(Provider, __spreadValues({}, props))
 });
 const Table = {
-  Wrapper: TableWrapper,
-  Row: TableRow,
-  Header: TableHeader,
-  Cell: TableCell
+  Wrapper,
+  Row,
+  Header,
+  Cell
 };
 export { Button$2 as Button, Checkbox, FormObject as Form, Grid, Image, Input$1 as Input, LeafConsumer, LeafProvider, Link, List, ListItem, Notification, Notify, Page, PopoverWrapper as Popover, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };

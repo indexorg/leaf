@@ -45,7 +45,7 @@ const Input = (props) => {
                 size="label"
                 weight="medium"
                 css={{
-                    color: invalid ? '$warning400' : '$black900',
+                    color: invalid ? '$red400' : '$black900',
                     cursor: 'pointer',
                 }}>
                     {label}

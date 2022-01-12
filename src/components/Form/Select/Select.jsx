@@ -42,7 +42,7 @@ const Select = ({
                 size="label"
                 weight="medium"
                 css={{
-                    color: invalid ? '$warning400' : '$black900',
+                    color: invalid ? '$red400' : '$black900',
                     cursor: 'pointer',
                 }}>
                     {label}
@@ -73,8 +73,7 @@ const Select = ({
                         <path 
                         fillRule="evenodd" 
                         clipRule="evenodd" 
-                        d="M0.646484 1.35359L1.35359 0.646484L7.00004 6.29293L12.6465 0.646484L13.3536 1.35359L7.00004 7.70714L0.646484 1.35359Z" 
-                        fill="#23282D" />
+                        d="M0.646484 1.35359L1.35359 0.646484L7.00004 6.29293L12.6465 0.646484L13.3536 1.35359L7.00004 7.70714L0.646484 1.35359Z" />
                     </svg>
 				</IconWrapper>
 			</SelectWrapper>

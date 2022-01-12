@@ -14,7 +14,7 @@ export const Wrapper = styled('div', {
 })
 
 export const Element = styled('textarea', {
-    backgroundColor: "$white",
+    backgroundColor: "$black000",
     borderRadius: '$md',
     border: '1px solid $black300',
     boxShadow: '0 1px 4px rgba(35, 40, 45, 0.08)',
@@ -35,9 +35,9 @@ export const Element = styled('textarea', {
         hasError: {
             true: {
                 backgroundColorRGBA: '#d63638|.1',
-                // backgroundColor: ColorWithOpacity('$warning400', .1),
-                color: '$warning400',
-                border: '1px solid $warning400',
+                // backgroundColor: ColorWithOpacity('$red400', .1),
+                color: '$red400',
+                border: '1px solid $red400',
             }
         },
         resizeable: {

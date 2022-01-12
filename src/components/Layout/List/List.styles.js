@@ -2,21 +2,22 @@ import { styled } from '@config/stitches'
 
 export const Item = styled('div', {
     alignItems: 'center',
-    borderBottom: '1px solid $black300',
+    borderBottom: '1px solid $black100',
     display: 'flex',
     fontSize: '$text400',
     fontWeight: 500,
     margin: 0,
-    height: '$12',
+    padding: '$2 0',
     width: '$full',
     
+    '.dark &': {
+        borderBottom: '1px solid $black000',
+    },
+
     '&:last-child': {
         borderBottom: 0
     },
 
-    '@md': {
-        height: '$11'
-    }
 })
 
 export const Container = styled('div', {

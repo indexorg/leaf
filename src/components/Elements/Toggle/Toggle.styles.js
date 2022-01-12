@@ -3,7 +3,7 @@ import {styled} from '@config/stitches'
 export const Element = styled('button', {
     display: 'block',
     backgroundColor: 'transparent',
-    border: '2px solid $black600',
+    border: '2px solid $black300',
     borderRadius: '9999px',
     color: 'transparent',
     cursor: 'pointer',
@@ -15,8 +15,8 @@ export const Element = styled('button', {
     variants: {
         enabled: {
             true: {
-                backgroundColor: '$primary400',
-                border: '2px solid $primary400',
+                backgroundColor: '$blue400',
+                border: '2px solid $blue400',
             }
         }
     },
@@ -27,7 +27,7 @@ export const Element = styled('button', {
 })
 
 export const Control = styled('span', {
-    backgroundColor: '$black600',
+    backgroundColor: '$black300',
     borderRadius: '100%',
     display: 'block',
     height: '$3',
@@ -41,8 +41,12 @@ export const Control = styled('span', {
     variants: {
         enabled: {
             true: {
-                backgroundColor: '$white',
+                backgroundColor: '$black100',
                 transform: 'translateX(16px) translateY(-50%)',
+
+                '.dark &': {
+                    backgroundColor: '$black000',
+                }
             }
         }
     },

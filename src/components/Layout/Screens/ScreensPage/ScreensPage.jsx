@@ -16,7 +16,8 @@ const ScreensPage = ({
     title = false,
 }) => (
     <Element>
-        <Stack>
+        <Stack
+        align="center">
             {title &&
                 <Text
                 key="_ndx_title"

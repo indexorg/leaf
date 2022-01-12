@@ -44,7 +44,7 @@ export const Element = styled('img', {
         },
         image_style: {
             raised: {
-                border: '2px solid $white',
+                border: '2px solid $black000',
                 boxShadow: '$card'
             },
         },

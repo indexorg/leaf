@@ -3,6 +3,7 @@ export const buttonStyles = {
     '-webkit-appearance': 'none',
     alignItems: 'center', 
     borderRadius: '$md',
+    border: '0',
     boxSizing: 'border-box',
     display: 'inline-flex',
     cursor: 'pointer',
@@ -52,47 +53,44 @@ export const buttonStyles = {
 
         variant: {
             normal: {
-                border: '0',
-                backgroundColor: '$black300',
-                color: '$black900',
+                backgroundColor: '$black200',
+                color: '$black800',
 
                 '&:hover': {
-                    background: '$black310',
-                    color: '$black900',
+                    background: '$black210',
+                    color: '$black800',
                 },
 
-                // focus-visible:bg-black
-                // focus-visible:bg-opacity-10
+                '.dark &': {
+                    backgroundColor: '$black100',
+                    color: '$black900',
+                },
             },
             primary: {
-                border: '1px solid $primary400',
-                background: '$primary400',
-                color: '$white',
+                background: '$blue400',
+                color: '#FFFFFF',
 
                 '&:hover': {
-                    background: '$primary410',
-                    color: '$white',
+                    background: '$blue410',
+                    color: '#FFFFFF',
                 },
             
             },
             warning: {
-                border: '1px solid $warning400',
                 background: 'transparent',
-                color: '$warning400',
+                color: '$red400',
 
                 '&:hover': {
-                    background: '$warning400',
-                    color: '$white'
+                    background: '$red400',
+                    color: '$black000'
                 },
             },
             simple: {
                 background: 'transparent',
-                border: 'none',
                 color: '$text900',
             },
             plain: {
                 background: 'transparent',
-                border: 'none',
                 color: '$text900',
                 padding: 0,
             }

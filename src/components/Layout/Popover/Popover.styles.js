@@ -5,7 +5,7 @@ export const PopoverElement = styled('div', {
 })
 
 export const PopoverPanel = styled('div', {
-    backgroundColor: '$white',
+    backgroundColor: '$black000',
     borderRadius: '$lg',
     boxShadow: '$shallow',
     position: 'absolute',
@@ -25,5 +25,9 @@ export const PopoverPanel = styled('div', {
                 visibility: 'visible',
             }
         }
+    },
+
+    '.dark &': {
+        backgroundColor: '$black100',
     }
 })

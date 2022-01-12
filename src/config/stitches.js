@@ -40,7 +40,7 @@ const spaces = {
     96: '24rem'
 }
 
-export const { 
+const { 
     styled,
     css,
     globalCss,
@@ -54,24 +54,28 @@ export const {
         colors: {
             white: '#fff',
             black: '#000',
-            black900: '#23282D',
-            black600: '#737578',
-            black500: '#505C61',
-            black310: '#D3D7DA',
-            black300: '#D9DDDF',
+            black900: '#1B1F22',
+            black800: '#23282D',
+            black700: '#3D4248',
+            black600: '#545C63',
+            black500: '#6C757F',
+            black300: '#A1A8AF',
+            black210: '#D3D7DA',
+            black200: '#D9DDDF',
             black100: '#F0F1F2',
-            primary410: '#1D6096',
-            primary400: '#2271B1',
-            warning400: '#d63638',
+            black000: '#FFF',
+            blue410: '#1D6096',
+            blue400: '#2271B1',
+            red400: '#d63638',
         },
         space: spaces,
         fontSizes: {
             text900: '2rem',
             text800: '1.5rem',
             text700: '1.25rem',
-            text600: '1.0625rem',
+            text600: '1rem',
             text500: '.9375rem',
-            text400: '0.9375rem',
+            text400: '.9375rem',
             text300: '0.875rem',
             text200: '.75rem',
             text100: '.625rem',
@@ -157,3 +161,32 @@ export const {
         reset: () => ({ margin: 0, padding: 0, boxSizing: 'border-box'}),
     },
 })
+
+export const DarkModeTheme = createTheme('dark-theme', {
+    colors: {
+        black900: '#F0F1F2',
+        black800: '#B3B8BC',
+        black700: '#989FA4',
+        black600: '#80888E',
+        black500: '#656C72',
+        black300: '#4B5358',
+        black210: '#383F42',
+        black200: '#3F464A',
+        black100: '#2A2E32',
+        black000: '#1B1F22',
+        blue410: '#1D6096',
+        blue400: '#2C91E3',
+        red400: '#EB4949',
+    },
+})
+
+export { 
+    styled,
+    css,
+    globalCss,
+    keyframes,
+    getCssText,
+    theme,
+    createTheme,
+    config,
+}

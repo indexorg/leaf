@@ -1,9 +1,17 @@
 import { styled } from '@config/stitches'
 
 export const Element = styled('div', {
-    padding: '$14',
+    padding: '$5',
+
+    '@md': {
+        padding: '$14',
+    }
 })
 
 export const Content = styled('div', {
-    paddingTop: '$14',
+    paddingTop: '$10',
+
+    '@md': {
+        paddingTop: '$14',
+    }
 })

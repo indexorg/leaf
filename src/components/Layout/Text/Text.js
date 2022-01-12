@@ -34,6 +34,11 @@ const Text = styled('span', {
                 fontWeight: 500,
                 lineHeight: '$tight',
             },
+            'bodyheading': {
+                fontSize: '$text600',
+                fontWeight: 500,
+                lineHeight: '$snug',
+            },
             body: {
                 fontSize: '$text500',
                 fontWeight: 400,

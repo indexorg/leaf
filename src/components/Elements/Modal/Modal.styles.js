@@ -24,7 +24,7 @@ export const DialogOverlay = styled(Dialog.Overlay, {
 })
 
 export const DialogInt = styled('div', {
-    backgroundColor: '$white',
+    backgroundColor: '$black000',
     borderRadius: '$lg',
     boxShadow: '$card',
     maxWidth: '$128',

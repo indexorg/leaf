@@ -14,27 +14,26 @@ export const Wrapper = styled('div', {
 })
 
 export const Element = styled('input', {
-    backgroundColor: "$white",
-    border: '1px solid $black300',
+    backgroundColor: "$black000",
+    border: '1px solid $black200',
     borderRadius: '$md',
     boxShadow: '0 1px 4px rgba(35, 40, 45, 0.08)',
     cursor: 'text',
     color: '$black900',
-    fontSize: '$text300',
+    fontSize: '$text600',
     fontWeight: 500,
     height: '$9',
     minHeight: '$9',
     margin: 0,
     paddingX: '$3',
+    transition: 'all .2s ease',
     width: '100%',
 
     variants: {
         hasError: {
             true: {
-                backgroundColorRGBA: '#d63638|.1',
-                // backgroundColor: ColorWithOpacity('$warning400', .1),
-                color: '$warning400',
-                border: '1px solid $warning400',
+                color: '$red400',
+                border: '1px solid $red400',
             }
         },
     },
@@ -45,14 +44,30 @@ export const Element = styled('input', {
         outline: 'none',
     },
 
+    '.dark &': {
+        boxShadow: 'none',
+    },
+
+        '.dark &:focus': {
+            border: '1px solid $blue400',
+            boxShadow: 'none',
+            outline: 'none',
+        },
+
     '&:autofill': {
-        backgroundColor: '$white !important',
+        backgroundColor: '$black000 !important',
         '-webkit-box-shadow': '0 0 0 30px white inset !important',
         fontWeight: 600,
     },
     '&:-webkit-autofill': {
-        backgroundColor: '$white !important',
+        backgroundColor: '$black000 !important',
         '-webkit-box-shadow': '0 0 0 30px white inset !important',
         fontWeight: 600,
+    },
+
+    '@md': {
+        fontSize: '$text300',
     }
+
+
 })

@@ -10,8 +10,8 @@ export const HeaderRow = styled('div', {
 
 export const HeaderColumn = styled('div', {
     alignItems: 'center',
-    backgroundColor: '$black300',
-    color: '$black500',
+    backgroundColor: '$black200',
+    color: '$black600',
     display: 'flex',
     fontSize: '$text300',
     fontWeight: 500,
@@ -47,7 +47,12 @@ export const HeaderColumn = styled('div', {
                 justifyContent: 'flex-end'
             }
         }
-    }
+    },
+
+    '.dark &': {
+        backgroundColor: '$black100',
+        color: '$black800',
+    },
 })
 
 export const Row = styled('div', {
@@ -57,15 +62,15 @@ export const Row = styled('div', {
     variants: {
         dragging: {
             true: {
-                backgroundColor: '#E7E9EA'
+                backgroundColor: '$black200'
             }
         }
     }
 })
 
-export const Cell = styled('div', {
+export const CellContents = styled('div', {
     alignItems: 'center',
-    borderBottom: '1px solid $black300',
+    borderBottom: '1px solid $black200',
     display: 'flex',
     minHeight: '$10',
     margin: 0,
@@ -120,7 +125,7 @@ export const RankColumnHandle = styled('div', {
     },
 
     '&:hover': {
-        backgroundColor: '$black300',
+        backgroundColor: '$black200',
     },
 
     '& svg': {

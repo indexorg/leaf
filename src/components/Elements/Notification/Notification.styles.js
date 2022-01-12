@@ -12,11 +12,16 @@ export const Element = styled('div', {
         backgroundColor: '$black900',
         borderRadius: '$md',
         boxShadow: '$md',
-        color: '$white',
+        color: '$black000',
         display: 'block',
         fontSize: '$text300',
         padding: '$4 $6',
         transition: 'all 150ms cubic-bezier(0.19, 1, 0.22, 1)',
+    },
+
+    '.dark & span': {
+        backgroundColor: '$black200',
+        color: '$black900',
     },
 
     variants: {

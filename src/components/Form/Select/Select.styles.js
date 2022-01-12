@@ -21,17 +21,22 @@ export const IconWrapper = styled('div', {
 	top: '50%',
 	transform: 'translateY(-50%)',
 	zIndex: 1,
+
+	'& path': {
+		fill: '$black800'
+	}
 })
 
 export const Element = styled('select', {
 	appearance: 'none',
 	backgroundImage: 'none !important',
-	backgroundColor: "$white !important",
-	border: '1px solid $black300 !important',
+	backgroundColor: "$black000 !important",
+	border: '1px solid $black200 !important',
 	borderRadius: '$md !important',
 	boxShadow: '0 1px 4px rgba(35, 40, 45, 0.08) !important',
-	color: '$black900',
+	color: '$black900 !important',
 	display: 'block',
+	fontSize: '$text600 !important',
 	fontWeight: 500,
 	height: '$9',
 	minHeight: '$9',
@@ -43,7 +48,7 @@ export const Element = styled('select', {
 	maxWidth: 'unset !important',
 	minWidth: 'unset',
 	position: 'relative',
-	fontSize: '$text300',
+	textShadow: 'none !important',
 	width: '100%',
 	zIndex: 1,
 
@@ -70,5 +75,21 @@ export const Element = styled('select', {
             }
         },
     },
+
+	'.dark &': {
+        // backgroundColor: '$black100 !important',
+        borderColor: '$black300 !important',
+        boxShadow: 'none',
+    },
+
+        '.dark &:focus': {
+            border: '1px solid rgba(34, 113, 177, 0.5) !important',
+            boxShadow: 'none !important',
+            outline: 'none',
+        },
+
+	'@md': {
+		fontSize: '$text300 !important',
+	}
 })
 

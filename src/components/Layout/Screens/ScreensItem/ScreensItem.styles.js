@@ -21,34 +21,51 @@ export const Element = styled('span', {
     display: 'flex',
     gap: '$3',
     height: '$11',
-    marginX: '-$4',
+    marginX: '-$2',
     marginY: '$1',
     paddingX: '$4',
     textAlign: 'left',
     transition: 'all .15s ease',
 
+    '@md': {
+        marginX: '-$4',
+    },
+
     variants: {
         active: {
             true: {
-                backgroundColor: '$black100',
-                color: '$primary400',
+                '&': {
+                    backgroundColor: '$black100',
+                    color: '$blue400',
+                },
+
+               
 
                 [`& ${Icon}`]: {
-                    color: '$primary400',
+                    color: '$blue400',
                     opacity: 1,
                 },
 
                 '&:hover': {
                     backgroundColor: '$black100',
-                }
+                },
+
+                '.dark &:hover': {
+                    backgroundColor: '$black100',
+                },
             },
             false: {
-                color: '$black900'
+                color: '$black900',
+
             }
         }
     },
 
     '&:hover': {
-        backgroundColor: '$black310',
-    }
+        backgroundColor: '$black210',
+    },
+
+    '.dark &:hover': {
+        backgroundColor: '$black100',
+    },
 })
