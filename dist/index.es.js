@@ -210,7 +210,7 @@ const {
     })
   }
 });
-createTheme("dark-theme", {
+const DarkModeTheme = createTheme("dark-theme", {
   colors: {
     black900: "#F0F1F2",
     black800: "#B3B8BC",
@@ -3363,4 +3363,4 @@ const Table = {
   Header,
   Cell
 };
-export { Button$2 as Button, Checkbox, FormObject as Form, Grid, Image, Input$1 as Input, LeafConsumer, LeafProvider, Link, List, ListItem, Notification, Notify, Page, PopoverWrapper as Popover, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };
+export { Button$2 as Button, Checkbox, DarkModeTheme, FormObject as Form, Format, Grid, Image, Input$1 as Input, LeafConsumer, LeafProvider, Link, List, ListItem, Notification, Notify, Page, PopoverWrapper as Popover, Radio, Screens, Select, Stack, Tab, TabContainer, TabNavigation, TabPanel, TabPanels, Table, Text, Textarea, Toggle, Tooltip, config, createTheme, css, getCssText, globalCss, keyframes, styled, theme };
