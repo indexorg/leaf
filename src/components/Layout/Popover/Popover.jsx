@@ -63,7 +63,7 @@ const PopoverWrapper = ({
       }, [refs.reference, refs.floating, update])
 
     const checkClickInside = e => {
-        if(popoverRef && !popoverRef.current.contains(e.target)) {
+        if(popoverRef.current && !popoverRef.current.contains(e.target)) {
             setVisible(false)
         }
     }

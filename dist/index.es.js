@@ -1258,7 +1258,7 @@ const PopoverWrapper = ({
     };
   }, [refs.reference, refs.floating, update2]);
   const checkClickInside = (e) => {
-    if (popoverRef && !popoverRef.current.contains(e.target)) {
+    if (popoverRef.current && !popoverRef.current.contains(e.target)) {
       setVisible(false);
     }
   };
